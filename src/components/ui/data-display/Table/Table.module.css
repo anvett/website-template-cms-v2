@@ -1,0 +1,75 @@
+.wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-white);
+}
+
+.table {
+  width: 100%;
+  min-width: 40rem;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+
+.caption {
+  padding: 1rem 1rem 0;
+  text-align: left;
+  color: var(--color-text-soft);
+  font-size: 0.875rem;
+}
+
+.table thead th {
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table tbody td {
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-default thead th,
+.table-default tbody td {
+  padding: 0.95rem 1rem;
+}
+
+.table-dense thead th,
+.table-dense tbody td {
+  padding: 0.7rem 0.85rem;
+}
+
+.striped tbody tr:nth-child(even) {
+  background: var(--color-bg-soft);
+}
+
+.hoverable tbody tr:hover {
+  background: color-mix(in srgb, var(--color-bg-soft) 70%, transparent);
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-soft);
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}

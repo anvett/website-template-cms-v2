@@ -1,0 +1,589 @@
+@import "tailwindcss";
+
+/* =========================================================
+   GLOBALS.CSS — VERSIÓN SIMPLIFICADA Y PRAGMÁTICA
+   ---------------------------------------------------------
+   Objetivo:
+   - Mantener identidad visual global.
+   - Facilitar diseño rápido.
+   - Reducir complejidad innecesaria.
+   - Dejar el diseño real a cada section.
+
+   REGLA:
+   globals.css = identidad visual base
+   section.css = diseño real
+========================================================= */
+
+/* =========================================================
+   1. TOKENS VISUALES
+========================================================= */
+
+:root {
+  /* =========================================================
+   CONTAINER TOKENS LEGACY COMPAT
+========================================================= */
+
+  --spacing-container-x: 1.5rem;
+
+  --container-narrow: 48rem;
+  --container-base: 72rem;
+  --container-wide: 84rem;
+
+  
+
+  /* =========================
+     COLORES
+  ========================= */
+
+  --color-primary: #104088;
+  --color-secondary: #123a78;
+  --color-accent: #f8c018;
+  --color-danger: #e53e3e;
+
+  --color-bg: #f7f3ee;
+  --color-bg-soft: #f8fafc;
+  --color-bg-muted: #e2e8f0;
+  --color-bg-dark: #0f172a;
+  --color-bg-white: #ffffff;
+
+  --color-text: #1f2937;
+  --color-text-soft: #475569;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* =========================
+     TIPOGRAFÍAS
+  ========================= */
+
+  --font-heading: Inter, sans-serif;
+  --font-body: Inter, sans-serif;
+
+  /* =========================
+     SPACING
+  ========================= */
+
+  --section-spacing: clamp(4rem, 8vw, 6rem);
+  --section-spacing-compact: clamp(3rem, 6vw, 4.5rem);
+  --section-spacing-hero: clamp(5rem, 10vw, 8rem);
+
+  --container-width: 72rem;
+  --container-width-content: 48rem;
+  --container-width-wide: 84rem;
+
+  --container-padding: 1.25rem;
+
+  /* =========================
+     RADIOS
+  ========================= */
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* =========================
+     SOMBRAS
+  ========================= */
+
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 12px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 24px 48px rgba(15, 23, 42, 0.12);
+
+  /* =========================
+     GRADIENTES
+  ========================= */
+
+  --gradient-dark: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-bg-dark) 100%
+  );
+
+  --gradient-soft: linear-gradient(
+    180deg,
+    rgba(16, 64, 136, 0.24) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+
+  --gradient-soft-inverse: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(16, 64, 136, 0.24) 100%
+  );
+
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+
+  --gradient-accent: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    #ffd84d 100%
+  );
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-padding: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+    :root {
+      --spacing-container-x: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    :root {
+      --spacing-container-x: 2.5rem;
+    }
+  }
+
+/* =========================================================
+   2. RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* =========================================================
+   3. TIPOGRAFÍA
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+p {
+  margin: 0;
+}
+
+.text-display {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.text-h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.text-h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.text-h3 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.text-body-lg {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.text-body-sm {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   4. CONTAINERS
+========================================================= */
+
+.site-container,
+.site-container--content,
+.site-container--wide,
+.site-container--full {
+  margin-inline: auto;
+}
+
+.site-container {
+  width: min(
+    calc(100% - (var(--container-padding) * 2)),
+    var(--container-width)
+  );
+}
+
+.site-container--content {
+  width: min(
+    calc(100% - (var(--container-padding) * 2)),
+    var(--container-width-content)
+  );
+}
+
+.site-container--wide {
+  width: min(
+    calc(100% - (var(--container-padding) * 2)),
+    var(--container-width-wide)
+  );
+}
+
+.site-container--full {
+  width: 100%;
+}
+
+/* =========================================================
+   5. CLASES ESTÁNDAR PARA SECTIONS
+   ---------------------------------------------------------
+   Uso:
+   - Mantener consistencia visual.
+   - Evitar repetir cadenas largas de Tailwind.
+   - Usar Tailwind con @apply, pero apoyado en variables globales.
+========================================================= */
+
+.section-shell {
+  @apply w-full;
+  padding-block: var(--section-spacing);
+}
+
+.section-shell--compact {
+  padding-block: var(--section-spacing-compact);
+}
+
+.section-shell--hero {
+  padding-block: var(--section-spacing-hero);
+}
+
+.section-container {
+  @apply mx-auto w-full;
+  max-width: var(--container-width);
+  padding-inline: var(--container-padding);
+}
+
+.section-container--content {
+  max-width: var(--container-width-content);
+}
+
+.section-container--wide {
+  max-width: var(--container-width-wide);
+}
+
+.section-header {
+  @apply mx-auto flex flex-col items-center text-center;
+  max-width: 48rem;
+  margin-bottom: 3rem;
+  gap: 0.75rem;
+}
+
+.section-header--left {
+  @apply mx-0 items-start text-left;
+}
+
+.section-eyebrow {
+  @apply font-bold uppercase;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: var(--section-eyebrow-color, var(--color-accent));;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--section-title-color, var(--color-primary));
+}
+
+.section-description {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--section-description-color, var(--color-text-soft));
+}
+
+.section-grid {
+  @apply grid;
+  gap: 1.5rem;
+}
+
+.section-grid--2 {
+  @apply md:grid-cols-2;
+}
+
+.section-grid--3 {
+  @apply md:grid-cols-2 lg:grid-cols-3;
+}
+
+.section-grid--4 {
+  @apply md:grid-cols-2 lg:grid-cols-4;
+}
+
+.section-card {
+  @apply border;
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-white);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.section-card--soft {
+  background: var(--color-bg-soft);
+}
+
+.section-card--dark {
+  background: var(--color-bg-dark);
+  color: var(--color-text-inverse);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.section-card-title {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.section-card-text {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-soft);
+}
+
+.section-actions {
+  @apply flex flex-col items-stretch sm:flex-row sm:items-center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.section-actions--center {
+  @apply justify-center;
+}
+
+.section-actions--left {
+  @apply justify-start;
+}
+
+@media (min-width: 1024px) {
+  .section-header {
+    max-width: 42rem;
+  }
+
+  .section-card {
+    padding: 1.4rem;
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .section-card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* =========================================================
+   5. SURFACES Y HELPERS
+========================================================= */
+.surface-base {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.surface-subtle {
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+}
+
+.surface-strong {
+  background: var(--color-bg-dark);
+  color: var(--color-text-inverse);
+}
+
+.ui-section-wrapper {
+  padding-block: var(--section-wrapper-spacing, var(--section-spacing));
+}
+
+.surface-dark {
+  background: var(--color-bg-dark);
+  color: var(--color-text-inverse);
+}
+
+.surface-soft {
+  background: var(--color-bg-soft);
+}
+
+.gradient-dark {
+  background: var(--gradient-dark);
+  color: var(--color-text-inverse);
+}
+
+.gradient-soft {
+  background: var(--gradient-soft);
+}
+
+.gradient-soft-inverse {
+  background: var(--gradient-soft-inverse);
+}
+
+.overlay-dark {
+  background: rgba(15, 23, 42, 0.68);
+}
+
+.overlay-soft {
+  background: rgba(15, 23, 42, 0.42);
+}
+
+/* =========================================================
+   6. BOTONES
+========================================================= */
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.btn-primary {
+  border: 1px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-bg-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: currentColor;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   7. RESPONSIVE GLOBAL
+========================================================= */
+
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    width: 100%;
+  }
+}

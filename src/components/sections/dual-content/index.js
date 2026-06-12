@@ -1,0 +1,1 @@
+export { DualContentSection } from "./DualContentSection";
