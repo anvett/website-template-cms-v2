@@ -241,7 +241,7 @@ export const homeSectionsData = [
         description: "Distribuidas en 3 zonas del país",
       },
       {
-        value: "7",
+        value: "6",
         label: "ramos de seguros",
         description: "Asesoría especializada en cada uno",
       },

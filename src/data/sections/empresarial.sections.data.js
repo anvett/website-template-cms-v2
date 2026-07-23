@@ -185,7 +185,7 @@ export const empresarialSectionsData = [
         description: "Asesorando empresas desde Ibarra",
       },
       {
-        value: "7",
+        value: "6",
         label: "ramos de seguros",
         description: "Cobertura complementaria según el negocio",
       },
