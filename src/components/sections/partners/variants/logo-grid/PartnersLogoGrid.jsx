@@ -12,6 +12,27 @@ import {
   getContainerClass,
   resolveBackground,
 } from "@/lib/sections/sectionStyle";
+import styles from "./PartnersLogoGrid.module.css";
+
+function PartnerLogo({ item, index, duplicate }) {
+  if (!item.logo?.src) return null;
+
+  return (
+    <div
+      key={`${item.name || index}-${duplicate ? "dup" : "orig"}`}
+      className="flex shrink-0 items-center justify-center px-5"
+      aria-hidden={duplicate || undefined}
+    >
+      <Image
+        src={item.logo.src}
+        alt={duplicate ? "" : item.logo.alt || item.name || ""}
+        width={160}
+        height={64}
+        className="h-10 w-auto object-contain md:h-14"
+      />
+    </div>
+  );
+}
 
 export function PartnersLogoGrid({ data }) {
   if (!data || !data.enabled) return null;
@@ -83,54 +104,20 @@ export function PartnersLogoGrid({ data }) {
             viewport={{ once: true, amount: 0.2 }}
             transition={defaultTransition}
           >
-            {/* Mobile: horizontal scroll row, no visible scrollbar */}
-            <div className="flex snap-x snap-mandatory gap-x-10 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
-              {items.map((item, index) => (
-                <motion.div
-                  key={item.name || index}
-                  className="flex shrink-0 snap-start items-center justify-center"
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ ...defaultTransition, delay: index * 0.03 }}
-                >
-                  {item.logo?.src ? (
-                    <Image
-                      src={item.logo.src}
-                      alt={item.logo.alt || item.name || ""}
-                      width={160}
-                      height={64}
-                      className="h-10 w-auto object-contain grayscale-0"
-                    />
-                  ) : null}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Tablet/desktop: static grid, no scroll */}
-            <div className="hidden grid-cols-3 items-center justify-items-center gap-x-10 gap-y-8 md:grid md:grid-cols-5">
-              {items.map((item, index) => (
-                <motion.div
-                  key={item.name || index}
-                  className="flex items-center justify-center"
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ ...defaultTransition, delay: index * 0.03 }}
-                >
-                  {item.logo?.src ? (
-                    <Image
-                      src={item.logo.src}
-                      alt={item.logo.alt || item.name || ""}
-                      width={160}
-                      height={64}
-                      className="h-10 w-auto object-contain grayscale-0 md:h-14"
-                    />
-                  ) : null}
-                </motion.div>
-              ))}
+            {/* Slide animado continuo: la lista se duplica para crear un loop
+                sin costura (translateX de -50% = ancho exacto de un set). */}
+            <div
+              className={styles.marqueeViewport}
+              aria-label="Aseguradoras aliadas de Kautela"
+            >
+              <div className={styles.marqueeTrack}>
+                {items.map((item, index) => (
+                  <PartnerLogo key={`orig-${item.name || index}`} item={item} index={index} duplicate={false} />
+                ))}
+                {items.map((item, index) => (
+                  <PartnerLogo key={`dup-${item.name || index}`} item={item} index={index} duplicate={true} />
+                ))}
+              </div>
             </div>
           </motion.div>
         ) : null}
