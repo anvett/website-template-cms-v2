@@ -12,36 +12,36 @@ export const homeSectionsData = [
       variant: null,
     },
     content: {
-      eyebrow: "Más de 20 años llevando agua caliente a hogares ecuatorianos",
-      title: "Instamatic Ecuador",
+      eyebrow: "Asesoría en seguros desde 2014",
+      title: "Kautela. Confianza Asegurada. Protección Garantizada.",
       description:
-        "Venta, instalación y mantenimiento de calefones a gas con soluciones confiables para hogares y negocios en Quito y Valles.",
+        "Asesoría integral en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas en Ecuador.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/home-hero-bg.jpg",
-        alt: "Fondo de calefones Instamatic Ecuador",
-        overlay: true,
-        overlayOpacity: 0.55
+        src: "/assets/images/hero/home-hero-bg.png",
+        alt: "Asesor de Kautela explicando una póliza de seguros a un cliente",
       },
       foreground: null,
     },
     items: [],
     actions: [
       {
-        label: "Solicitar cotización",
+        label: "Solicitar asesoría",
         href: "/contact",
         variant: "primary",
       },
       {
-        label: "Ver servicios",
+        label: "Ver ramos de seguros",
         href: "/services",
         variant: "primary",
       },
     ],
     meta: {
       align: "right",
+      overlay: true,
+      overlayOpacity: 0.05,
     },
   },
 
@@ -49,7 +49,7 @@ export const homeSectionsData = [
     id: "home-about",
     enabled: true,
     component: "About",
-    variant: "stacked-centered", 
+    variant: "stacked-centered",
     surface: "subtle",
     containerWidth: "content",
     spacing: "default",
@@ -58,11 +58,10 @@ export const homeSectionsData = [
       variant: "soft",
     },
     content: {
-      eyebrow: "Sobre Instamatic",
-      title:
-        "Más de 20 años brindando agua caliente a los hogares ecuatorianos",
+      eyebrow: "Sobre Kautela",
+      title: "No hacemos clientes, hacemos amigos",
       description:
-        "Instamatic es una de las marcas más reconocidas de calefones a gas en Ecuador. Sus equipos se destacan por su rendimiento, resistencia, facilidad de uso y funcionamiento eficiente incluso en hogares con baja presión de agua.",
+        "Kautela es una agencia asesora productora de seguros constituida en Ibarra en 2014. Brindamos asesoría integral en seguros y administración de riesgos, generando soluciones innovadoras, confiables y personalizadas, con un servicio humano y eficiente que resguarda el patrimonio y bienestar de nuestros clientes.",
     },
     media: {
       background: null,
@@ -76,7 +75,10 @@ export const homeSectionsData = [
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -84,7 +86,7 @@ export const homeSectionsData = [
     enabled: true,
     component: "Services",
     variant: "grid-4",
-    surface: "subtle",
+    surface: "strong",
     containerWidth: "section",
     spacing: "default",
     background: {
@@ -92,143 +94,69 @@ export const homeSectionsData = [
       variant: "dark-overlay",
     },
     content: {
-      eyebrow: "Servicios",
-      title: "Soluciones completas para agua caliente, presión y gas",
+      eyebrow: "Ramos de seguros",
+      title: "Asesoría especializada en 6 ramos de seguros",
       description:
-        "Contamos con servicios técnicos especializados para instalación, mantenimiento, sistemas de bombeo y gas centralizado.",
+        "Te acompañamos en la elección, contratación y gestión de la póliza adecuada para cada necesidad.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/services-bg.jpg",
-        alt: "Servicios técnicos Instamatic",
-        overlay: true,
+        src: "/assets/images/kautela/services-bg.png",
+        alt: "Ramos de seguros que asesora Kautela",
       },
       foreground: null,
     },
     items: [
       {
-        title: "Instalación de calefones",
+        title: "Vehicular",
         description:
-          "Instalación profesional de calefones a gas con verificación del punto, adaptación a baja presión y pruebas de funcionamiento.",
-        href: "/services/installation",
+          "Cobertura ante accidentes, robo y daños a terceros para tu vehículo.",
+        href: "/services/vehicular",
       },
       {
-        title: "Servicio técnico y mantenimiento",
+        title: "Vida",
         description:
-          "Diagnóstico, reparación, limpieza profunda, revisión de piezas y mantenimiento preventivo o correctivo.",
-        href: "/services/technical-service",
+          "Protección financiera para tus beneficiarios ante un fallecimiento o invalidez.",
+        href: "/services/vida",
       },
       {
-        title: "Sistemas de bombeo de agua",
+        title: "Salud",
         description:
-          "Instalación y mantenimiento de bombas para mejorar la presión y garantizar un suministro eficiente.",
-        href: "/services/water-pumps",
+          "Cobertura de gastos médicos, hospitalización y consultas para ti y tu familia.",
+        href: "/services/salud",
       },
       {
-        title: "Gas centralizado",
+        title: "Hogar",
         description:
-          "Diseño, instalación y mantenimiento de sistemas de gas centralizado doméstico e industrial.",
-        href: "/services/centralized-gas",
+          "Protección de tu vivienda y patrimonio familiar ante imprevistos.",
+        href: "/services/hogar",
+      },
+      {
+        title: "Viajes",
+        description:
+          "Asistencia médica en el extranjero y cobertura de equipaje en cada viaje.",
+        href: "/services/viajes",
+      },
+      {
+        title: "Empresarial",
+        description:
+          "Cobertura de activos y operaciones para empresas y consorcios.",
+        href: "/services/empresarial",
       },
     ],
     actions: [
       {
-        label: "Ver todos los servicios",
+        label: "Ver todos los ramos",
         href: "/services",
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: { overlay: true, overlayOpacity: 0.05 },
   },
 
   {
-    id: "home-products-preview",
-    enabled: true,
-    component: "DualContent",
-    variant: "default",
-    surface: "base",
-    containerWidth: "section",
-    spacing: "default",
-    background: {
-      type: "gradient",
-      variant: "dark",
-    },
-    content: {
-      eyebrow: "Productos",
-      title: "Combos y calefones Instamatic 26L",
-      description:
-        "Opciones completas para instalar y usar, con equipos, accesorios y alternativas según la necesidad del hogar o negocio.",
-    },
-    media: {
-      background: null,
-      foreground: null,
-    },
-    items: [
-      {
-        title: "Combos Instamatic 26L",
-        description:
-          "Combos que pueden incluir calefón, instalación básica, kit de accesorios, cilindro de gas y protector metálico según la opción elegida.",
-        href: "/products",
-
-        image: {
-          src: "/assets/images/instamatic/products-combo.jpg",
-          alt: "Combos Instamatic 26L",
-          ratio: "portrait",
-          fit: "contain",
-          radius: "none",
-          objectPosition: "center center",
-          className: "h-[18rem] lg:h-[26rem]",
-          sizes: "(min-width: 1024px) 50vw, 100vw",
-          overlay: false,
-        },
-
-        features: [
-          "Desde $299",
-          "Ideal para hasta 2 duchas",
-          "Opciones con instalación incluida",
-        ],
-      },
-
-      {
-        title: "Calefones Instamatic",
-        description:
-          "Equipos clásicos y reforzados para uso doméstico, semi industrial o alto consumo, con encendido automático y estructura metálica.",
-        href: "/products",
-
-        image: {
-          src: "/assets/images/instamatic/calefon2.png",
-          alt: "Calefones Instamatic",
-          ratio: "portrait",
-          fit: "contain",
-          radius: "none",
-          objectPosition: "center center",
-          className: "h-[18rem] lg:h-[26rem]",
-          sizes: "(min-width: 1024px) 50vw, 100vw",
-          overlay: false,
-        },
-
-        features: [
-          "Instamatic 26L clásico",
-          "Instamatic 26L reforzado",
-          "Garantía según modelo",
-        ],
-      },
-    ],
-
-    actions: [
-      {
-        label: "Ver productos",
-        href: "/products",
-        variant: "secondary",
-      },
-    ],
-
-    meta: {},
-  },
-
-  {
-    id: "home-benefits",
+    id: "home-values-preview",
     enabled: true,
     component: "Features",
     variant: "two-columns",
@@ -236,10 +164,10 @@ export const homeSectionsData = [
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Beneficios",
-      title: "Por qué elegir Instamatic",
+      eyebrow: "Nuestros valores",
+      title: "Lo que nos guía en cada asesoría",
       description:
-        "La marca combina calidad, respaldo, innovación y disponibilidad de repuestos para ofrecer soluciones confiables.",
+        "Estos valores definen la forma en la que trabajamos con cada cliente y aseguradora.",
     },
     media: {
       background: null,
@@ -247,32 +175,45 @@ export const homeSectionsData = [
     },
     items: [
       {
-        title: "Alto rendimiento",
+        title: "Responsabilidad",
         description:
-          "Equipos diseñados para brindar agua caliente de forma rápida y eficiente.",
+          "Cumplimos con cada compromiso adquirido con nuestros clientes y aseguradoras.",
+        icon: "ShieldCheck",
+      },
+      {
+        title: "Confianza",
+        description:
+          "Construimos relaciones de largo plazo basadas en la transparencia.",
+        icon: "Handshake",
+      },
+      {
+        title: "Integridad",
+        description: "Actuamos con ética en cada asesoría que brindamos.",
+        icon: "BadgeCheck",
+      },
+      {
+        title: "Amor",
+        description: "Tratamos a cada cliente con calidez y atención genuina.",
         icon: "Zap",
       },
       {
-        title: "Funciona con baja presión",
+        title: "Innovación",
         description:
-          "Soluciones adaptadas a condiciones reales de muchos hogares ecuatorianos.",
+          "Buscamos soluciones creativas y actualizadas para cada necesidad.",
+        icon: "Lightbulb",
+      },
+      {
+        title: "Resultados",
+        description:
+          "Medimos nuestro trabajo por el beneficio real que aporta al cliente.",
         icon: "Gauge",
-      },
-      {
-        title: "Repuestos disponibles",
-        description:
-          "Mayor respaldo para mantenimiento, reparación y vida útil del equipo.",
-        icon: "Wrench",
-      },
-      {
-        title: "Seguridad y confianza",
-        description:
-          "Marca reconocida por técnicos, instaladores y familias en Ecuador.",
-        icon: "ShieldCheck",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -284,10 +225,10 @@ export const homeSectionsData = [
     containerWidth: "section",
     spacing: "compact",
     content: {
-      eyebrow: "Trayectoria",
-      title: "Respaldo que genera confianza",
+      eyebrow: "Cobertura nacional",
+      title: "Respaldo y presencia en todo el Ecuador",
       description:
-        "Instamatic se ha consolidado como una de las marcas preferidas en calefones a gas en Ecuador.",
+        "Atendemos clientes en los principales distritos del país desde nuestra matriz en Ibarra.",
     },
     media: {
       background: null,
@@ -295,23 +236,26 @@ export const homeSectionsData = [
     },
     items: [
       {
-        value: "+20",
-        label: "años en el mercado",
-        description: "Trayectoria en Ecuador",
+        value: "17",
+        label: "ciudades atendidas",
+        description: "Distribuidas en 3 zonas del país",
       },
       {
-        value: "26L",
-        label: "capacidad destacada",
-        description: "Ideal para hasta 2 duchas",
+        value: "7",
+        label: "ramos de seguros",
+        description: "Asesoría especializada en cada uno",
       },
       {
-        value: "4",
-        label: "servicios principales",
-        description: "Instalación, mantenimiento, bombeo y gas",
+        value: "+10",
+        label: "años de trayectoria",
+        description: "Constituida en Ibarra desde 2014",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -322,19 +266,20 @@ export const homeSectionsData = [
     surface: "strong",
     containerWidth: "section",
     spacing: "default",
+    background: {
+      type: "image",
+    },
     content: {
       eyebrow: "Cotiza con nosotros",
-      title: "Encuentra el calefón o servicio ideal para tu hogar o negocio",
+      title: "Encuentra el seguro ideal para ti, tu familia o tu empresa",
       description:
-        "Te asesoramos para elegir la mejor solución según tu necesidad, presión de agua, espacio disponible y tipo de instalación.",
+        "Te asesoramos para elegir la cobertura adecuada según tu necesidad y presupuesto.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/cta-home-bg.jpg",
-        alt: "Asesoría para calefones Instamatic",
-        overlay: true,
-        
+        src: "/assets/images/cta/cta-home-bg.png",
+        alt: "Asesoría personalizada en seguros con Kautela",
       },
       foreground: null,
     },
@@ -346,14 +291,14 @@ export const homeSectionsData = [
         variant: "primary",
       },
       {
-        label: "Ver productos",
-        href: "/products",
+        label: "Ver ramos de seguros",
+        href: "/services",
         variant: "secondary",
       },
     ],
     meta: {
-    overlay: true,
-    overlayOpacity: 0.48,
-  },
+      overlay: true,
+      overlayOpacity: 0.08,
+    },
   },
 ];

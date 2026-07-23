@@ -1,10 +1,10 @@
 export const navigationData = {
   announcement: {
     enabled: false,
-    text: "Calefones a gas Instamatic con instalación en Quito y Valles",
+    text: "Asesoría integral en seguros con cobertura nacional en Ecuador",
     link: {
-      label: "Ver productos",
-      href: "/products",
+      label: "Ver servicios",
+      href: "/services",
     },
   },
 
@@ -15,11 +15,11 @@ export const navigationData = {
     content: {
       logo: {
         type: "image",
-        label: "Instamatic",
+        label: "Kautela",
         href: "/",
         image: {
-          src: "/assets/images/instamatic/logo.png",
-          alt: "Logo Instamatic",
+          src: "/assets/images/kautela/logo.png",
+          alt: "Logo Kautela Agencia Asesora Productora de Seguros",
         },
       },
     },
@@ -38,47 +38,39 @@ export const navigationData = {
       },
       {
         id: "nav-services",
-        label: "Servicios",
+        label: "Ramos de seguros",
         href: "/services",
         type: "dropdown",
         children: [
           {
-            id: "nav-service-installation",
-            label: "Instalación de calefones",
-            href: "/services/installation",
+            id: "nav-service-vehicular",
+            label: "Vehicular",
+            href: "/services/vehicular",
           },
           {
-            id: "nav-service-technical-service",
-            label: "Servicio técnico y mantenimiento",
-            href: "/services/technical-service",
+            id: "nav-service-vida",
+            label: "Vida",
+            href: "/services/vida",
           },
           {
-            id: "nav-service-water-pumps",
-            label: "Sistemas de bombeo de agua",
-            href: "/services/water-pumps",
+            id: "nav-service-salud",
+            label: "Salud",
+            href: "/services/salud",
           },
           {
-            id: "nav-service-centralized-gas",
-            label: "Gas centralizado",
-            href: "/services/centralized-gas",
-          },
-        ],
-      },
-      {
-        id: "nav-products",
-        label: "Productos",
-        href: "/products",
-        type: "dropdown",
-        children: [
-          {
-            id: "nav-products-combos",
-            label: "Combos Instamatic 26 litros",
-            href: "/products#combos-instamatic-26-litros",
+            id: "nav-service-hogar",
+            label: "Hogar",
+            href: "/services/hogar",
           },
           {
-            id: "nav-products-heaters",
-            label: "Calefones Instamatic",
-            href: "/products#calefones-instamatic",
+            id: "nav-service-viajes",
+            label: "Viajes",
+            href: "/services/viajes",
+          },
+          {
+            id: "nav-service-empresarial",
+            label: "Empresarial",
+            href: "/services/empresarial",
           },
         ],
       },
@@ -98,7 +90,7 @@ export const navigationData = {
     actions: [
       {
         id: "nav-primary-cta",
-        label: "Solicitar información",
+        label: "Solicitar asesoría",
         href: "/contact",
         variant: "primary",
       },
@@ -128,39 +120,44 @@ export const navigationData = {
           },
           {
             id: "footer-services",
-            label: "Servicios",
+            label: "Ramos de seguros",
             href: "/services",
-          },
-          {
-            id: "footer-products",
-            label: "Productos",
-            href: "/products",
           },
         ],
       },
       {
-        id: "footer-services",
-        title: "Servicios",
+        id: "footer-ramos",
+        title: "Ramos de seguros",
         links: [
           {
-            id: "footer-service-installation",
-            label: "Instalación de calefones",
-            href: "/services/installation",
+            id: "footer-service-vehicular",
+            label: "Vehicular",
+            href: "/services/vehicular",
           },
           {
-            id: "footer-service-technical-service",
-            label: "Servicio técnico y mantenimiento",
-            href: "/services/technical-service",
+            id: "footer-service-vida",
+            label: "Vida",
+            href: "/services/vida",
           },
           {
-            id: "footer-service-water-pumps",
-            label: "Sistemas de bombeo de agua",
-            href: "/services/water-pumps",
+            id: "footer-service-salud",
+            label: "Salud",
+            href: "/services/salud",
           },
           {
-            id: "footer-service-centralized-gas",
-            label: "Gas centralizado",
-            href: "/services/centralized-gas",
+            id: "footer-service-hogar",
+            label: "Hogar",
+            href: "/services/hogar",
+          },
+          {
+            id: "footer-service-viajes",
+            label: "Viajes",
+            href: "/services/viajes",
+          },
+          {
+            id: "footer-service-empresarial",
+            label: "Empresarial",
+            href: "/services/empresarial",
           },
         ],
       },
