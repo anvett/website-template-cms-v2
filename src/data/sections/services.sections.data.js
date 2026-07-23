@@ -7,16 +7,11 @@ export const servicesSectionsData = [
     surface: "strong",
     containerWidth: "content",
     spacing: "hero",
-    background: {
-      type: "image",
-      src: "/assets/images/hero/hero-services-bg.png",
-      alt: "Asesoría en ramos de seguros Kautela",
-    },
     content: {
-      eyebrow: "Ramos de seguros",
-      title: "Asesoría especializada en seguros",
+      eyebrow: "Servicios",
+      title: "Servicios técnicos Instamatic",
       description:
-        "Te acompañamos en la elección, contratación y gestión de la póliza adecuada en cada uno de nuestros 7 ramos de seguros.",
+        "Instalación de calefones, mantenimiento técnico, sistemas de bombeo de agua y gas centralizado para hogares, edificios y negocios.",
     },
     media: {
       background: null,
@@ -30,10 +25,7 @@ export const servicesSectionsData = [
         variant: "primary",
       },
     ],
-    meta: {
-      overlay: true,
-      overlayOpacity: 0.05,
-    },
+    meta: {},
   },
 
   {
@@ -45,10 +37,10 @@ export const servicesSectionsData = [
     containerWidth: "content",
     spacing: "default",
     content: {
-      eyebrow: "Soluciones personalizadas",
-      title: "Cobertura adecuada para cada necesidad",
+      eyebrow: "Soluciones profesionales",
+      title: "Todo lo que necesitas para agua caliente, presión y gas",
       description:
-        "Nuestra asesoría está orientada a identificar el riesgo, comparar opciones entre aseguradoras y recomendar la póliza que mejor protege tu patrimonio, tu salud o tu negocio.",
+        "Nuestros servicios están orientados a garantizar instalaciones seguras, equipos funcionando correctamente y soluciones adaptadas a las condiciones reales de cada hogar o negocio.",
     },
     media: {
       background: null,
@@ -56,10 +48,7 @@ export const servicesSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {
-      overlay: false,
-      overlayOpacity: 0.5,
-    },
+    meta: {},
   },
 
   {
@@ -71,15 +60,10 @@ export const servicesSectionsData = [
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Ramos principales",
-      title: "Elige el ramo que necesitas",
+      eyebrow: "Servicios principales",
+      title: "Elige la solución que necesitas",
       description:
-        "Contamos con asesoría especializada en los siguientes ramos de seguros.",
-    },
-    background: {
-      type: "image",
-      src: "/assets/images/kautela/services-grid-bg.jpg",
-      alt: "Ramos de seguros Kautela",
+        "Contamos con atención técnica para instalación, mantenimiento, presión de agua y sistemas de gas centralizado.",
     },
     media: {
       background: null,
@@ -336,8 +320,6 @@ export const servicesSectionsData = [
     ],
     actions: [],
     meta: {
-      overlay: true,
-      overlayOpacity: 0.15,
       whatsappNumber: "593992559126",
     },
   },
@@ -346,56 +328,48 @@ export const servicesSectionsData = [
     id: "services-process",
     enabled: true,
     component: "Features",
-    variant: "process-steps",
+    variant: "process-steps", //two-columns
     surface: "base",
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Modelo de servicio",
-      title: "Asesoría clara y ordenada en cada etapa",
+      eyebrow: "Proceso",
+      title: "Atención técnica clara y ordenada",
       description:
-        "Acompañamos al cliente con apoyo técnico, staff profesional y soporte administrativo y postventa.",
-    },
-    background: {
-      type: "image",
-      src: "/assets/images/kautela/services/process-bg.jpg",
-      alt: "Modelo de servicio de Kautela",
+        "Trabajamos con un proceso práctico para identificar la necesidad, recomendar la solución adecuada y validar el funcionamiento final.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/kautela/services/process-bg.jpg",
-        alt: "Modelo de servicio de Kautela",
+        src: "/assets/images/instamatic/services/process-bg.jpg",
+        alt: "Proceso técnico Instamatic",
       },
       foreground: null,
     },
     items: [
       {
-        title: "Evaluación de riesgos",
+        title: "Evaluación inicial",
         description:
-          "Identificamos la necesidad del cliente y el riesgo que se busca cubrir.",
+          "Revisamos la necesidad del cliente, el punto de instalación, la presión de agua y las condiciones del espacio.",
       },
       {
-        title: "Apoyo técnico especializado",
+        title: "Recomendación técnica",
         description:
-          "Comparamos opciones entre aseguradoras y recomendamos la cobertura más conveniente.",
+          "Definimos el equipo, servicio o solución más conveniente según el uso, el lugar y el presupuesto disponible.",
       },
       {
-        title: "Contratación y staff profesional",
+        title: "Ejecución del servicio",
         description:
-          "Gestionamos la contratación de la póliza con un equipo capacitado en cada ramo.",
+          "Realizamos la instalación, mantenimiento o adecuación correspondiente con criterio técnico y cuidado del sistema.",
       },
       {
-        title: "Apoyo administrativo y postventa",
+        title: "Pruebas de funcionamiento",
         description:
-          "Acompañamos el seguimiento de la póliza, renovaciones y gestión de reclamos.",
+          "Verificamos encendido, presión, temperatura, conexiones y seguridad antes de entregar el trabajo.",
       },
     ],
     actions: [],
-    meta: {
-      overlay: true,
-      overlayOpacity: 0.45,
-    },
+    meta: {},
   },
 
   {
@@ -408,20 +382,16 @@ export const servicesSectionsData = [
     spacing: "compact",
     content: {
       quote:
-        "Una buena asesoría no solo vende una póliza: identifica el riesgo real y acompaña al cliente hasta resolverlo.",
-      author: "Kautela",
+        "Un buen servicio técnico no solo instala: verifica, prueba y deja el sistema funcionando correctamente.",
+      author: "Instamatic Ecuador",
     },
-    
     media: {
       background: null,
       foreground: null,
     },
     items: [],
     actions: [],
-    meta: {
-      overlay: false,
-      overlayOpacity: 0.5,
-    },
+    meta: {},
   },
 
   {
@@ -434,18 +404,16 @@ export const servicesSectionsData = [
     spacing: "default",
     content: {
       eyebrow: "Solicita asesoría",
-      title: "Encuentra el seguro adecuado para tu necesidad",
+      title: "Encuentra el servicio adecuado para tu hogar o negocio",
       description:
-        "Te orientamos para elegir la cobertura correcta entre nuestros 7 ramos de seguros.",
-    },
-    
-    background: {
-      type: "image",
-      src: "/assets/images/cta/cta-services-bg.png",
-      alt: "Seguros Kautela",
+        "Te orientamos para elegir la mejor solución en instalación, mantenimiento, presión de agua o gas centralizado.",
     },
     media: {
-      background: null,
+      background: {
+        type: "image",
+        src: "/assets/images/instamatic/cta/services-cta-bg.jpg",
+        alt: "Servicios técnicos Instamatic",
+      },
       foreground: null,
     },
     items: [],
@@ -455,10 +423,12 @@ export const servicesSectionsData = [
         href: "/contact",
         variant: "primary",
       },
+      {
+        label: "Ver productos",
+        href: "/products",
+        variant: "secondary",
+      },
     ],
-    meta: {
-      overlay: true,
-      overlayOpacity: 0.05,
-    },
+    meta: {},
   },
 ];
