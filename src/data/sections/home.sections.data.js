@@ -259,6 +259,34 @@ export const homeSectionsData = [
   },
 
   {
+    id: "home-partners",
+    enabled: true,
+    component: "Partners",
+    variant: "logo-grid",
+    surface: "base",
+    containerWidth: "wide",
+    spacing: "compact",
+    content: {
+      eyebrow: "Nuestras alianzas",
+      title: "Trabajamos con las principales aseguradoras del país",
+    },
+    media: { background: null, foreground: null },
+    items: [
+      { name: "BMI Igualas Médicas", logo: { src: "/assets/images/partners/bmi.png", alt: "BMI Igualas Médicas" } },
+      { name: "Sweaden", logo: { src: "/assets/images/partners/sweaden.png", alt: "Sweaden Compañía de Seguros" } },
+      { name: "Aseguradora del Sur", logo: { src: "/assets/images/partners/aseguradora-del-sur.png", alt: "Aseguradora del Sur" } },
+      { name: "Seguros Alianza", logo: { src: "/assets/images/partners/seguros-alianza.png", alt: "Seguros Alianza" } },
+      { name: "Humana", logo: { src: "/assets/images/partners/humana.png", alt: "Humana" } },
+      { name: "Confiamed", logo: { src: "/assets/images/partners/confiamed.png", alt: "Confiamed" } },
+      { name: "Interoceanica", logo: { src: "/assets/images/partners/interoceanica.png", alt: "Interoceanica Compañía Anónima de Seguros" } },
+      { name: "Zurich", logo: { src: "/assets/images/partners/zurich.png", alt: "Zurich Seguros" } },
+      { name: "Bupa Seguros", logo: { src: "/assets/images/partners/bupa.png", alt: "Bupa Seguros" } },
+    ],
+    actions: [],
+    meta: { overlay: false, overlayOpacity: 0.5 },
+  },
+
+  {
     id: "home-cta",
     enabled: true,
     component: "CTA",

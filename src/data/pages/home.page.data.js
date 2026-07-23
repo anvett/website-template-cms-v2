@@ -36,6 +36,7 @@ export const homePageData = {
     "home-products-preview",
     "home-benefits",
     "home-stats",
+    "home-partners",
     "home-cta",
   ],
 

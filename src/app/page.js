@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/sections/services/ServiceSection";
 import { DualContentSection } from "@/components/sections/dual-content";
 import { FeaturesSection } from "@/components/sections/features";
 import { StatsSection } from "@/components/sections/stats";
+import { PartnersSection } from "@/components/sections/partners";
 import { CTASection } from "@/components/sections/cta";
 
 import { HeroSection } from "@/components/sections/hero";
@@ -35,6 +36,8 @@ export default function HomePage() {
             return <FeaturesSection key={section.id} data={section} />;
           case "Stats":
             return <StatsSection key={section.id} data={section} />;
+          case "Partners":
+            return <PartnersSection key={section.id} data={section} />;
           case "CTA":
             return <CTASection key={section.id} data={section} />;
 
