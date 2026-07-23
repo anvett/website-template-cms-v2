@@ -7,11 +7,16 @@ export const servicesSectionsData = [
     surface: "strong",
     containerWidth: "content",
     spacing: "hero",
+    background: {
+      type: "image",
+      src: "/assets/images/hero/hero-services-bg.png",
+      alt: "Asesoría en ramos de seguros Kautela",
+    },
     content: {
-      eyebrow: "Servicios",
-      title: "Servicios técnicos Instamatic",
+      eyebrow: "Ramos de seguros",
+      title: "Asesoría especializada en seguros",
       description:
-        "Instalación de calefones, mantenimiento técnico, sistemas de bombeo de agua y gas centralizado para hogares, edificios y negocios.",
+        "Te acompañamos en la elección, contratación y gestión de la póliza adecuada en cada uno de nuestros 7 ramos de seguros.",
     },
     media: {
       background: null,
@@ -25,7 +30,10 @@ export const servicesSectionsData = [
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.05,
+    },
   },
 
   {
@@ -37,10 +45,10 @@ export const servicesSectionsData = [
     containerWidth: "content",
     spacing: "default",
     content: {
-      eyebrow: "Soluciones profesionales",
-      title: "Todo lo que necesitas para agua caliente, presión y gas",
+      eyebrow: "Soluciones personalizadas",
+      title: "Cobertura adecuada para cada necesidad",
       description:
-        "Nuestros servicios están orientados a garantizar instalaciones seguras, equipos funcionando correctamente y soluciones adaptadas a las condiciones reales de cada hogar o negocio.",
+        "Nuestra asesoría está orientada a identificar el riesgo, comparar opciones entre aseguradoras y recomendar la póliza que mejor protege tu patrimonio, tu salud o tu negocio.",
     },
     media: {
       background: null,
@@ -48,22 +56,30 @@ export const servicesSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
     id: "services-grid",
     enabled: true,
     component: "Services",
-    variant: "cards-with-icons", //grid-4
+    variant: "services-detail-cards",
     surface: "subtle",
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Servicios principales",
-      title: "Elige la solución que necesitas",
+      eyebrow: "Ramos principales",
+      title: "Elige el ramo que necesitas",
       description:
-        "Contamos con atención técnica para instalación, mantenimiento, presión de agua y sistemas de gas centralizado.",
+        "Contamos con asesoría especializada en los siguientes ramos de seguros.",
+    },
+    background: {
+      type: "image",
+      src: "/assets/images/kautela/services-grid-bg.jpg",
+      alt: "Ramos de seguros Kautela",
     },
     media: {
       background: null,
@@ -71,84 +87,315 @@ export const servicesSectionsData = [
     },
     items: [
       {
-        icon: "Flame",
-        title: "Instalación de calefones",
-        description:
-          "Instalación profesional de calefones a gas con verificación del punto, adaptación a baja presión y pruebas completas de funcionamiento.",
-        href: "/services/installation",
+        title: "Seguro de Vehículos",
+        details: [
+          "Cobertura ante daños, robo y colisión",
+          "Asistencia vial y grúa las 24 horas",
+          "Responsabilidad civil frente a terceros",
+        ],
+        href: "/services/vehicular",
       },
       {
-        icon: "Wrench",
-        title: "Servicio técnico y mantenimiento",
-        description:
-          "Diagnóstico, reparación, limpieza profunda, revisión de piezas y mantenimiento preventivo o correctivo de calefones a gas.",
-        href: "/services/technical-service",
+        title: "Seguro de Vida Individual y Colectiva",
+        details: [
+          "Protección económica para tus beneficiarios",
+          "Planes individuales y para empresas",
+          "Cobertura por muerte natural o accidental",
+        ],
+        href: "/services/vida",
       },
       {
-        icon: "Droplets",
-        title: "Sistemas de bombeo de agua",
-        description:
-          "Instalación y mantenimiento de sistemas de bombeo para mejorar presión y abastecimiento en viviendas, edificios y negocios.",
-        href: "/services/water-pumps",
+        title: "Seguro de Asistencia Médica",
+        details: [
+          "Cobertura hospitalaria y ambulatoria",
+          "Red de clínicas y médicos afiliados",
+          "Planes individuales, familiares y corporativos",
+        ],
+        href: "/services/salud",
       },
       {
-        icon: "Gauge",
-        title: "Gas centralizado",
-        description:
-          "Diseño, instalación y mantenimiento de sistemas de gas centralizado doméstico e industrial con criterios de seguridad.",
-        href: "/services/centralized-gas",
+        title: "Seguro Multiriesgo Hogar",
+        details: [
+          "Protección ante incendio, robo y daños",
+          "Cobertura de contenidos y edificación",
+          "Responsabilidad civil familiar incluida",
+        ],
+        href: "/services/hogar",
+      },
+      {
+        title: "Seguro de Viajes",
+        details: [
+          "Asistencia médica en el exterior",
+          "Cobertura por pérdida de equipaje",
+          "Amparo por cancelación y demora de vuelos",
+        ],
+        href: "/services/viajes",
+      },
+      {
+        title: "Seguro Empresarial",
+        details: [
+          "Protección integral de activos del negocio",
+          "Cobertura ante incendio, robo y responsabilidad civil",
+          "Planes a la medida de cada industria",
+        ],
+        href: "/services/empresarial",
+      },
+      {
+        title: "Seguro de Equipo y Maquinaria",
+        details: [
+          "Cobertura ante daños y rotura",
+          "Protección de maquinaria fija y móvil",
+          "Amparo por robo y actos malintencionados",
+        ],
+      },
+      {
+        title: "Seguros de Accidentes Personales",
+        details: [
+          "Indemnización por incapacidad o muerte accidental",
+          "Cobertura de gastos médicos por accidente",
+          "Planes individuales y colectivos",
+        ],
+      },
+      {
+        title: "Seguro Bancos e Instituciones Financieras (BBB)",
+        details: [
+          "Cobertura ante infidelidad de empleados",
+          "Protección ante fraude y falsificación",
+          "Amparo de valores dentro y fuera de bóveda",
+        ],
+      },
+      {
+        title: "Seguro Multiriesgo Industrial",
+        details: [
+          "Protección integral de plantas industriales",
+          "Cobertura de maquinaria, edificios e inventario",
+          "Amparo ante incendio, explosión y rotura",
+        ],
+      },
+      {
+        title: "Seguro Multiriesgo Comercial",
+        details: [
+          "Cobertura de locales y mercadería",
+          "Protección ante incendio, robo y rotura de vidrios",
+          "Amparo de equipos e instalaciones",
+        ],
+      },
+      {
+        title: "Seguro de Incendio y Líneas Aliadas",
+        details: [
+          "Cobertura ante incendio y explosión",
+          "Amparo por daños de la naturaleza",
+          "Protección de edificaciones y contenidos",
+        ],
+      },
+      {
+        title:
+          "Seguro de Lucro Cesante a consecuencia de incendio y líneas aliadas",
+        details: [
+          "Cobertura de ingresos no percibidos",
+          "Amparo de gastos fijos tras el siniestro",
+          "Complementa la póliza de incendio",
+        ],
+      },
+      {
+        title: "Seguro Equipo Electrónico",
+        details: [
+          "Protección de equipos de cómputo y oficina",
+          "Cobertura ante daños eléctricos y sobrevoltaje",
+          "Amparo por robo y manipulación indebida",
+        ],
+      },
+      {
+        title: "Seguro de Transporte",
+        details: [
+          "Cobertura de mercadería en tránsito",
+          "Protección terrestre, marítima y aérea",
+          "Amparo ante robo, colisión y volcamiento",
+        ],
+      },
+      {
+        title: "Seguro de Aviación",
+        details: [
+          "Cobertura de aeronaves y responsabilidad civil",
+          "Protección ante accidentes en tierra y vuelo",
+          "Amparo para tripulación y pasajeros",
+        ],
+      },
+      {
+        title: "Seguro de Robo",
+        details: [
+          "Cobertura ante robo y asalto",
+          "Protección de bienes muebles y mercadería",
+          "Amparo por daños ocurridos durante el hecho",
+        ],
+      },
+      {
+        title: "Seguro de Fidelidad",
+        details: [
+          "Cobertura ante deshonestidad de empleados",
+          "Protección de dinero y valores de la empresa",
+          "Amparo por apropiación indebida",
+        ],
+      },
+      {
+        title: "Seguro Dinero y Valores",
+        details: [
+          "Cobertura dentro y fuera de oficina",
+          "Protección durante el transporte de valores",
+          "Amparo ante robo, asalto y hurto",
+        ],
+      },
+      {
+        title: "Seguro de Responsabilidad Civil",
+        details: [
+          "Cobertura por daños causados a terceros",
+          "Protección ante reclamos por lesiones o pérdidas",
+          "Amparo de responsabilidad civil general y profesional",
+        ],
+      },
+      {
+        title: "Seguro Rotura de Maquinaria",
+        details: [
+          "Cobertura ante fallas mecánicas y eléctricas",
+          "Protección de equipos en operación",
+          "Amparo por errores de manejo u operación",
+        ],
+      },
+      {
+        title: "Pérdida de Beneficios por Rotura de Maquinaria",
+        details: [
+          "Cobertura de ingresos tras la avería",
+          "Amparo de gastos fijos durante la reparación",
+          "Complementa la póliza de rotura de maquinaria",
+        ],
+      },
+      {
+        title: "Seguro Marítimo",
+        details: [
+          "Cobertura de casco y mercadería transportada",
+          "Protección ante naufragio y varamiento",
+          "Amparo de responsabilidad civil naviera",
+        ],
+      },
+      {
+        title: "Seguro Agropecuario",
+        details: [
+          "Cobertura de cultivos y cosechas",
+          "Protección ante plagas, sequía e inundación",
+          "Amparo de ganado e infraestructura agrícola",
+        ],
+      },
+      {
+        title: "Seguro de Crédito",
+        details: [
+          "Cobertura ante impago de clientes",
+          "Protección de cuentas por cobrar",
+          "Amparo ante insolvencia comercial",
+        ],
+      },
+      {
+        title: "Seguro de Riesgos Especiales",
+        details: [
+          "Cobertura para riesgos de alta complejidad",
+          "Protección a la medida del negocio",
+          "Amparo diseñado con respaldo de reaseguro",
+        ],
+      },
+      {
+        title: "Seguro Todo Riesgo Para Contratista",
+        details: [
+          "Cobertura de la obra durante la construcción",
+          "Protección ante daños materiales imprevistos",
+          "Amparo de maquinaria y equipo de construcción",
+        ],
+      },
+      {
+        title: "Seguro Montaje de Maquinaria",
+        details: [
+          "Cobertura durante la instalación y pruebas",
+          "Protección ante errores de montaje",
+          "Amparo de equipos hasta su puesta en marcha",
+        ],
+      },
+      {
+        title: "Seguro Obras Civiles Terminadas",
+        details: [
+          "Cobertura de infraestructura ya finalizada",
+          "Protección ante daños estructurales",
+          "Amparo de responsabilidad civil post construcción",
+        ],
+      },
+      {
+        title: "Seguro Todo Riesgo Petrolero",
+        details: [
+          "Cobertura de operaciones de exploración y producción",
+          "Protección ante daños a pozos e instalaciones",
+          "Amparo de responsabilidad civil por contaminación",
+        ],
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.15,
+      whatsappNumber: "593992559126",
+    },
   },
 
   {
     id: "services-process",
     enabled: true,
     component: "Features",
-    variant: "process-steps", //two-columns
+    variant: "process-steps",
     surface: "base",
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Proceso",
-      title: "Atención técnica clara y ordenada",
+      eyebrow: "Modelo de servicio",
+      title: "Asesoría clara y ordenada en cada etapa",
       description:
-        "Trabajamos con un proceso práctico para identificar la necesidad, recomendar la solución adecuada y validar el funcionamiento final.",
+        "Acompañamos al cliente con apoyo técnico, staff profesional y soporte administrativo y postventa.",
+    },
+    background: {
+      type: "image",
+      src: "/assets/images/kautela/services/process-bg.jpg",
+      alt: "Modelo de servicio de Kautela",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/services/process-bg.jpg",
-        alt: "Proceso técnico Instamatic",
+        src: "/assets/images/kautela/services/process-bg.jpg",
+        alt: "Modelo de servicio de Kautela",
       },
       foreground: null,
     },
     items: [
       {
-        title: "Evaluación inicial",
+        title: "Evaluación de riesgos",
         description:
-          "Revisamos la necesidad del cliente, el punto de instalación, la presión de agua y las condiciones del espacio.",
+          "Identificamos la necesidad del cliente y el riesgo que se busca cubrir.",
       },
       {
-        title: "Recomendación técnica",
+        title: "Apoyo técnico especializado",
         description:
-          "Definimos el equipo, servicio o solución más conveniente según el uso, el lugar y el presupuesto disponible.",
+          "Comparamos opciones entre aseguradoras y recomendamos la cobertura más conveniente.",
       },
       {
-        title: "Ejecución del servicio",
+        title: "Contratación y staff profesional",
         description:
-          "Realizamos la instalación, mantenimiento o adecuación correspondiente con criterio técnico y cuidado del sistema.",
+          "Gestionamos la contratación de la póliza con un equipo capacitado en cada ramo.",
       },
       {
-        title: "Pruebas de funcionamiento",
+        title: "Apoyo administrativo y postventa",
         description:
-          "Verificamos encendido, presión, temperatura, conexiones y seguridad antes de entregar el trabajo.",
+          "Acompañamos el seguimiento de la póliza, renovaciones y gestión de reclamos.",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.45,
+    },
   },
 
   {
@@ -161,16 +408,20 @@ export const servicesSectionsData = [
     spacing: "compact",
     content: {
       quote:
-        "Un buen servicio técnico no solo instala: verifica, prueba y deja el sistema funcionando correctamente.",
-      author: "Instamatic Ecuador",
+        "Una buena asesoría no solo vende una póliza: identifica el riesgo real y acompaña al cliente hasta resolverlo.",
+      author: "Kautela",
     },
+    
     media: {
       background: null,
       foreground: null,
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -183,16 +434,18 @@ export const servicesSectionsData = [
     spacing: "default",
     content: {
       eyebrow: "Solicita asesoría",
-      title: "Encuentra el servicio adecuado para tu hogar o negocio",
+      title: "Encuentra el seguro adecuado para tu necesidad",
       description:
-        "Te orientamos para elegir la mejor solución en instalación, mantenimiento, presión de agua o gas centralizado.",
+        "Te orientamos para elegir la cobertura correcta entre nuestros 7 ramos de seguros.",
+    },
+    
+    background: {
+      type: "image",
+      src: "/assets/images/cta/cta-services-bg.png",
+      alt: "Seguros Kautela",
     },
     media: {
-      background: {
-        type: "image",
-        src: "/assets/images/instamatic/cta/services-cta-bg.jpg",
-        alt: "Servicios técnicos Instamatic",
-      },
+      background: null,
       foreground: null,
     },
     items: [],
@@ -202,12 +455,10 @@ export const servicesSectionsData = [
         href: "/contact",
         variant: "primary",
       },
-      {
-        label: "Ver productos",
-        href: "/products",
-        variant: "secondary",
-      },
     ],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.05,
+    },
   },
 ];
