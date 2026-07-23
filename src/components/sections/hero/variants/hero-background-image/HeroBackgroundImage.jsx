@@ -3,17 +3,24 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function HeroBackgroundImage({ data }) {
   if (!data || !data.enabled) return null;
 
   const content = data.content || {};
   const actions = data.actions || [];
-  const background = data.media?.background;
 
   const align = data.meta?.align || "left";
-  const overlayEnabled = data.meta?.overlay ?? background?.overlay ?? true;
-  const overlayOpacity = data.meta?.overlayOpacity ?? 0.38;
+
+  const bg = resolveBackground(data, {
+    defaultSurfaceFallback: "surface-strong",
+    defaultOverlayOpacity: 0.38,
+  });
 
   const alignClasses = {
     left: "items-start text-left",
@@ -30,13 +37,19 @@ export function HeroBackgroundImage({ data }) {
   return (
     <section
       id={data.id}
-      className="relative flex min-h-[520px] items-center overflow-hidden bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)] py-[3rem] md:min-h-[clamp(600px,80vh,760px)] lg:min-h-[clamp(680px,85vh,820px)]"
+      className={[
+        "section-shell relative flex min-h-[520px] items-center overflow-hidden py-[3rem] md:min-h-[clamp(600px,80vh,760px)] lg:min-h-[clamp(680px,85vh,820px)]",
+        getSpacingClass(data.spacing),
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      {background?.src ? (
+      {bg.hasImage ? (
         <div className="absolute inset-0 z-0" aria-hidden="true">
           <Image
-            src={background.src}
-            alt={background.alt || ""}
+            src={bg.image.src}
+            alt={bg.image.alt || ""}
             fill
             priority
             sizes="100vw"
@@ -45,16 +58,23 @@ export function HeroBackgroundImage({ data }) {
         </div>
       ) : null}
 
-      {overlayEnabled ? (
+      {bg.overlay.enabled ? (
         <div
           className="absolute inset-0 z-[1] bg-black"
-          style={{ opacity: overlayOpacity }}
+          style={{ opacity: bg.overlay.opacity }}
           aria-hidden="true"
         />
       ) : null}
 
       <div className="relative z-[2] w-full px-[1.5rem] md:px-[clamp(2rem,5vw,4rem)]">
-        <div className="mx-auto w-full max-w-[var(--container-width-wide)]">
+        <div
+          className={[
+            "section-container",
+            getContainerClass(data.containerWidth) || "section-container--wide",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
           <motion.div
             className={[
               "flex max-w-[640px] flex-col gap-[1.25rem] md:max-w-[720px]",

@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/actions/Button";
 import { Modal } from "@/components/ui/feedback/Modal";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function PartsGallery({ data }) {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -17,9 +22,43 @@ export function PartsGallery({ data }) {
   const { content, items, actions, meta } = data;
   const supportsModal = meta?.supportsModal === true;
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+
   return (
-    <section className="gradient-soft py-[var(--section-spacing)] text-[var(--color-text)]">
-      <div className="mx-auto flex w-full max-w-[var(--container-width-wide)] flex-col gap-12 px-[var(--container-padding)]">
+    <section
+      id={data.id}
+      className={[
+        "section-shell relative overflow-hidden text-[var(--color-text)]",
+        getSpacingClass(data.spacing),
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {bg.hasImage && bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      <div
+        className={[
+          "section-container relative flex w-full flex-col gap-12",
+          getContainerClass(data.containerWidth) || "section-container--wide",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center"
           variants={fadeUp}

@@ -19,7 +19,7 @@ function WhatsappIcon({ className = "" }) {
 }
 
 export function FloatingWhatsapp({
-  message = "Hola, quiero solicitar información sobre Instamatic.",
+  message = "Hola, quiero solicitar información sobre Kautela.",
 }) {
   const phone = siteData?.contact?.whatsapp;
 

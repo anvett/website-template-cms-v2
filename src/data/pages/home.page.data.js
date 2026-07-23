@@ -4,10 +4,10 @@ export const homePageData = {
   enabled: true,
 
   seo: {
-    title: "Calefones Instamatic | Venta, instalación y mantenimiento en Quito",
+    title: "Kautela | Asesoría en Seguros en Ecuador",
     description:
-      "Venta de calefones Instamatic, instalación profesional, mantenimiento técnico, sistemas de bombeo y gas centralizado en Quito y Valles.",
-    canonical: "https://www.instamatic.ec/",
+      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas en Ecuador.",
+    canonical: "https://www.kautelaseguro.com/",
     robots: {
       index: true,
       follow: true,
@@ -15,16 +15,16 @@ export const homePageData = {
   },
 
   openGraph: {
-    title: "Calefones Instamatic | Soluciones de agua caliente",
+    title: "Kautela | Confianza Asegurada. Protección Garantizada",
     description:
-      "Más de 20 años ofreciendo calefones, instalación, mantenimiento y soluciones de agua caliente para hogares y negocios.",
-    url: "https://www.instamatic.ec/",
+      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional en Ecuador.",
+    url: "https://www.kautelaseguro.com/",
     images: [
       {
-        url: "/images/instamatic/og-home.jpg",
+        url: "/assets/images/kautela/og-home.jpg",
         width: 1200,
         height: 630,
-        alt: "Calefones Instamatic Ecuador",
+        alt: "Kautela, asesoría en seguros en Ecuador",
       },
     ],
   },
@@ -33,8 +33,7 @@ export const homePageData = {
     "home-hero",
     "home-about",
     "home-services-preview",
-    "home-products-preview",
-    "home-benefits",
+    "home-values-preview",
     "home-stats",
     "home-partners",
     "home-cta",

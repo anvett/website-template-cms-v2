@@ -1,58 +1,59 @@
 export const siteData = {
   site: {
-    name: "Instamatic",
-    legalName: "Instamatic",
-    domain: "https://www.instamatic.com.ec",
+    name: "Kautela",
+    legalName: "Kautela Agencia Asesora Productora de Seguros Cía. Ltda.",
+    domain: "https://www.kautelaseguro.com",
     language: "es",
     locale: "es_EC",
   },
 
   branding: {
-    siteTitle: "Instamatic",
+    siteTitle: "Kautela",
     siteDescription:
-      "Calefones a gas eficientes, seguros y duraderos para hogares y negocios en Ecuador.",
+      "Asesoría integral en seguros y administración de riesgos, con soluciones confiables y personalizadas para proteger tu patrimonio y bienestar.",
   },
 
   contact: {
-    email: "",
-    phone: "",
-    whatsapp: "593912345678",
+    email: "info@kautelaseguro.com",
+    phone: "593992559126",
+    whatsapp: "593992559126",
+    whatsappSiniestros: "593992753560",
   },
 
   address: {
     country: "Ecuador",
-    city: "Quito",
-    fullAddress: "Quito, Ecuador",
+    city: "Ibarra",
+    fullAddress: "Av. Luis Abel Tafur 3-53 y Juan Francisco Bonilla, Ibarra, Ecuador",
   },
 
   businessHours: {
-    weekdays: "Lunes a viernes de 08h00 a 18h00",
+    weekdays: "Lunes a viernes de 08h00 a 17h00",
   },
 
   social: {
-    facebook: "",
+    facebook: "kautelaseguros",
     instagram: "",
     linkedin: "",
   },
 
   seo: {
-    defaultTitle: "Instamatic | Calefones a gas en Ecuador",
-    titleTemplate: "%s | Instamatic",
+    defaultTitle: "Kautela | Asesoría en Seguros en Ecuador",
+    titleTemplate: "%s | Kautela",
     defaultDescription:
-      "Instamatic es una marca reconocida de calefones a gas en Ecuador, con más de 20 años de trayectoria ofreciendo equipos eficientes, seguros y duraderos.",
+      "Kautela es una firma ecuatoriana de asesoría en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas.",
     defaultKeywords: [
-      "Instamatic",
-      "calefones Instamatic",
-      "calefones a gas",
-      "calefones a gas Ecuador",
-      "calefones Quito",
-      "instalación de calefones",
-      "servicio técnico de calefones",
-      "mantenimiento de calefones",
-      "bombas de agua",
-      "gas centralizado",
+      "Kautela",
+      "asesoría de seguros",
+      "seguros Ecuador",
+      "seguros Ibarra",
+      "administración de riesgos",
+      "seguros de vida",
+      "seguros empresariales",
+      "seguro vehicular",
+      "seguro de desgravamen",
+      "corredora de seguros Ecuador",
     ],
-    canonical: "https://www.instamatic.com.ec",
+    canonical: "https://www.kautelaseguro.com",
     robots: {
       index: true,
       follow: true,
@@ -62,17 +63,17 @@ export const siteData = {
   openGraph: {
     type: "website",
     locale: "es_EC",
-    url: "https://www.instamatic.com.ec",
-    siteName: "Instamatic",
-    title: "Instamatic | Calefones a gas en Ecuador",
+    url: "https://www.kautelaseguro.com",
+    siteName: "Kautela",
+    title: "Kautela | Asesoría en Seguros en Ecuador",
     description:
-      "Más de 20 años brindando soluciones eficientes en calefones a gas, instalación, mantenimiento y servicio técnico.",
+      "Confianza asegurada, protección garantizada. Asesoría integral en seguros con cobertura nacional en Ecuador.",
     images: [
       {
-        url: "/assets/images/instamatic/og-instamatic.jpg",
+        url: "/assets/images/kautela/logo.png",
         width: 1200,
         height: 630,
-        alt: "Calefones a gas Instamatic en Ecuador",
+        alt: "Kautela, asesoría en seguros en Ecuador",
       },
     ],
   },
@@ -81,10 +82,10 @@ export const siteData = {
     card: "summary_large_image",
     site: "",
     creator: "",
-    title: "Instamatic | Calefones a gas en Ecuador",
+    title: "Kautela | Asesoría en Seguros en Ecuador",
     description:
-      "Calefones a gas eficientes, seguros y duraderos para hogares y negocios en Ecuador.",
-    images: ["/images/instamatic/og-instamatic.jpg"],
+      "Asesoría integral en seguros y administración de riesgos para personas y empresas en Ecuador.",
+    images: ["/assets/images/kautela/logo.png"],
   },
 
   icons: {
@@ -96,6 +97,6 @@ export const siteData = {
   manifest: "/site.webmanifest",
 
   themeMeta: {
-    themeColor: "#11418A",
+    themeColor: "#104a3e",
   },
 };

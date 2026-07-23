@@ -69,7 +69,11 @@ function renderIcon(icon, className) {
 
   const Icon = icon;
 
-  if (typeof Icon === "function") {
+  const isComponentLike =
+    typeof Icon === "function" ||
+    (typeof Icon === "object" && Icon !== null && "$$typeof" in Icon);
+
+  if (isComponentLike) {
     return <Icon className={className} aria-hidden="true" />;
   }
 

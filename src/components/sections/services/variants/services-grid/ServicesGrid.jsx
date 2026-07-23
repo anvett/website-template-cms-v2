@@ -5,13 +5,32 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
 import { SectionHeader } from "@/components/ui/content/SectionHeader";
 
+const surfaceClasses = {
+  base: "surface-base",
+  subtle: "surface-subtle",
+  strong: "surface-strong",
+};
+
+const spacingClasses = {
+  compact: "section-shell--compact",
+  default: "",
+  hero: "section-shell--hero",
+};
+
+const containerClasses = {
+  content: "section-container--content",
+  section: "",
+  wide: "section-container--wide",
+};
+
 export function ServicesGrid({ data }) {
   if (!data || !data.enabled) return null;
 
   const content = data.content || {};
   const items = data.items || [];
   const actions = data.actions || [];
-  const background = data.media?.background;
+  const media = data.media?.background;
+  const background = data.background || {};
 
   const variant = data.variant || "grid-3";
 
@@ -21,27 +40,59 @@ export function ServicesGrid({ data }) {
     "grid-4": "md:grid-cols-2 xl:grid-cols-4",
   };
 
-  const hasBackgroundImage = background?.src;
+  const bgSrc = background.src || media?.src;
+  const bgAlt = background.alt || media?.alt || "";
+  const hasBackgroundImage = background.type === "image" && bgSrc;
+
+  const overlayEnabled = data.meta?.overlay ?? media?.overlay ?? true;
+  const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
+
+  const baseSurfaceClass = hasBackgroundImage
+    ? ""
+    : background.type === "gradient" && background.variant === "dark"
+      ? "gradient-dark"
+      : background.type === "gradient" && background.variant === "soft"
+        ? "gradient-soft"
+        : surfaceClasses[data.surface] || "surface-base";
 
   return (
     <section
       id={data.id}
-      className="relative isolate w-full overflow-hidden border-t border-[rgba(16,64,136,0.08)] px-[1.5rem] py-[var(--section-spacing)] text-[var(--color-text)]"
+      className={[
+        "section-shell relative isolate w-full overflow-hidden border-t border-[rgba(16,64,136,0.08)]",
+        spacingClasses[data.spacing] ?? "",
+        baseSurfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       {hasBackgroundImage ? (
         <>
           <Image
-            src={background.src}
-            alt={background.alt || ""}
+            src={bgSrc}
+            alt={bgAlt}
             fill
             sizes="100vw"
             className="absolute inset-0 z-0 object-cover"
           />
-          <div className="absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(255,255,255,0.86)_0%,rgba(255,255,255,0.72)_45%,rgba(255,255,255,0.64)_100%)]" />
+          {overlayEnabled ? (
+            <div
+              className="absolute inset-0 z-[1] bg-black"
+              style={{ opacity: overlayOpacity }}
+              aria-hidden="true"
+            />
+          ) : null}
         </>
       ) : null}
 
-      <div className="relative z-[2] mx-auto w-full max-w-[var(--container-width-wide)]">
+      <div
+        className={[
+          "section-container relative z-[2] mx-auto w-full",
+          containerClasses[data.containerWidth] ?? "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="mx-auto mb-[2.75rem] max-w-[820px]"
           initial={{ opacity: 0, y: 22 }}
@@ -102,7 +153,7 @@ export function ServicesGrid({ data }) {
                     href={item.href}
                     className="mt-auto font-[var(--font-body)] text-[0.95rem] font-bold text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)]"
                   >
-                    Ver más
+                    Ver más...
                   </a>
                 ) : null}
               </motion.article>

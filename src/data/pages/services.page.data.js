@@ -4,10 +4,10 @@ export const servicesPageData = {
   enabled: true,
 
   seo: {
-    title: "Servicios | Instamatic Ecuador",
+    title: "Ramos de Seguros | Kautela",
     description:
-      "Conoce nuestros servicios de instalación de calefones, mantenimiento técnico, sistemas de bombeo de agua y gas centralizado en Quito y Valles.",
-    canonical: "https://www.instamatic.ec/services",
+      "Conoce los 7 ramos de seguros que asesoramos: Vida y Salud, Empresarial y Consorcio, Desgravamen, Ahorro Acumulativo, Transporte, Vehicular, y Vivienda, Hogar y Familia.",
+    canonical: "https://www.kautelaseguro.com/services",
     robots: {
       index: true,
       follow: true,
@@ -15,16 +15,16 @@ export const servicesPageData = {
   },
 
   openGraph: {
-    title: "Servicios | Instamatic Ecuador",
+    title: "Ramos de Seguros | Kautela",
     description:
-      "Soluciones profesionales para instalación, mantenimiento y sistemas complementarios de agua caliente.",
-    url: "https://www.instamatic.ec/services",
+      "Asesoría especializada en los principales ramos de seguros para personas y empresas en Ecuador.",
+    url: "https://www.kautelaseguro.com/services",
     images: [
       {
-        url: "/images/instamatic/og-services.jpg",
+        url: "/assets/images/kautela/og-services.jpg",
         width: 1200,
         height: 630,
-        alt: "Servicios Instamatic Ecuador",
+        alt: "Ramos de seguros Kautela",
       },
     ],
   },

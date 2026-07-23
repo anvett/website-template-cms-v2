@@ -1,45 +1,60 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function CTABackgroundImage({ data }) {
   if (!data || !data.enabled) return null;
 
   const content = data.content || {};
   const actions = data.actions || [];
-  const background = data.media?.background;
 
-  const overlayEnabled = data.meta?.overlay ?? background?.overlay ?? true;
-  const overlayOpacity = data.meta?.overlayOpacity ?? 0.18;
+  const bg = resolveBackground(data, {
+    defaultSurfaceFallback: "surface-strong",
+    defaultOverlayOpacity: 0.18,
+  });
 
   return (
     <section
       id={data.id}
-      className="relative isolate flex min-h-[420px] w-full items-center overflow-hidden bg-[var(--color-bg-dark)] px-[1.5rem] py-[var(--section-spacing)] text-[var(--color-text-inverse)]"
+      className={[
+        "section-shell relative isolate flex min-h-160 w-full items-center overflow-hidden px-6",
+        getSpacingClass(data.spacing),
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      {background?.src ? (
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <Image
-            src={background.src}
-            alt={background.alt || ""}
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-      ) : null}
-
-      {overlayEnabled ? (
-        <div
-          className="absolute inset-0 z-[1] bg-black"
-          style={{ opacity: overlayOpacity }}
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
           aria-hidden="true"
         />
       ) : null}
 
-      <div className="relative z-[2] mx-auto w-full max-w-[var(--container-width-content)]">
+      {bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 z-1 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      <div
+        className={[
+          "section-container relative z-2 mx-auto w-full",
+          getContainerClass(data.containerWidth),
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 24 }}
@@ -58,7 +73,7 @@ export function CTABackgroundImage({ data }) {
 
           {content.title ? (
             <h2
-              className="section-title mt-[0.75rem] pb-8"
+              className="section-title mt-3 pb-8"
               style={{ color: "var(--color-text-inverse)" }}
             >
               {content.title}
@@ -67,7 +82,7 @@ export function CTABackgroundImage({ data }) {
 
           {content.description ? (
             <p
-              className="section-description mt-[1rem] max-w-[42rem]"
+              className="section-description mt-4 max-w-2xl"
               style={{ color: "rgba(255,255,255,0.85)" }}
             >
               {content.description}

@@ -9,9 +9,9 @@ export const aboutUsSectionsData = [
     spacing: "hero",
     content: {
       eyebrow: "Nosotros",
-      title: "Instamatic Ecuador",
+      title: "Una firma de asesoría en seguros con vocación de servicio",
       description:
-        "Más de 20 años brindando calefones a gas eficientes, seguros y duraderos para hogares y negocios en Ecuador.",
+        "Conoce la historia, misión, visión y valores que guían a Kautela desde su fundación en Ibarra.",
     },
     media: {
       background: null,
@@ -20,7 +20,7 @@ export const aboutUsSectionsData = [
     items: [],
     actions: [
       {
-        label: "Ver servicios",
+        label: "Ver ramos de seguros",
         href: "/services",
         variant: "primary",
       },
@@ -30,34 +30,40 @@ export const aboutUsSectionsData = [
         variant: "secondary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
     id: "about-story",
     enabled: true,
     component: "About",
-    variant: "image-right", //stacked-centered
+    variant: "image-right",
     surface: "base",
     containerWidth: "section",
     spacing: "default",
     content: {
       eyebrow: "Nuestra historia",
-      title: "Una marca creada para las necesidades reales del país",
+      title: "Constituida en Ibarra desde el 24 de octubre de 2014",
       description:
-        "Instamatic nace con el objetivo de ofrecer soluciones confiables y eficientes en calefones a gas para los hogares ecuatorianos. Desde sus inicios, la marca se enfocó en desarrollar equipos adaptados a condiciones como baja presión de agua, durabilidad en el uso diario y seguridad en el funcionamiento.",
+        "Kautela Agencia Asesora Productora de Seguros Cía. Ltda. nació en Ibarra con el propósito de brindar asesoría integral en seguros y administración de riesgos. A lo largo de los años hemos construido relaciones de confianza con clientes y aseguradoras, con un servicio humano, cercano y eficiente. Nuestra filosofía es simple: no hacemos clientes, hacemos amigos.",
     },
     media: {
       background: null,
       foreground: {
         type: "image",
-        src: "assets/images/instamatic/about-story.jpg",
-        alt: "Historia de Instamatic Ecuador",
+        src: "/assets/images/kautela/about-story.png",
+        alt: "Equipo de asesores de Kautela en oficina de Ibarra",
       },
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -68,36 +74,39 @@ export const aboutUsSectionsData = [
     surface: "subtle",
     containerWidth: "section",
     spacing: "default",
+    background: {
+      type: "image",
+    },
     content: {
       eyebrow: "Propósito",
       title: "Misión y visión",
       description:
-        "Nuestro compromiso es brindar soluciones eficientes, seguras y confiables para hogares y negocios ecuatorianos.",
+        "Estos son los principios que guían cada decisión y cada asesoría que brindamos.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/about-comparison-bg.jpg",
-        alt: "Instamatic Ecuador",
+        src: "/assets/images/kautela/mission-vision-bg.png",
+        alt: "Asesores de Kautela revisando documentos de pólizas",
       },
       foreground: null,
     },
     items: [
       {
-        eyebrow: "Comprometidos con soluciones confiables",
+        eyebrow: "Asesoría integral con servicio humano",
         title: "Misión",
         description:
-          "Brindar soluciones eficientes en calefones a gas, ofreciendo equipos de alta calidad que garanticen agua caliente de forma segura, confiable y accesible para los hogares y negocios ecuatorianos.",
+          "Brindar asesoría integral en seguros y administración de riesgos, generando soluciones innovadoras, confiables y personalizadas, con un servicio humano y eficiente que resguarde el patrimonio y bienestar de nuestros clientes.",
       },
       {
-        eyebrow: "Construyendo el futuro del confort",
+        eyebrow: "Liderazgo con compromiso social",
         title: "Visión",
         description:
-          "Ser la marca líder en calefones a gas en Ecuador y una de las más reconocidas en la región, destacando por innovación, durabilidad y confianza.",
+          "Ser la firma de asesoría de seguros líder en Ecuador, reconocida por su excelencia operativa, capacidad de innovación y compromiso social, fortaleciendo alianzas de largo plazo con aseguradoras y clientes.",
       },
     ],
     actions: [],
-    meta: { overlay: true, overlayOpacity: 0.75 },
+    meta: { overlay: true, overlayOpacity: 0.05 },
   },
 
   {
@@ -110,9 +119,9 @@ export const aboutUsSectionsData = [
     spacing: "default",
     content: {
       eyebrow: "Valores",
-      title: "Principios que respaldan cada solución",
+      title: "Principios que respaldan cada asesoría",
       description:
-        "Instamatic trabaja con valores orientados a la calidad, confianza, innovación, seguridad y compromiso.",
+        "Kautela trabaja con valores orientados a la confianza, la integridad y el bienestar de cada cliente.",
     },
     media: {
       background: null,
@@ -121,131 +130,207 @@ export const aboutUsSectionsData = [
     items: [
       {
         icon: "ShieldCheck",
-        title: "Calidad",
+        title: "Responsabilidad",
         description:
-          "Nos comprometemos a ofrecer equipos duraderos y de alto rendimiento.",
+          "Cumplimos con cada compromiso adquirido con nuestros clientes y aseguradoras.",
+      },
+      {
+        icon: "Handshake",
+        title: "Confianza",
+        description:
+          "Construimos relaciones de largo plazo basadas en la transparencia.",
       },
       {
         icon: "BadgeCheck",
-        title: "Confianza",
+        title: "Integridad",
+        description: "Actuamos con ética en cada asesoría que brindamos.",
+      },
+      {
+        icon: "Zap",
+        title: "Amor",
         description:
-          "Miles de testes respaldan nuestra trayectoria de más de 20 años en el mercado.",
+          "Tratamos a cada cliente con calidez y atención genuina.",
       },
       {
         icon: "Lightbulb",
         title: "Innovación",
         description:
-          "Mejoramos continuamente nuestros productos para adaptarnos a las necesidades actuales.",
+          "Buscamos soluciones creativas y actualizadas para cada necesidad.",
       },
       {
-        icon: "Shield",
-        title: "Seguridad",
+        icon: "Gauge",
+        title: "Resultados",
         description:
-          "Diseñamos calefones que cumplen con altos estándares de funcionamiento seguro.",
-      },
-      {
-        icon: "Handshake",
-        title: "Compromiso",
-        description:
-          "Trabajamos para brindar soluciones reales que mejoren la comodidad en cada hogar.",
-      },
-      {
-        icon: "Wrench",
-        title: "Respaldo técnico",
-        description:
-          "Contamos con experiencia y soporte especializado para acompañar cada instalación y mantenimiento.",
+          "Medimos nuestro trabajo por el beneficio real que aporta al cliente.",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
-    id: "about-stats",
+    id: "about-strengths",
     enabled: true,
-    component: "Stats",
-    variant: "split-highlight", //3-items
-    surface: "strong",
-    containerWidth: "section",
-    spacing: "compact",
-    content: {
-      eyebrow: "Trayectoria",
-      title: "Una marca con respaldo",
-      description:
-        "Instamatic se ha consolidado como una de las opciones preferidas por usuarios, técnicos e instaladores.",
-    },
-    media: {
-      background: null,
-      foreground: null,
-    },
-    items: [
-      {
-        value: "+20",
-        label: "años en Ecuador",
-        description: "Trayectoria en el mercado nacional",
-      },
-      {
-        value: "Miles",
-        label: "de familias",
-        description: "Confían en calefones Instamatic",
-      },
-      {
-        value: "4",
-        label: "líneas de servicio",
-        description: "Soluciones técnicas principales",
-      },
-    ],
-    actions: [],
-    meta: {},
-  },
-
-  {
-    id: "about-testimonials",
-    enabled: true,
-    component: "Testimonials",
-    variant: "slider",
-    surface: "base",
+    component: "Services",
+    variant: "grid-3",
+    surface: "subtle",
     containerWidth: "section",
     spacing: "default",
+    background: {
+      type: "image",
+    },
     content: {
-      eyebrow: "Confianza",
-      title: "Una marca recomendada por su rendimiento",
+      eyebrow: "Fortalezas corporativas",
+      title: "Por qué confiar en Kautela",
       description:
-        "Instamatic es una opción reconocida por familias, negocios, técnicos e instaladores en Ecuador.",
+        "Una trayectoria construida sobre experiencia, respaldo técnico y compromiso con cada cliente.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/testimonials-bg.jpg",
-        alt: "testes Instamatic Ecuador",
+        src: "/assets/images/kautela/strengths-bg.png",
+        alt: "Fortalezas corporativas de Kautela",
       },
       foreground: null,
     },
     items: [
       {
-        image: "/assets/images/instamatic/testimonials/test1.jpg",
-        name: "teste residencial",
-        title: "Hogar en Quito",
-        message:
-          "Elegimos Instamatic por su buen rendimiento y porque funciona muy bien incluso con baja presión de agua.",
+        icon: "BadgeCheck",
+        title: "Trayectoria desde 2014",
+        description:
+          "Más de 10 años de experiencia en asesoría de seguros en Ecuador.",
       },
       {
-        image: "/assets/images/instamatic/testimonials/test2.jpg",
-        name: "teste comercial",
-        title: "Negocio local",
-        message:
-          "El calefón ha respondido bien al uso diario y el respaldo técnico nos dio mucha confianza.",
+        icon: "ShieldCheck",
+        title: "Cobertura nacional",
+        description:
+          "Atención en 17 ciudades distribuidas en 3 zonas del país.",
       },
       {
-        image: "/assets/images/instamatic/testimonials/test3.jpg",
-        name: "Técnico instalador",
-        title: "Especialista en calefones",
-        message:
-          "Instamatic es una marca recomendada por su resistencia, facilidad de instalación y disponibilidad de repuestos.",
+        icon: "Handshake",
+        title: "Alianzas estratégicas",
+        description:
+          "Convenios con aseguradoras nacionales e internacionales y fondos de inversión.",
+      },
+      {
+        icon: "Gauge",
+        title: "Equipo técnico especializado",
+        description:
+          "Asesores capacitados en los distintos ramos de seguros que ofrecemos.",
+      },
+      {
+        icon: "Wrench",
+        title: "Acompañamiento en reclamos",
+        description:
+          "Gestionamos el proceso de reclamos junto al cliente hasta su resolución.",
+      },
+      {
+        icon: "Shield",
+        title: "Experiencia en sector público y privado",
+        description:
+          "Hemos asesorado a entidades públicas y empresas privadas en distintos sectores.",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.05,
+    },
+  },
+
+  {
+    id: "about-infrastructure",
+    enabled: true,
+    component: "DualContent",
+    variant: "default",
+    surface: "base",
+    containerWidth: "section",
+    spacing: "default",
+    background: {
+      type: "gradient",
+      variant: "dark",
+    },
+    content: {
+      eyebrow: "Infraestructura y tecnología",
+      title: "Respaldo técnico para una asesoría eficiente",
+      description:
+        "Contamos con oficinas propias y herramientas tecnológicas que agilizan la gestión de pólizas y reclamos.",
+    },
+    media: {
+      background: {
+        type: "image",
+        src: "/assets/images/kautela/infrastructure-bg.png",
+        alt: "Infraestructura y tecnología de Kautela",
+      },
+      foreground: null,
+    },
+    items: [
+      {
+        title: "Oficinas propias",
+        description:
+          "Matriz en Ibarra con atención presencial para clientes de la zona norte del país.",
+        href: "/contact",
+
+        image: {
+          src: "/assets/images/kautela/infrastructure-office.jpg",
+          alt: "Oficina matriz de Kautela en Ibarra",
+          ratio: "portrait",
+          fit: "cover",
+          radius: "lg",
+          objectPosition: "center center",
+          className: "h-[18rem] lg:h-[26rem]",
+          sizes: "(min-width: 1024px) 50vw, 100vw",
+          overlay: false,
+        },
+
+        features: [
+          "Atención presencial y remota",
+          "Personal capacitado en cada ramo",
+          "Cobertura desde la matriz en Ibarra",
+        ],
+      },
+
+      {
+        title: "Sistema tecnológico de gestión",
+        description:
+          "Herramientas digitales para el seguimiento de pólizas, cotizaciones y reclamos de cada cliente.",
+        href: "/contact",
+
+        image: {
+          src: "/assets/images/kautela/infrastructure-tech.jpg",
+          alt: "Plataforma tecnológica de gestión de pólizas de Kautela",
+          ratio: "portrait",
+          fit: "cover",
+          radius: "lg",
+          objectPosition: "center center",
+          className: "h-[18rem] lg:h-[26rem]",
+          sizes: "(min-width: 1024px) 50vw, 100vw",
+          overlay: false,
+        },
+
+        features: [
+          "Seguimiento de pólizas y vencimientos",
+          "Gestión digital de reclamos",
+          "Comunicación directa con el cliente",
+        ],
+      },
+    ],
+
+    actions: [
+      {
+        label: "Contactar a un asesor",
+        href: "/contact",
+        variant: "secondary",
+      },
+    ],
+
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -308,9 +393,8 @@ export const aboutUsSectionsData = [
     containerWidth: "content",
     spacing: "compact",
     content: {
-      quote:
-        "Agua caliente segura, eficiente y confiable para cada hogar ecuatoriano.",
-      author: "Instamatic Ecuador",
+      quote: "No hacemos clientes, hacemos amigos.",
+      author: "Kautela",
     },
     media: {
       background: null,
@@ -318,44 +402,53 @@ export const aboutUsSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
     id: "about-cta",
     enabled: true,
     component: "CTA",
-    variant: "background-image", //background-image | centered
+    variant: "background-image",
     surface: "strong",
     containerWidth: "section",
     spacing: "default",
+    background: {
+      type: "image",
+    },
     content: {
-      eyebrow: "Soluciones Instamatic",
-      title: "Conoce nuestros productos y servicios",
+      eyebrow: "Hablemos de tu seguro",
+      title: "Conversemos sobre cómo proteger tu patrimonio",
       description:
-        "Encuentra calefones, combos, instalación, mantenimiento y soluciones complementarias para tu hogar o negocio.",
+        "Te asesoramos para encontrar la cobertura adecuada a tu necesidad, en el ramo que corresponda.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/cta-about-bg.jpg",
-        alt: "testes Instamatic Ecuador",
+        src: "/assets/images/cta/cta-about-bg.png",
+        alt: "Asesor de Kautela conversando con un cliente",
       },
       foreground: null,
     },
     items: [],
     actions: [
       {
-        label: "Ver servicios",
+        label: "Ver ramos de seguros",
         href: "/services",
         variant: "primary",
       },
       {
-        label: "Ver productos",
-        href: "/products",
+        label: "Contactar ahora",
+        href: "/contact",
         variant: "secondary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: true,
+      overlayOpacity: 0.18,
+    },
   },
 ];

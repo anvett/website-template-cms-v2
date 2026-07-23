@@ -1,30 +1,79 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/actions/Button";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
 
 export function HeroInternal({ data }) {
   if (!data || !data.enabled) return null;
 
   const { content, actions } = data;
+  const background = data.background || {};
+  const hasBgImage = background.type === "image" && background.src;
+  const overlayEnabled = data.meta?.overlay ?? true;
+  const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
+
+  const isStrong = !data.surface || data.surface === "strong";
+  const surfaceClasses = { base: "surface-base", subtle: "surface-subtle" };
 
   return (
-    <section className="relative overflow-hidden bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(248,192,24,0.22),transparent_34%),linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]" />
+    <section
+      id={data.id}
+      className={[
+        "section-shell relative overflow-hidden",
+        getSpacingClass(data.spacing) || "section-shell--hero",
+        hasBgImage
+          ? "text-(--color-text-inverse)"
+          : isStrong
+            ? "bg-(--color-bg-dark) text-(--color-text-inverse)"
+            : surfaceClasses[data.surface] || "surface-strong",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {hasBgImage ? (
+        <>
+          <Image
+            src={background.src}
+            alt={background.alt || ""}
+            fill
+            sizes="100vw"
+            className="absolute inset-0 z-0 object-cover"
+            priority
+          />
+          {overlayEnabled && (
+            <div
+              className="absolute inset-0 z-1 bg-black"
+              style={{ opacity: overlayOpacity }}
+              aria-hidden="true"
+            />
+          )}
+        </>
+      ) : isStrong ? (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(248,192,24,0.22),transparent_34%),linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]" />
+      ) : null}
 
-      <div className="relative mx-auto flex min-h-[420px] w-[min(calc(100%-2.5rem),var(--container-width-content))] items-center justify-center py-24 text-center md:min-h-[500px] md:py-28">
+      <div
+        className={[
+          "section-container relative z-2 mx-auto flex min-h-105 items-center justify-center py-24 text-center md:min-h-125 md:py-28",
+          getContainerClass(data.containerWidth) || "section-container--content",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
-          className="flex max-w-3xl flex-col items-center gap-6"
+          className="flex max-w-full flex-col items-center gap-6"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           transition={defaultTransition}
         >
           {content?.eyebrow && (
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-(--color-accent)">
               {content.eyebrow}
             </p>
           )}

@@ -5,15 +5,7 @@ import { Quote } from "lucide-react";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-
-const containerClasses = {
-  content:
-    "mx-auto w-full max-w-[var(--container-width-content)] px-[var(--container-padding)]",
-  section:
-    "mx-auto w-full max-w-[var(--container-width)] px-[var(--container-padding)]",
-  wide:
-    "mx-auto w-full max-w-[var(--container-width-wide)] px-[var(--container-padding)]",
-};
+import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
 
 export function TestimonialsSection({ data }) {
   if (!data || !data.enabled) return null;
@@ -26,41 +18,52 @@ export function TestimonialsSection({ data }) {
     meta = {},
   } = data;
 
+  const sectionBackground = data.background || {};
   const background = media?.background;
 
-  const overlayEnabled =
-    meta?.overlay ??
-    background?.overlay ??
-    true;
+  const hasImage = sectionBackground.type === "image" && Boolean(background?.src);
 
-  const overlayOpacity =
-    meta?.overlayOpacity ??
-    0.65;
+  const overlayEnabled = meta?.overlay ?? background?.overlay ?? true;
+  const overlayOpacity = meta?.overlayOpacity ?? 0.65;
+
+  // Variant siempre con texto claro por diseño; sin imagen usa el
+  // degradado oscuro oficial, salvo que se pida explícitamente "soft".
+  const backgroundFallbackClass =
+    sectionBackground.type === "gradient" && sectionBackground.variant === "soft"
+      ? "gradient-soft-inverse"
+      : "bg-[linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]";
 
   return (
-    <section className="relative overflow-hidden bg-[var(--color-bg-dark)] py-[var(--section-spacing)] text-[var(--color-text-inverse)]">
-      {background?.src ? (
+    <section
+      id={data.id}
+      className={[
+        "section-shell relative overflow-hidden text-[var(--color-text-inverse)]",
+        getSpacingClass(data.spacing),
+        hasImage ? "bg-[var(--color-bg-dark)]" : backgroundFallbackClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {hasImage ? (
         <img
           src={background.src}
           alt={background.alt || ""}
           className="absolute inset-0 h-full w-full object-cover"
         />
-      ) : (
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]" />
-      )}
+      ) : null}
 
-      {overlayEnabled ? (
+      {(!hasImage || overlayEnabled) ? (
         <div
           className="absolute inset-0 bg-black"
-          style={{ opacity: overlayOpacity }}
+          style={{ opacity: hasImage ? overlayOpacity : 0.65 }}
           aria-hidden="true"
         />
       ) : null}
 
       <div
         className={[
-          containerClasses[containerWidth] || containerClasses.wide,
-          "relative flex flex-col gap-12",
+          "section-container relative flex flex-col gap-12",
+          getContainerClass(containerWidth) || "section-container--wide",
         ]
           .filter(Boolean)
           .join(" ")}

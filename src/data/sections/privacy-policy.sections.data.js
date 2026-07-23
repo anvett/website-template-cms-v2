@@ -11,7 +11,7 @@ export const privacyPolicySectionsData = [
       eyebrow: "Política de privacidad",
       title: "Protección y uso de información personal",
       description:
-        "Conoce cómo Instamatic recopila, utiliza y protege la información enviada por sus clientes y usuarios.",
+        "Conoce cómo Kautela recopila, utiliza y protege la información enviada por sus clientes y usuarios.",
     },
     media: {
       background: null,
@@ -19,7 +19,10 @@ export const privacyPolicySectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -38,7 +41,7 @@ export const privacyPolicySectionsData = [
       eyebrow: "Privacidad",
       title: "Uso responsable de la información",
       description:
-        "La información enviada a través del sitio web, formularios o canales de contacto será utilizada únicamente para responder consultas, solicitudes de cotización, atención comercial o coordinación de servicios relacionados con Instamatic.",
+        "La información enviada a través del sitio web, formularios o canales de contacto será utilizada únicamente para responder consultas, solicitudes de cotización, atención comercial o gestión de siniestros relacionados con Kautela.",
     },
     media: {
       background: null,
@@ -48,22 +51,22 @@ export const privacyPolicySectionsData = [
       {
         title: "Información recopilada",
         description:
-          "Podemos recibir datos como nombre, teléfono, correo electrónico, tipo de solicitud y mensaje enviado por el usuario.",
+          "Podemos recibir datos como nombre, teléfono, correo electrónico, ramo de interés y mensaje enviado por el usuario.",
       },
       {
         title: "Finalidad de uso",
         description:
-          "La información será utilizada para responder consultas, preparar cotizaciones, coordinar servicios técnicos o brindar asesoría sobre productos Instamatic.",
+          "La información será utilizada para responder consultas, preparar cotizaciones, gestionar siniestros o brindar asesoría sobre los seguros de Kautela.",
       },
       {
         title: "Protección de datos",
         description:
-          "Instamatic procurará manejar la información de forma responsable, evitando su uso para fines ajenos a la atención solicitada por el usuario.",
+          "Kautela procurará manejar la información de forma responsable, evitando su uso para fines ajenos a la atención solicitada por el usuario.",
       },
       {
         title: "Comunicación con el usuario",
         description:
-          "El usuario podrá ser contactado mediante los datos proporcionados para dar seguimiento a su solicitud.",
+          "El usuario podrá ser contactado mediante los datos proporcionados para dar seguimiento a su solicitud o reclamo.",
       },
       {
         title: "Actualización de la política",
@@ -72,7 +75,10 @@ export const privacyPolicySectionsData = [
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -91,7 +97,7 @@ export const privacyPolicySectionsData = [
       eyebrow: "Consultas",
       title: "¿Tienes dudas sobre privacidad?",
       description:
-        "Puedes comunicarte con Instamatic para solicitar información relacionada con el tratamiento de tus datos personales.",
+        "Puedes comunicarte con Kautela para solicitar información relacionada con el tratamiento de tus datos personales.",
     },
     media: {
       background: null,
@@ -116,6 +122,9 @@ export const privacyPolicySectionsData = [
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 ];

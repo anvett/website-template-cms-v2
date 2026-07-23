@@ -35,30 +35,30 @@
      COLORES
   ========================= */
 
-  --color-primary: #104088;
-  --color-secondary: #123a78;
-  --color-accent: #f8c018;
+  --color-primary: #006D9E;
+  --color-secondary: #004F76;
+  --color-accent: #86BC25;
   --color-danger: #e53e3e;
 
-  --color-bg: #f7f3ee;
-  --color-bg-soft: #f8fafc;
-  --color-bg-muted: #e2e8f0;
-  --color-bg-dark: #0f172a;
+  --color-bg: #f2f7fb;
+  --color-bg-soft: #e8f2f9;
+  --color-bg-muted: #cde0ec;
+  --color-bg-dark: #002a40;
   --color-bg-white: #ffffff;
 
-  --color-text: #1f2937;
-  --color-text-soft: #475569;
+  --color-text: #1a2e3b;
+  --color-text-soft: #3e6070;
   --color-text-inverse: #ffffff;
 
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
+  --color-border: #c5dde9;
+  --color-border-strong: #9bbdd0;
 
   /* =========================
      TIPOGRAFÍAS
   ========================= */
 
-  --font-heading: Inter, sans-serif;
-  --font-body: Inter, sans-serif;
+  --font-heading: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-body: var(--font-inter), "Inter", sans-serif;
 
   /* =========================
      SPACING
@@ -104,14 +104,14 @@
 
   --gradient-soft: linear-gradient(
     180deg,
-    rgba(16, 64, 136, 0.24) 0%,
+    rgba(0, 109, 158, 0.16) 0%,
     rgba(255, 255, 255, 1) 100%
   );
 
   --gradient-soft-inverse: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 0%,
-    rgba(16, 64, 136, 0.24) 100%
+    rgba(0, 109, 158, 0.16) 100%
   );
 
   --gradient-brand: linear-gradient(
@@ -123,7 +123,7 @@
   --gradient-accent: linear-gradient(
     135deg,
     var(--color-accent) 0%,
-    #ffd84d 100%
+    #75982C 100%
   );
 }
 
@@ -180,18 +180,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+@layer base {
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 
-img,
-video {
-  height: auto;
+  img,
+  video {
+    height: auto;
+  }
 }
 
 button,

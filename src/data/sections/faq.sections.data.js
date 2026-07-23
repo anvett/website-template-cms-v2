@@ -9,9 +9,9 @@ export const faqSectionsData = [
     spacing: "hero",
     content: {
       eyebrow: "Preguntas frecuentes",
-      title: "Resuelve tus dudas sobre Instamatic",
+      title: "Resuelve tus dudas sobre nuestros seguros",
       description:
-        "Encuentra respuestas sobre calefones, instalación, mantenimiento, garantías, productos y servicios técnicos.",
+        "Encuentra respuestas sobre los ramos de seguros, cotizaciones, contratación y atención de siniestros.",
     },
     media: {
       background: null,
@@ -25,7 +25,10 @@ export const faqSectionsData = [
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -44,91 +47,79 @@ export const faqSectionsData = [
       eyebrow: "FAQ",
       title: "Preguntas frecuentes",
       description:
-        "Información útil para ayudarte a elegir, instalar y mantener tu calefón Instamatic.",
+        "Información útil para ayudarte a elegir, contratar y dar seguimiento a tu seguro con Kautela.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/faq-bg.jpg",
-        alt: "Preguntas frecuentes Instamatic",
+        src: "/assets/images/kautela/faq-bg.jpg",
+        alt: "Preguntas frecuentes Kautela",
       },
       foreground: null,
     },
     items: [
       {
-        category: "Productos",
+        category: "Sobre Kautela",
         questions: [
           {
-            question:
-              "¿Qué capacidad tienen los calefones Instamatic destacados?",
+            question: "¿Qué es Kautela?",
             answer:
-              "Los modelos principales son calefones Instamatic de 26 litros, ideales para hasta 2 duchas simultáneas, según las condiciones de instalación.",
+              "Kautela es una agencia asesora productora de seguros con sede en Ibarra, que brinda asesoría especializada en distintos ramos de seguros a nivel nacional.",
           },
           {
-            question:
-              "¿Cuál es la diferencia entre el modelo clásico y el reforzado?",
+            question: "¿En qué ciudades tienen cobertura?",
             answer:
-              "El modelo clásico está orientado al uso doméstico, mientras que el reforzado cuenta con mayor resistencia interna y se recomienda para alto uso, negocios o hidromasajes.",
+              "Brindamos atención y asesoría en 17 ciudades del país, con oficinas en Ibarra.",
           },
           {
-            question: "¿Los calefones tienen garantía?",
+            question: "¿Trabajan con una sola aseguradora?",
             answer:
-              "Sí. El modelo clásico cuenta con garantía de 2 años y el modelo reforzado con garantía de 3 años.",
+              "Como agencia asesora productora de seguros, comparamos opciones entre distintas aseguradoras para recomendar la cobertura más conveniente para cada cliente.",
           },
         ],
       },
       {
-        category: "Instalación",
+        category: "Ramos de seguros",
         questions: [
           {
-            question: "¿Realizan instalación en Quito y Valles?",
+            question: "¿Qué ramos de seguros maneja Kautela?",
             answer:
-              "Sí. La instalación está disponible para hogares y negocios en Quito y Valles.",
+              "Trabajamos 7 ramos: Vida y Salud, Empresarial y Consorcio, Desgravamen, Ahorro Acumulativo, Transporte, Vehicular, y Vivienda, Hogar y Familia.",
           },
           {
-            question: "¿Qué incluye la instalación básica?",
+            question: "¿Puedo contratar más de un ramo?",
             answer:
-              "Incluye la instalación profesional del calefón, verificación del punto de instalación y pruebas finales de funcionamiento.",
-          },
-          {
-            question: "¿Los equipos funcionan con baja presión de agua?",
-            answer:
-              "Instamatic se destaca por ofrecer equipos y soluciones adaptadas a hogares con baja presión de agua.",
+              "Sí. Podemos asesorarte para combinar distintos ramos según tus necesidades personales, familiares o empresariales.",
           },
         ],
       },
       {
-        category: "Servicio técnico",
+        category: "Cotización y contratación",
         questions: [
           {
-            question: "¿Qué fallas pueden revisar?",
+            question: "¿Cómo solicito una cotización?",
             answer:
-              "Se pueden revisar problemas de encendido, baja temperatura, fugas internas, fallos en componentes y bajo rendimiento del equipo.",
+              "Puedes comunicarte desde la página de contacto indicando el ramo de tu interés para recibir orientación personalizada.",
           },
           {
-            question: "¿El mantenimiento ayuda a prolongar la vida útil?",
+            question: "¿La asesoría tiene algún costo?",
             answer:
-              "Sí. El mantenimiento preventivo ayuda a evitar daños mayores, mejorar el rendimiento y prolongar la vida útil del calefón.",
-          },
-          {
-            question: "¿Tienen repuestos disponibles?",
-            answer:
-              "Instamatic cuenta con respaldo y disponibilidad de repuestos para mantenimiento y reparación según el caso.",
+              "La asesoría inicial para orientarte sobre el seguro más adecuado no tiene costo.",
           },
         ],
       },
       {
-        category: "Cotización y contacto",
+        category: "Siniestros",
         questions: [
           {
-            question: "¿Cómo puedo solicitar una cotización?",
+            question: "¿Qué hago si tengo un siniestro?",
             answer:
-              "Puedes comunicarte desde la página de contacto indicando si necesitas un producto, instalación, mantenimiento, bomba de agua o gas centralizado.",
+              "Puedes comunicarte directamente a nuestra línea de siniestros para recibir acompañamiento durante todo el proceso de gestión.",
           },
           {
-            question: "¿Me pueden asesorar antes de comprar?",
+            question: "¿Kautela me acompaña durante el proceso?",
             answer:
-              "Sí. Puedes solicitar orientación para elegir el calefón, combo o servicio adecuado según tu necesidad, presión de agua y tipo de instalación.",
+              "Sí. Te acompañamos en la gestión y seguimiento de tu reclamo ante la aseguradora correspondiente.",
           },
         ],
       },
@@ -147,8 +138,8 @@ export const faqSectionsData = [
     spacing: "compact",
     content: {
       quote:
-        "Elegir bien el equipo y mantenerlo correctamente ayuda a mejorar seguridad, rendimiento y vida útil.",
-      author: "Instamatic Ecuador",
+        "Elegir bien tu cobertura hoy te evita preocupaciones financieras mañana.",
+      author: "Kautela",
     },
     media: {
       background: null,
@@ -156,7 +147,10 @@ export const faqSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -168,10 +162,15 @@ export const faqSectionsData = [
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Asesoría Instamatic",
+      eyebrow: "Asesoría Kautela",
       title: "Conversemos sobre tu necesidad",
       description:
-        "Te orientamos para elegir el calefón, combo o servicio más adecuado para tu hogar o negocio.",
+        "Te orientamos para elegir el ramo de seguro más adecuado para ti, tu familia o tu empresa.",
+    },
+    background: {
+      type: "image",
+      src: "/assets/images/cta/cta-faq-bg.png",
+      alt: "Seguros Kautela",
     },
     media: {
       background: null,
@@ -185,11 +184,14 @@ export const faqSectionsData = [
         variant: "primary",
       },
       {
-        label: "Ver productos",
-        href: "/products",
+        label: "Ver ramos de seguros",
+        href: "/services",
         variant: "secondary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 ];

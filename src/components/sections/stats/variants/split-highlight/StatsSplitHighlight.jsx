@@ -2,6 +2,16 @@
 
 import { motion } from "framer-motion";
 
+import { Heading } from "@/components/ui/content/Heading";
+import { Text } from "@/components/ui/content/Text";
+import { StatItem } from "@/components/ui/content/StatItem";
+import { Card } from "@/components/ui/content/Card";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
+
 export function StatsSplitHighlight({ data }) {
   if (!data || !data.enabled) return null;
 
@@ -11,12 +21,45 @@ export function StatsSplitHighlight({ data }) {
   const primaryStat = items[0];
   const secondaryStats = items.slice(1);
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-dark" });
+
   return (
     <section
       id={data.id}
-      className="section-shell gradient-dark text-[var(--color-text-inverse)]"
+      className={[
+        "section-shell relative overflow-hidden text-[var(--color-text-inverse)]",
+        getSpacingClass(data.spacing),
+        bg.hasImage ? "bg-[var(--color-bg-dark)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      <div className="section-container section-container--wide grid gap-[3.5rem] lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-[5rem]">
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {bg.hasImage && bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      <div
+        className={[
+          "section-container relative grid gap-[3.5rem] lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-[5rem]",
+          getContainerClass(data.containerWidth) || "section-container--wide",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+
+        {/* Columna izquierda — header */}
         <motion.div
           className="flex flex-col gap-[1.25rem]"
           initial={{ opacity: 0, y: 24 }}
@@ -24,25 +67,39 @@ export function StatsSplitHighlight({ data }) {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {content.eyebrow ? (
-            <p className="section-eyebrow text-[var(--color-accent)]">
+          {content.eyebrow && (
+            <Text
+              size="sm"
+              tone="accent"
+              className="font-bold uppercase tracking-[0.08em]"
+            >
               {content.eyebrow}
-            </p>
-          ) : null}
+            </Text>
+          )}
 
-          {content.title ? (
-            <h2 className="text-balance font-[var(--font-heading)] text-[clamp(2.4rem,5vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.045em] text-[var(--color-text-inverse)]">
+          {content.title && (
+            <Heading
+              as="h2"
+              level="h2"
+              tone="inverse"
+              className="text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.02] tracking-[-0.045em]"
+            >
               {content.title}
-            </h2>
-          ) : null}
+            </Heading>
+          )}
 
-          {content.description ? (
-            <p className="max-w-[42rem] text-[1.0625rem] leading-[1.75] text-white/80">
+          {content.description && (
+            <Text
+              size="lg"
+              tone="inverse"
+              className="max-w-[42rem] opacity-80"
+            >
               {content.description}
-            </p>
-          ) : null}
+            </Text>
+          )}
         </motion.div>
 
+        {/* Columna derecha — stats */}
         <motion.div
           className="grid gap-[1.5rem]"
           initial={{ opacity: 0, y: 24 }}
@@ -50,62 +107,52 @@ export function StatsSplitHighlight({ data }) {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
         >
-          {primaryStat ? (
-            <div className="rounded-[var(--radius-xl)] border border-white/15 bg-white/10 p-[2rem] backdrop-blur-sm">
-              <div className="flex flex-col gap-[0.75rem]">
-                {primaryStat.value ? (
-                  <span className="text-[clamp(3.75rem,8vw,4.5rem)] font-bold leading-none tracking-[-0.05em] text-[var(--color-accent)]">
-                    {primaryStat.value}
-                  </span>
-                ) : null}
+          {/* Stat principal */}
+          {primaryStat && (
+            <Card
+              surface="base"
+              padding="lg"
+              radius="xl"
+              shadow="none"
+              border={false}
+              className="border border-white/15 bg-white/10 backdrop-blur-sm"
+            >
+              <StatItem
+                value={primaryStat.value}
+                label={primaryStat.label}
+                description={primaryStat.description}
+                size="lg"
+                tone="strong"
+                align="left"
+              />
+            </Card>
+          )}
 
-                <div className="flex flex-col gap-[0.25rem]">
-                  {primaryStat.label ? (
-                    <h3 className="text-[1.5rem] font-bold leading-[1.2] text-[var(--color-text-inverse)]">
-                      {primaryStat.label}
-                    </h3>
-                  ) : null}
-
-                  {primaryStat.description ? (
-                    <p className="text-[1rem] leading-[1.7] text-white/75">
-                      {primaryStat.description}
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          ) : null}
-
-          {secondaryStats.length > 0 ? (
+          {/* Stats secundarias */}
+          {secondaryStats.length > 0 && (
             <div className="grid gap-[1.5rem] md:grid-cols-2">
               {secondaryStats.map((item, index) => (
-                <div
+                <Card
                   key={item.label || index}
-                  className="rounded-[var(--radius-xl)] border border-white/15 bg-white/10 p-[1.5rem] backdrop-blur-sm"
+                  surface="base"
+                  padding="md"
+                  radius="xl"
+                  shadow="none"
+                  border={false}
+                  className="border border-white/15 bg-white/10 backdrop-blur-sm"
                 >
-                  <div className="flex flex-col gap-[0.5rem]">
-                    {item.value ? (
-                      <span className="text-[clamp(2.25rem,5vw,3rem)] font-bold leading-none tracking-[-0.04em] text-[var(--color-accent)]">
-                        {item.value}
-                      </span>
-                    ) : null}
-
-                    {item.label ? (
-                      <h3 className="text-[1.25rem] font-bold leading-[1.2] text-[var(--color-text-inverse)]">
-                        {item.label}
-                      </h3>
-                    ) : null}
-
-                    {item.description ? (
-                      <p className="text-[0.95rem] leading-[1.6] text-white/70">
-                        {item.description}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
+                  <StatItem
+                    value={item.value}
+                    label={item.label}
+                    description={item.description}
+                    size="md"
+                    tone="strong"
+                    align="left"
+                  />
+                </Card>
               ))}
             </div>
-          ) : null}
+          )}
         </motion.div>
       </div>
     </section>

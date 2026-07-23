@@ -11,7 +11,7 @@ export const termsAndConditionsSectionsData = [
       eyebrow: "Términos y condiciones",
       title: "Condiciones generales de uso",
       description:
-        "Consulta las condiciones relacionadas con el uso del sitio web, productos, servicios y solicitudes realizadas a Instamatic.",
+        "Consulta las condiciones relacionadas con el uso del sitio web y los servicios de asesoría de seguros ofrecidos por Kautela.",
     },
     media: {
       background: null,
@@ -19,7 +19,10 @@ export const termsAndConditionsSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -36,9 +39,9 @@ export const termsAndConditionsSectionsData = [
     },
     content: {
       eyebrow: "Condiciones",
-      title: "Información general sobre productos y servicios",
+      title: "Información general sobre nuestros servicios",
       description:
-        "El contenido publicado en este sitio tiene fines informativos y comerciales. Las características, precios, disponibilidad, garantías y condiciones de servicio pueden variar y deberán confirmarse al momento de solicitar una cotización o contratación.",
+        "El contenido publicado en este sitio tiene fines informativos y comerciales. Las coberturas, condiciones, requisitos y vigencias de las pólizas dependen de cada aseguradora y deberán confirmarse al momento de la cotización o contratación.",
     },
     media: {
       background: null,
@@ -48,17 +51,17 @@ export const termsAndConditionsSectionsData = [
       {
         title: "Uso del sitio web",
         description:
-          "El usuario se compromete a utilizar la información del sitio de forma responsable y con fines relacionados con la consulta de productos o servicios Instamatic.",
+          "El usuario se compromete a utilizar la información del sitio de forma responsable y con fines relacionados con la consulta de los servicios de asesoría de Kautela.",
       },
       {
-        title: "Información de productos",
+        title: "Naturaleza del servicio",
         description:
-          "Los productos, precios, combos, características y garantías mostrados pueden estar sujetos a disponibilidad, actualizaciones o condiciones comerciales vigentes.",
+          "Kautela actúa como agencia asesora productora de seguros, intermediando entre el cliente y las aseguradoras para recomendar la cobertura más adecuada.",
       },
       {
-        title: "Servicios técnicos",
+        title: "Información de coberturas",
         description:
-          "La instalación, mantenimiento, reparación, sistemas de bombeo o gas centralizado dependerán de la evaluación técnica, condiciones del lugar y alcance solicitado.",
+          "Las coberturas, beneficios y condiciones mostradas en este sitio son referenciales y están sujetas a las condiciones particulares de cada póliza y aseguradora.",
       },
       {
         title: "Cotizaciones",
@@ -66,18 +69,21 @@ export const termsAndConditionsSectionsData = [
           "Toda cotización deberá ser confirmada por los canales oficiales de atención antes de considerarse definitiva.",
       },
       {
-        title: "Garantías",
+        title: "Gestión de siniestros",
         description:
-          "Las garantías aplican según el modelo, condiciones de uso, instalación y términos específicos informados al cliente al momento de la compra.",
+          "El acompañamiento en la gestión de siniestros se realiza conforme a los procedimientos y plazos establecidos por cada aseguradora.",
       },
       {
         title: "Actualización de condiciones",
         description:
-          "Instamatic podrá actualizar esta información conforme cambien sus productos, servicios, procesos o condiciones comerciales.",
+          "Kautela podrá actualizar esta información conforme cambien sus servicios, procesos o condiciones comerciales.",
       },
     ],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -96,7 +102,7 @@ export const termsAndConditionsSectionsData = [
       eyebrow: "Consultas",
       title: "¿Necesitas aclarar alguna condición?",
       description:
-        "Puedes comunicarte con Instamatic para confirmar información sobre productos, servicios, garantías, precios o condiciones de atención.",
+        "Puedes comunicarte con Kautela para confirmar información sobre ramos de seguros, coberturas o condiciones de atención.",
     },
     media: {
       background: null,
@@ -104,14 +110,14 @@ export const termsAndConditionsSectionsData = [
     },
     items: [
       {
-        title: "Productos y combos",
+        title: "Ramos de seguros",
         description:
-          "Consulta disponibilidad, precios, características y condiciones vigentes.",
+          "Consulta condiciones, coberturas y requisitos vigentes para cada ramo.",
       },
       {
-        title: "Servicios técnicos",
+        title: "Siniestros",
         description:
-          "Solicita aclaración sobre instalación, mantenimiento, reparación, bombeo de agua o gas centralizado.",
+          "Solicita aclaración sobre el proceso de gestión y seguimiento de reclamos.",
       },
     ],
     actions: [
@@ -121,6 +127,9 @@ export const termsAndConditionsSectionsData = [
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 ];

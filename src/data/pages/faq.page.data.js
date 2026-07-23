@@ -4,10 +4,10 @@ export const faqPageData = {
   enabled: true,
 
   seo: {
-    title: "Preguntas frecuentes | Instamatic Ecuador",
+    title: "Preguntas frecuentes | Kautela",
     description:
-      "Resuelve tus dudas sobre calefones, instalación, mantenimiento, garantías y servicios técnicos de Instamatic.",
-    canonical: "https://www.instamatic.ec/faq",
+      "Resuelve tus dudas sobre asesoría en seguros, cotizaciones, gestión de reclamos y ramos que ofrecemos en Kautela.",
+    canonical: "https://www.kautelaseguro.com/faq",
     robots: {
       index: true,
       follow: true,
@@ -15,16 +15,16 @@ export const faqPageData = {
   },
 
   openGraph: {
-    title: "Preguntas frecuentes | Instamatic Ecuador",
+    title: "Preguntas frecuentes | Kautela",
     description:
-      "Encuentra respuestas sobre productos, instalación, mantenimiento y garantías de calefones Instamatic.",
-    url: "https://www.instamatic.ec/faq",
+      "Encuentra respuestas sobre asesoría, cotizaciones, ramos de seguros y gestión de reclamos.",
+    url: "https://www.kautelaseguro.com/faq",
     images: [
       {
-        url: "/images/instamatic/og-faq.jpg",
+        url: "/assets/images/kautela/og-faq.jpg",
         width: 1200,
         height: 630,
-        alt: "Preguntas frecuentes Instamatic Ecuador",
+        alt: "Preguntas frecuentes Kautela",
       },
     ],
   },

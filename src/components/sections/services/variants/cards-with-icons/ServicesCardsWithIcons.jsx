@@ -11,6 +11,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/actions/Button";
 import { SectionHeader } from "@/components/ui/content/SectionHeader";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 const iconMap = {
   Flame,
@@ -28,12 +33,43 @@ export function ServicesCardsWithIcons({ data }) {
   const items = data.items || [];
   const actions = data.actions || [];
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "surface-subtle" });
+
   return (
     <section
       id={data.id}
-      className="relative isolate w-full overflow-hidden bg-[var(--color-bg-soft)] px-[1.5rem] py-[var(--section-spacing)] text-[var(--color-text)]"
+      className={[
+        "section-shell relative isolate w-full overflow-hidden px-[1.5rem] text-[var(--color-text)]",
+        getSpacingClass(data.spacing),
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      <div className="mx-auto flex w-full max-w-[var(--container-width-wide)] flex-col gap-[3rem]">
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {bg.hasImage && bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      <div
+        className={[
+          "section-container relative flex w-full flex-col gap-[3rem]",
+          getContainerClass(data.containerWidth) || "section-container--wide",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="mx-auto w-full max-w-[820px]"
           initial={{ opacity: 0, y: 22 }}

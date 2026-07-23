@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Merriweather } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import { siteData } from "@/data/global/site.data";
 import { Footer } from "@/components/sections/footer";
 import { Navbar } from "@/components/sections/navbar";
@@ -31,10 +31,10 @@ const inter = Inter({
 });
 
 /* Fuente secundaria para títulos editoriales o destacados */
-const merriweather = Merriweather({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-merriweather",
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-montserrat",
 });
 
 /* Metadata global alimentada desde site.data.js */
@@ -80,11 +80,11 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang={siteData.site.language}>
-      <body className={`${inter.variable} ${merriweather.variable}`}>
+      <body className={`${inter.variable} ${montserrat.variable}`}>
         <div className="site-shell">
           <Navbar />
-          {children} 
-          <FloatingWhatsapp />
+          {children}
+          <FloatingWhatsapp message="Hola, deseo más información sobre los seguros de Kautela." />
           <Footer />
         </div>
         

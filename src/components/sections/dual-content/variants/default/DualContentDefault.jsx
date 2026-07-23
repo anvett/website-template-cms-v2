@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 
+import Image from "next/image";
+
 import { Card } from "@/components/ui/content/Card";
 import {MediaFrame}  from "@/components/ui/content/MediaFrame";
 import { Button } from "@/components/ui/actions/Button";
@@ -25,9 +27,19 @@ const spacingClasses = {
   hero: "py-[var(--section-spacing-hero)]",
 };
 
-function getSectionClasses(background, spacing) {
-  const base = "relative overflow-hidden text-[var(--color-text)]";
+const surfaceClasses = {
+  base: "surface-base",
+  subtle: "surface-subtle",
+  strong: "surface-strong",
+};
+
+function getSectionClasses({ background, surface, spacing, hasImage }) {
+  const base = "relative overflow-hidden";
   const spacingClass = spacingClasses[spacing] || spacingClasses.default;
+
+  if (hasImage) {
+    return `${base} ${spacingClass} bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]`;
+  }
 
   if (background?.type === "gradient" && background?.variant === "dark") {
     return `${base} ${spacingClass} gradient-dark`;
@@ -37,7 +49,8 @@ function getSectionClasses(background, spacing) {
     return `${base} ${spacingClass} gradient-soft`;
   }
 
-  return `${base} ${spacingClass} bg-[var(--color-bg)]`;
+  const surfaceClass = surfaceClasses[surface] || "surface-base";
+  return `${base} ${spacingClass} ${surfaceClass}`;
 }
 
 export function DualContentDefault({ data }) {
@@ -47,18 +60,45 @@ export function DualContentDefault({ data }) {
     id,
     containerWidth = "section",
     spacing = "default",
+    surface,
     background = {},
     content = {},
     items = [],
     actions = [],
   } = data;
 
+  const media = data.media?.background;
+  const hasImage = background?.type === "image" && Boolean(media?.src);
+
   const isDark =
-    background?.type === "gradient" && background?.variant === "dark";
+    hasImage || (background?.type === "gradient" && background?.variant === "dark");
+
+  const overlayEnabled = data.meta?.overlay ?? media?.overlay ?? true;
+  const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
 
   return (
-    <section id={id} className={getSectionClasses(background, spacing)}>
-      {isDark ? (
+    <section
+      id={id}
+      className={getSectionClasses({ background, surface, spacing, hasImage })}
+    >
+      {hasImage ? (
+        <>
+          <Image
+            src={media.src}
+            alt={media.alt || ""}
+            fill
+            sizes="100vw"
+            className="absolute inset-0 z-0 object-cover"
+          />
+          {overlayEnabled ? (
+            <div
+              className="absolute inset-0 z-[1] bg-black"
+              style={{ opacity: overlayOpacity }}
+              aria-hidden="true"
+            />
+          ) : null}
+        </>
+      ) : isDark ? (
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(248,192,24,0.18),transparent_32%),radial-gradient(circle_at_85%_15%,rgba(255,255,255,0.12),transparent_28%)]"
           aria-hidden="true"

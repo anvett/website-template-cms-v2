@@ -9,9 +9,9 @@ export const contactSectionsData = [
     spacing: "hero",
     content: {
       eyebrow: "Contacto",
-      title: "Solicita información o cotización",
+      title: "Solicita asesoría o cotización",
       description:
-        "Contáctanos para productos Instamatic, instalación de calefones, mantenimiento técnico, sistemas de bombeo o gas centralizado.",
+        "Contáctanos para recibir asesoría sobre cualquiera de nuestros 7 ramos de seguros o para reportar un siniestro.",
     },
     media: {
       background: null,
@@ -19,7 +19,10 @@ export const contactSectionsData = [
     },
     items: [],
     actions: [],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -38,7 +41,7 @@ export const contactSectionsData = [
       eyebrow: "Escríbenos",
       title: "Cuéntanos qué necesitas",
       description:
-        "Completa tus datos y selecciona el tipo de solución que buscas para recibir orientación por WhatsApp.",
+        "Completa tus datos y selecciona el ramo de tu interés para recibir orientación por WhatsApp.",
     },
     media: {
       background: null,
@@ -46,28 +49,24 @@ export const contactSectionsData = [
     },
     items: [
       {
-        title: "Productos",
-        description: "Calefones, combos y accesorios Instamatic.",
+        title: "Asesoría comercial",
+        description: "Cotizaciones y asesoría para los 7 ramos de seguros.",
       },
       {
-        title: "Servicios",
+        title: "Atención de siniestros",
         description:
-          "Instalación, mantenimiento, bombeo de agua y gas centralizado.",
+          "Acompañamiento y gestión ante un siniestro reportado.",
       },
-      // {
-      //   title: "Cobertura",
-      //   description: "Atención en Quito y Valles.",
-      // },
     ],
     actions: [],
     meta: {
       mapEmbed: {
         src: "https://www.google.com/maps/embed?...",
-        title: "Instamatic Ecuador",
+        title: "Kautela Agencia Asesora Productora de Seguros - Ibarra",
         height: "24rem",
       },
       form: {
-        whatsappIntro: "Hola, quiero solicitar información sobre Kautela.",
+        whatsappIntro: "Hola, deseo más información sobre los seguros de Kautela.",
         fields: [
           {
             name: "name",
@@ -89,15 +88,18 @@ export const contactSectionsData = [
           },
           {
             name: "service",
-            label: "Tipo de solicitud",
+            label: "Ramo de interés",
             type: "select",
             required: true,
             options: [
-              "Calefones y combos",
-              "Instalación de calefón",
-              "Servicio técnico y mantenimiento",
-              "Sistemas de bombeo de agua",
-              "Gas centralizado",
+              "Vida y Salud",
+              "Empresarial y Consorcio",
+              "Desgravamen",
+              "Ahorro Acumulativo",
+              "Transporte",
+              "Vehicular",
+              "Vivienda, Hogar y Familia",
+              "Reporte de siniestro",
               "Otra consulta",
             ],
           },
@@ -126,9 +128,9 @@ export const contactSectionsData = [
     },
     content: {
       eyebrow: "Cobertura",
-      title: "Atención en Quito y Valles",
+      title: "Atención a nivel nacional",
       description:
-        "Brindamos asesoría para hogares, edificios, negocios y proyectos que requieren soluciones de agua caliente, presión o gas.",
+        "Brindamos asesoría a personas, familias y empresas en 17 ciudades del país, con oficinas en Ibarra.",
     },
     media: {
       background: null,
@@ -137,26 +139,32 @@ export const contactSectionsData = [
     items: [
       {
         title: "Zona de atención",
-        description: "Quito y Valles.",
+        description: "Cobertura nacional, oficinas en Ibarra.",
       },
       {
         title: "Tipo de clientes",
-        description: "Hogares, edificios, negocios y proyectos.",
+        description: "Personas, familias, empresas y consorcios.",
       },
       {
-        title: "Solicitudes",
-        description:
-          "Productos, instalación, mantenimiento, bombeo de agua y gas centralizado.",
+        title: "Comercial",
+        description: "WhatsApp: 0992 559 126",
+      },
+      {
+        title: "Siniestros",
+        description: "WhatsApp: 0992 753 560",
       },
     ],
     actions: [
       {
-        label: "Ver servicios",
+        label: "Ver ramos de seguros",
         href: "/services",
         variant: "primary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 
   {
@@ -168,10 +176,10 @@ export const contactSectionsData = [
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Instamatic Ecuador",
-      title: "Recibe asesoría para elegir la mejor solución",
+      eyebrow: "Kautela",
+      title: "Recibe asesoría para elegir la mejor cobertura",
       description:
-        "Te ayudamos a definir el calefón, combo o servicio adecuado según tu necesidad, presión de agua y tipo de instalación.",
+        "Te ayudamos a definir el seguro adecuado según tu necesidad personal, familiar o empresarial.",
     },
     media: {
       background: null,
@@ -180,16 +188,19 @@ export const contactSectionsData = [
     items: [],
     actions: [
       {
-        label: "Ver productos",
-        href: "/products",
+        label: "Ver ramos de seguros",
+        href: "/services",
         variant: "primary",
       },
       {
-        label: "Ver servicios",
-        href: "/services",
+        label: "Conocer Kautela",
+        href: "/about-us",
         variant: "secondary",
       },
     ],
-    meta: {},
+    meta: {
+      overlay: false,
+      overlayOpacity: 0.5,
+    },
   },
 ];

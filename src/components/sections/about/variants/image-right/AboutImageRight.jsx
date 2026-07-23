@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function AboutImageRight({ data }) {
   if (!data || !data.enabled) return null;
@@ -12,9 +17,29 @@ export function AboutImageRight({ data }) {
   const { content, media, actions } = data;
   const image = media?.foreground;
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+
   return (
-    <section className="gradient-soft py-[var(--section-spacing)] text-[var(--color-text)]">
-      <div className="mx-auto grid w-[min(calc(100%-2.5rem),var(--container-width))] items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <section
+      id={data.id}
+      className={[
+        "section-shell",
+        getSpacingClass(data.spacing),
+        bg.surfaceClass,
+        "text-[var(--color-text)]",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div
+        className={[
+          "section-container",
+          getContainerClass(data.containerWidth),
+          "grid items-center gap-10 lg:grid-cols-2 lg:gap-16",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="flex flex-col gap-5"
           variants={fadeUp}

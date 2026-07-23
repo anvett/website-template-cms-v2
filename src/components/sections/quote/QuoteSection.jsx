@@ -5,46 +5,55 @@ import { Quote } from "lucide-react";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-
-const spacingClasses = {
-  compact: "py-[var(--section-spacing-compact)]",
-  default: "py-[var(--section-spacing)]",
-  hero: "py-[var(--section-spacing-hero)]",
-};
-
-const containerClasses = {
-  content:
-    "mx-auto w-full max-w-[var(--container-width-content)] px-[var(--container-padding)]",
-  section:
-    "mx-auto w-full max-w-[var(--container-width)] px-[var(--container-padding)]",
-  wide:
-    "mx-auto w-full max-w-[var(--container-width-wide)] px-[var(--container-padding)]",
-};
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function QuoteSection({ data }) {
   if (!data || !data.enabled) return null;
 
   const {
     containerWidth = "content",
-    spacing = "compact",
     content = {},
     meta = {},
   } = data;
 
   const iconEnabled = meta?.showIcon ?? true;
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft-inverse" });
+
   return (
     <section
+      id={data.id}
       className={[
-        "gradient-soft-inverse text-[var(--color-text)]",
-        spacingClasses[spacing] || spacingClasses.compact,
+        "section-shell relative overflow-hidden text-[var(--color-text)]",
+        getSpacingClass(data.spacing) || "section-shell--compact",
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
       ]
         .filter(Boolean)
         .join(" ")}
     >
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {bg.hasImage && bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
       <motion.div
         className={[
-          containerClasses[containerWidth] || containerClasses.content,
+          "section-container relative",
+          getContainerClass(containerWidth) || "section-container--content",
           "flex flex-col items-center gap-6 text-center",
         ]
           .filter(Boolean)

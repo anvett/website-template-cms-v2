@@ -6,35 +6,59 @@ import { Button } from "@/components/ui/actions/Button";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
 
 export function ComparisonSplit({ data }) {
   if (!data || !data.enabled) return null;
 
   const { id, content, media, items, actions, meta = {} } = data;
+  const sectionBackground = data.background || {};
   const background = media?.background;
+
+  const bgSrc = background?.src || sectionBackground.src || null;
+  const bgAlt = background?.alt || sectionBackground.alt || "";
+  const isImage = sectionBackground.type === "image" && Boolean(bgSrc);
+  const isSurface = sectionBackground.type === "surface";
 
   const overlayEnabled = meta?.overlay ?? background?.overlay ?? true;
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
 
+  const surfaceClasses = {
+    base: "surface-base",
+    subtle: "surface-subtle",
+    strong: "surface-strong",
+  };
+
   return (
     <section
       id={id}
-      className="relative overflow-hidden bg-[var(--color-bg-dark)] py-[var(--section-spacing)] text-[var(--color-text-inverse)]"
+      className={[
+        "section-shell relative overflow-hidden",
+        getSpacingClass(data.spacing),
+        isImage
+          ? "bg-[var(--color-bg-dark)]"
+          : isSurface
+            ? surfaceClasses[data.surface] || "surface-strong"
+            : "bg-[var(--color-bg-dark)]",
+        isSurface ? "" : "text-[var(--color-text-inverse)]",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      {background?.src ? (
+      {isImage ? (
         <img
-          src={background.src}
-          alt={background.alt || ""}
+          src={bgSrc}
+          alt={bgAlt}
           className="absolute inset-0 h-full w-full object-cover"
         />
-      ) : (
+      ) : !isSurface ? (
         <div
           className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(248,192,24,0.12),transparent_30%),linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]"
           aria-hidden="true"
         />
-      )}
+      ) : null}
 
-      {overlayEnabled ? (
+      {isImage && overlayEnabled ? (
         <div
           className="absolute inset-0 bg-black"
           style={{ opacity: overlayOpacity }}
@@ -42,7 +66,14 @@ export function ComparisonSplit({ data }) {
         />
       ) : null}
 
-      <div className="relative mx-auto flex w-full max-w-[var(--container-width-wide)] flex-col gap-16 px-[var(--container-padding)]">
+      <div
+        className={[
+          "section-container relative flex w-full flex-col gap-16",
+          getContainerClass(data.containerWidth),
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <motion.div
           className="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center"
           variants={fadeUp}

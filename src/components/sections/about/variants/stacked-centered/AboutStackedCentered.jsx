@@ -2,6 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveBackground,
+} from "@/lib/sections/sectionStyle";
 
 export function AboutStackedCentered({ data }) {
   if (!data || !data.enabled) return null;
@@ -9,11 +14,25 @@ export function AboutStackedCentered({ data }) {
   const content = data.content || {};
   const actions = data.actions || [];
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+
   return (
     <section
       id={data.id}
-      className="w-full bg-[var(--gradient-soft)] px-[1.5rem] py-[var(--section-spacing)] text-[var(--color-text)]"
+      className={[
+        "section-shell w-full",
+        getSpacingClass(data.spacing),
+        bg.surfaceClass,
+        "text-[var(--color-text)]",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
+      <div
+        className={["section-container", getContainerClass(data.containerWidth)]
+          .filter(Boolean)
+          .join(" ")}
+      >
       <motion.div
         className="mx-auto flex w-full max-w-[760px] flex-col items-center text-center"
         initial={{ opacity: 0, y: 24 }}
@@ -53,6 +72,7 @@ export function AboutStackedCentered({ data }) {
           </div>
         ) : null}
       </motion.div>
+      </div>
     </section>
   );
 }

@@ -4,10 +4,10 @@ export const aboutUsPageData = {
   enabled: true,
 
   seo: {
-    title: "Nosotros | Instamatic Ecuador",
+    title: "Nosotros | Kautela",
     description:
-      "Conoce la historia, misión, visión y valores de Instamatic, marca reconocida de calefones a gas con más de 20 años en Ecuador.",
-    canonical: "https://www.instamatic.ec/about-us",
+      "Conoce la historia, misión, visión, valores y fortalezas de Kautela, firma ecuatoriana de asesoría en seguros constituida en Ibarra en 2014.",
+    canonical: "https://www.kautelaseguro.com/about-us",
     robots: {
       index: true,
       follow: true,
@@ -15,16 +15,16 @@ export const aboutUsPageData = {
   },
 
   openGraph: {
-    title: "Nosotros | Instamatic Ecuador",
+    title: "Nosotros | Kautela",
     description:
-      "Más de 20 años brindando calefones a gas eficientes, seguros y duraderos para hogares y negocios en Ecuador.",
-    url: "https://www.instamatic.ec/about-us",
+      "Asesoría integral en seguros con excelencia operativa, capacidad de innovación y compromiso social.",
+    url: "https://www.kautelaseguro.com/about-us",
     images: [
       {
-        url: "/images/instamatic/og-about-us.jpg",
+        url: "/assets/images/kautela/og-about-us.jpg",
         width: 1200,
         height: 630,
-        alt: "Historia y trayectoria de Instamatic Ecuador",
+        alt: "Historia y trayectoria de Kautela",
       },
     ],
   },
@@ -34,8 +34,8 @@ export const aboutUsPageData = {
     "about-story",
     "about-mission-vision",
     "about-values",
-    "about-stats",
-    "about-testimonials",
+    "about-strengths",
+    "about-infrastructure",
     "about-team",
     "about-quote",
     "about-cta",

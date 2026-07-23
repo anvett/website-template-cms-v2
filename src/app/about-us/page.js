@@ -4,6 +4,7 @@ import { aboutUsSectionsData } from "@/data/sections/about-us.sections.data";
 import { HeroSection } from "@/components/sections/hero";
 import { AboutSection } from "@/components/sections/about";
 import { ComparisonSection } from "@/components/sections/comparison";
+import { ServicesSection } from "@/components/sections/services";
 
 import { FeaturesSection } from "@/components/sections/features";
 import { StatsSection } from "@/components/sections/stats";
@@ -36,6 +37,9 @@ export default function AboutUsPage() {
 
           case "Features":
             return <FeaturesSection key={section.id} data={section} />;
+
+          case "Services":
+            return <ServicesSection key={section.id} data={section} />;
 
           case "Stats":
             return <StatsSection key={section.id} data={section} />;
