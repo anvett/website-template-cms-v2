@@ -8,6 +8,7 @@ import { ComparisonSection } from "@/components/sections/comparison";
 import { FeaturesSection } from "@/components/sections/features";
 import { StatsSection } from "@/components/sections/stats";
 import { TestimonialsSection } from "@/components/sections/testimonials";
+import { TeamSection } from "@/components/sections/team";
 import { QuoteSection } from "@/components/sections/quote";
 import { CTASection } from "@/components/sections/cta";
 
@@ -41,6 +42,9 @@ export default function AboutUsPage() {
 
           case "Testimonials":
             return <TestimonialsSection key={section.id} data={section} />;
+
+          case "Team":
+            return <TeamSection key={section.id} data={section} />;
 
           case "Quote":
             return <QuoteSection key={section.id} data={section} />;

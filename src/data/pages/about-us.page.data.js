@@ -36,6 +36,7 @@ export const aboutUsPageData = {
     "about-values",
     "about-stats",
     "about-testimonials",
+    "about-team",
     "about-quote",
     "about-cta",
   ],

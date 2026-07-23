@@ -249,6 +249,57 @@ export const aboutUsSectionsData = [
   },
 
   {
+    id: "about-team",
+    enabled: true,
+    component: "Team",
+    variant: "member-grid",
+    surface: "base",
+    containerWidth: "section",
+    spacing: "default",
+    content: {
+      eyebrow: "Nuestro equipo",
+      title: "Las personas detrás de cada asesoría",
+      description:
+        "Un equipo comprometido con la protección y bienestar de cada cliente.",
+    },
+    media: { background: null, foreground: null },
+    items: [
+      {
+        name: "CPA. Paulina Figueroa",
+        role: "CEO & Gerente General",
+        phone: "0992559126",
+        email: "gerencia@kautelaseguro.com",
+        image: {
+          src: "/assets/images/team/paulina-figueroa.jpg",
+          alt: "CPA. Paulina Figueroa — CEO & Gerente General de Kautela",
+        },
+      },
+      {
+        name: "ABG. Samantha Gaona",
+        role: "Asesor de Seguros",
+        phone: "0978717176",
+        email: "asesor@kautelaseguro.com",
+        image: {
+          src: "/assets/images/team/samantha-gaona.jpg",
+          alt: "ABG. Samantha Gaona — Asesor de Seguros en Kautela",
+        },
+      },
+      {
+        name: "TGL. Fabricio Yépez",
+        role: "Gerente de Siniestros",
+        phone: "0992753560",
+        email: "gerencia@kautelaseguro.com",
+        image: {
+          src: "/assets/images/team/fabricio-yepez.jpg",
+          alt: "TGL. Fabricio Yépez — Gerente de Siniestros en Kautela",
+        },
+      },
+    ],
+    actions: [],
+    meta: { overlay: false, overlayOpacity: 0.5 },
+  },
+
+  {
     id: "about-quote",
     enabled: true,
     component: "Quote",
