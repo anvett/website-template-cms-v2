@@ -114,24 +114,27 @@ export function ServicesDetailCards({ data }) {
                     surface="base"
                     padding="md"
                     radius="xl"
-                    shadow="sm"
+                    shadow="md"
                     border
-                    className="flex h-full flex-col transition duration-200 ease-out hover:-translate-y-[4px] hover:border-[rgba(16,64,136,0.28)] hover:shadow-[var(--shadow-md)]"
+                    className="flex h-full flex-col transition duration-200 ease-out hover:-translate-y-[4px] hover:border-[rgba(0,109,158,0.3)] hover:shadow-[var(--shadow-lg)]"
                   >
                     {item.title ? (
-                      <Heading
-                        as="h3"
-                        tone="primary"
-                        align="left"
-                        className="text-[1rem] font-bold leading-[1.25] tracking-[-0.01em]"
-                      >
-                        {item.title}
-                      </Heading>
+                      <div className="min-h-[5.5rem] lg:min-h-[7rem]">
+                        <Heading
+                          as="h3"
+                          level="h5"
+                          tone="primary"
+                          align="left"
+                          className="!text-[1.45rem] font-bold !leading-[1.3] tracking-[-0.01em] lg:!text-[1.75rem]"
+                        >
+                          {item.title}
+                        </Heading>
+                      </div>
                     ) : null}
 
                     {details.length > 0 ? (
                       <>
-                        <Divider tone="subtle" space="sm" className="my-[0.85rem]" />
+                        <Divider tone="subtle" space="sm" className="mt-[0.85rem] mb-[1.5rem]" />
 
                         <ul className="flex flex-col gap-[0.65rem]">
                           {details.map((detail, detailIndex) => (
@@ -140,7 +143,7 @@ export function ServicesDetailCards({ data }) {
                               className="flex items-start gap-[0.55rem]"
                             >
                               <Check
-                                className="mt-[0.25rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-accent)]"
+                                className="mt-[0.25rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-primary)]"
                                 aria-hidden="true"
                               />
                               <Text as="span" size="base" tone="muted" align="left">
