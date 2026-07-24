@@ -6,7 +6,7 @@ export const servicesPageData = {
   seo: {
     title: "Ramos de Seguros | Kautela",
     description:
-      "Conoce los 7 ramos de seguros que asesoramos: Vida y Salud, Empresarial y Consorcio, Desgravamen, Ahorro Acumulativo, Transporte, Vehicular, y Vivienda, Hogar y Familia.",
+      "Conoce los 28 productos de seguros en los que te asesoramos: vehículos, vida, salud, hogar, viajes, empresarial y más coberturas especializadas para personas y empresas.",
     canonical: "https://www.kautelaseguro.com/services",
     robots: {
       index: true,

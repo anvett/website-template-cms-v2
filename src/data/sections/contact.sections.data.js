@@ -11,7 +11,7 @@ export const contactSectionsData = [
       eyebrow: "Contacto",
       title: "Solicita asesoría o cotización",
       description:
-        "Contáctanos para recibir asesoría sobre cualquiera de nuestros 7 ramos de seguros o para reportar un siniestro.",
+        "Contáctanos para recibir asesoría sobre cualquiera de nuestros 28 ramos de seguros o para reportar un siniestro.",
     },
     media: {
       background: null,
@@ -50,7 +50,7 @@ export const contactSectionsData = [
     items: [
       {
         title: "Asesoría comercial",
-        description: "Cotizaciones y asesoría para los 7 ramos de seguros.",
+        description: "Cotizaciones y asesoría para los 28 ramos de seguros.",
       },
       {
         title: "Atención de siniestros",
@@ -128,7 +128,7 @@ export const contactSectionsData = [
     },
     content: {
       eyebrow: "Cobertura",
-      title: "Atención a nivel nacional",
+      title: "Atención a nivel nacional e internacional",
       description:
         "Brindamos asesoría a personas, familias y empresas en 17 ciudades del país, con oficinas en Ibarra.",
     },
@@ -139,7 +139,7 @@ export const contactSectionsData = [
     items: [
       {
         title: "Zona de atención",
-        description: "Cobertura nacional, oficinas en Ibarra.",
+        description: "Cobertura nacional e internacional, oficinas en Ibarra.",
       },
       {
         title: "Tipo de clientes",

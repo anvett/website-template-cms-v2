@@ -6,7 +6,7 @@ export const homePageData = {
   seo: {
     title: "Kautela | Asesoría en Seguros en Ecuador",
     description:
-      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas en Ecuador.",
+      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional e internacional y soluciones personalizadas para personas y empresas en Ecuador.",
     canonical: "https://www.kautelaseguro.com/",
     robots: {
       index: true,
@@ -17,7 +17,7 @@ export const homePageData = {
   openGraph: {
     title: "Kautela | Confianza Asegurada. Protección Garantizada",
     description:
-      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional en Ecuador.",
+      "Asesoría integral en seguros y administración de riesgos, con cobertura nacional e internacional en Ecuador.",
     url: "https://www.kautelaseguro.com/",
     images: [
       {

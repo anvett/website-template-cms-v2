@@ -15,7 +15,7 @@ export const homeSectionsData = [
       eyebrow: "Asesoría en seguros desde 2014",
       title: "Kautela. Confianza Asegurada. Protección Garantizada.",
       description:
-        "Asesoría integral en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas en Ecuador.",
+        "Asesoría integral en seguros y administración de riesgos, con cobertura nacional e internacional y soluciones personalizadas para personas y empresas.",
     },
     media: {
       background: {
@@ -95,7 +95,7 @@ export const homeSectionsData = [
     },
     content: {
       eyebrow: "Ramos de seguros",
-      title: "Asesoría especializada en 6 ramos de seguros",
+      title: "Asesoría especializada en varios ramos de seguros",
       description:
         "Te acompañamos en la elección, contratación y gestión de la póliza adecuada para cada necesidad.",
     },
@@ -241,8 +241,8 @@ export const homeSectionsData = [
         description: "Distribuidas en 3 zonas del país",
       },
       {
-        value: "6",
-        label: "ramos de seguros",
+        value: "28",
+        label: "productos de seguros",
         description: "Asesoría especializada en cada uno",
       },
       {
@@ -281,6 +281,7 @@ export const homeSectionsData = [
       { name: "Interoceanica", logo: { src: "/assets/images/partners/interoceanica.png", alt: "Interoceanica Compañía Anónima de Seguros" } },
       { name: "Zurich", logo: { src: "/assets/images/partners/zurich.png", alt: "Zurich Seguros" } },
       { name: "Bupa Seguros", logo: { src: "/assets/images/partners/bupa.png", alt: "Bupa Seguros" } },
+      { name: "BMI Ahorro", logo: { src: "/assets/images/partners/logo_bmi.jpeg", alt: "BMI Ahorro" } },
     ],
     actions: [],
     meta: { overlay: false, overlayOpacity: 0.5 },

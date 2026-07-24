@@ -11,7 +11,7 @@ export const servicesSectionsData = [
       eyebrow: "Ramos de seguros",
       title: "Asesoría experta en cada ramo de seguros",
       description:
-        "Conoce los 30 productos de seguros en los que te asesoramos, desde vehicular y salud hasta coberturas empresariales especializadas.",
+        "Conoce los 28 productos de seguros en los que te asesoramos, desde vehicular y salud hasta coberturas empresariales especializadas.",
     },
     media: {
       background: null,
@@ -40,7 +40,7 @@ export const servicesSectionsData = [
       eyebrow: "Ramos y coberturas",
       title: "Un portafolio completo de seguros para personas y empresas",
       description:
-        "Te asesoramos en la elección de la póliza adecuada entre nuestros 30 productos de seguros, comparando coberturas de distintas aseguradoras para encontrar la opción que mejor se ajuste a tu necesidad y presupuesto.",
+        "Te asesoramos en la elección de la póliza adecuada entre nuestros 28 productos de seguros, comparando coberturas de distintas aseguradoras para encontrar la opción que mejor se ajuste a tu necesidad y presupuesto.",
     },
     media: {
       background: null,
@@ -402,7 +402,7 @@ export const servicesSectionsData = [
       eyebrow: "Solicita asesoría",
       title: "Encuentra el seguro adecuado para ti o tu empresa",
       description:
-        "Te orientamos para elegir la cobertura correcta entre nuestros 30 productos de seguros.",
+        "Te orientamos para elegir la cobertura correcta entre nuestros 28 productos de seguros.",
     },
     media: {
       background: {

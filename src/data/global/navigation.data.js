@@ -1,7 +1,7 @@
 export const navigationData = {
   announcement: {
     enabled: false,
-    text: "Asesoría integral en seguros con cobertura nacional en Ecuador",
+    text: "Asesoría integral en seguros con cobertura nacional e internacional",
     link: {
       label: "Ver servicios",
       href: "/services",

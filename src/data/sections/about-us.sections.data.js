@@ -205,9 +205,9 @@ export const aboutUsSectionsData = [
       },
       {
         icon: "ShieldCheck",
-        title: "Cobertura nacional",
+        title: "Cobertura nacional e internacional",
         description:
-          "Atención en 17 ciudades distribuidas en 3 zonas del país.",
+          "Atención en 17 ciudades distribuidas en 3 zonas del país y varios países de América Latina.",
       },
       {
         icon: "Handshake",

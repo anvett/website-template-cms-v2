@@ -6,7 +6,7 @@ export const contactPageData = {
   seo: {
     title: "Contacto | Kautela",
     description:
-      "Contáctanos para asesoría en seguros, cotizaciones y atención de siniestros. Matriz en Ibarra, con cobertura nacional en Ecuador.",
+      "Contáctanos para asesoría en seguros, cotizaciones y atención de siniestros. Matriz en Ibarra, con cobertura nacional e internacional.",
     canonical: "https://www.kautelaseguro.com/contact",
     robots: {
       index: true,

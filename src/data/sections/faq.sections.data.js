@@ -64,7 +64,7 @@ export const faqSectionsData = [
           {
             question: "¿Qué es Kautela?",
             answer:
-              "Kautela es una agencia asesora productora de seguros con sede en Ibarra, que brinda asesoría especializada en distintos ramos de seguros a nivel nacional.",
+              "Kautela es una agencia asesora productora de seguros con sede en Ibarra, que brinda asesoría especializada en distintos ramos de seguros a nivel nacional e internacional.",
           },
           {
             question: "¿En qué ciudades tienen cobertura?",
@@ -84,7 +84,7 @@ export const faqSectionsData = [
           {
             question: "¿Qué ramos de seguros maneja Kautela?",
             answer:
-              "Trabajamos 7 ramos: Vida y Salud, Empresarial y Consorcio, Desgravamen, Ahorro Acumulativo, Transporte, Vehicular, y Vivienda, Hogar y Familia.",
+              "Trabajamos con 28 productos de seguros, desde vehículos, vida y salud, hasta coberturas empresariales, hogar, viajes y riesgos especializados.",
           },
           {
             question: "¿Puedo contratar más de un ramo?",

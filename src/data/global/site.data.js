@@ -14,7 +14,7 @@ export const siteData = {
   },
 
   contact: {
-    email: "info@kautelaseguro.com",
+    email: "asesor@kautelaseguro.com",
     phone: "593992559126",
     whatsapp: "593992559126",
     whatsappSiniestros: "593992753560",
@@ -40,7 +40,7 @@ export const siteData = {
     defaultTitle: "Kautela | Asesoría en Seguros en Ecuador",
     titleTemplate: "%s | Kautela",
     defaultDescription:
-      "Kautela es una firma ecuatoriana de asesoría en seguros y administración de riesgos, con cobertura nacional y soluciones personalizadas para personas y empresas.",
+      "Kautela es una firma ecuatoriana de asesoría en seguros y administración de riesgos, con cobertura nacional e internacional y soluciones personalizadas para personas y empresas.",
     defaultKeywords: [
       "Kautela",
       "asesoría de seguros",
@@ -67,7 +67,7 @@ export const siteData = {
     siteName: "Kautela",
     title: "Kautela | Asesoría en Seguros en Ecuador",
     description:
-      "Confianza asegurada, protección garantizada. Asesoría integral en seguros con cobertura nacional en Ecuador.",
+      "Confianza asegurada, protección garantizada. Asesoría integral en seguros con cobertura nacional e internacional.",
     images: [
       {
         url: "/assets/images/kautela/logo.png",
