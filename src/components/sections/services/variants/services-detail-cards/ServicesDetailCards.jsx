@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/actions/Button";
 import { Card } from "@/components/ui/content/Card";
 import { Heading } from "@/components/ui/content/Heading";
 import { Text } from "@/components/ui/content/Text";
 import { SectionHeader } from "@/components/ui/content/SectionHeader";
+import { fadeUp } from "@/lib/motion/presets";
+import { defaultTransition, fastTransition } from "@/lib/motion/transitions";
 import {
   getSpacingClass,
   getContainerClass,
@@ -75,10 +77,11 @@ export function ServicesDetailCards({ data }) {
       >
         <motion.div
           className="mx-auto w-full max-w-[820px]"
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={defaultTransition}
         >
           <SectionHeader
             eyebrow={content.eyebrow}
@@ -89,7 +92,7 @@ export function ServicesDetailCards({ data }) {
         </motion.div>
 
         {items.length > 0 ? (
-          <div className="grid grid-cols-1 gap-[1rem] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-[1rem] sm:grid-cols-2 md:gap-[1.5rem] lg:grid-cols-3">
             {items.map((item, index) => {
               const href = resolveItemHref(item, whatsappNumber);
               const details = item.details || [];
@@ -97,44 +100,48 @@ export function ServicesDetailCards({ data }) {
               return (
                 <motion.article
                   key={item.title || index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  className="group"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{
-                    duration: 0.45,
-                    delay: (index % 4) * 0.05,
-                    ease: "easeOut",
+                    ...fastTransition,
+                    delay: (index % 3) * 0.08,
                   }}
                 >
                   <Card
                     surface="base"
-                    padding="sm"
-                    radius="lg"
+                    padding="md"
+                    radius="xl"
                     shadow="sm"
                     border
-                    className="flex h-full flex-col border-l-4 border-l-[var(--color-primary)] transition duration-200 ease-out hover:-translate-y-[2px] hover:border-l-[var(--color-accent)] hover:shadow-[var(--shadow-md)]"
+                    className="flex h-full flex-col transition duration-200 ease-out hover:-translate-y-[4px] hover:border-[rgba(16,64,136,0.28)] hover:shadow-[var(--shadow-md)]"
                   >
+                    <div className="mb-[1rem] flex h-[3rem] w-[3rem] items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-accent)]/15 text-[var(--color-primary)] transition duration-200 ease-out group-hover:bg-[var(--color-primary)] group-hover:text-[var(--color-text-inverse)]">
+                      <ShieldCheck className="h-[1.5rem] w-[1.5rem]" aria-hidden="true" />
+                    </div>
+
                     {item.title ? (
                       <Heading
                         as="h3"
-                        level="h5"
                         tone="primary"
                         align="left"
-                        className="font-bold leading-tight"
+                        className="text-[1.1rem] font-bold leading-[1.25] tracking-[-0.01em]"
                       >
                         {item.title}
                       </Heading>
                     ) : null}
 
                     {details.length > 0 ? (
-                      <ul className="mt-[0.9rem] flex flex-col gap-[0.55rem]">
+                      <ul className="mt-[0.85rem] flex flex-col gap-[0.6rem]">
                         {details.map((detail, detailIndex) => (
                           <li
                             key={detailIndex}
-                            className="flex items-start gap-[0.5rem]"
+                            className="flex items-start gap-[0.55rem]"
                           >
                             <Check
-                              className="mt-[0.15rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-accent)]"
+                              className="mt-[0.2rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-accent)]"
                               aria-hidden="true"
                             />
                             <Text as="span" size="sm" tone="muted" align="left">
@@ -145,11 +152,10 @@ export function ServicesDetailCards({ data }) {
                       </ul>
                     ) : null}
 
-                    <div className="mt-auto pt-[1.25rem]">
+                    <div className="mt-auto pt-[1.5rem]">
                       <Button
                         href={href}
                         variant="primary"
-                        size="sm"
                         className="w-full justify-center"
                       >
                         Contratar
