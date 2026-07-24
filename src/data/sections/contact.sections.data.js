@@ -61,7 +61,7 @@ export const contactSectionsData = [
     actions: [],
     meta: {
       mapEmbed: {
-        src: "https://www.google.com/maps/embed?...",
+        src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.769!2d-78.12655380000001!3d0.3397405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a3cc4b7fa5d5d%3A0xf40c5792cd768dea!2sAv.%20Luis%20Abel%20Tafur%20353%2C%20Ibarra!5e0!3m2!1ses!2sec!4v1690000000000",
         title: "Kautela Agencia Asesora Productora de Seguros - Ibarra",
         height: "24rem",
       },
