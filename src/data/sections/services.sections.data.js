@@ -8,10 +8,10 @@ export const servicesSectionsData = [
     containerWidth: "content",
     spacing: "hero",
     content: {
-      eyebrow: "Servicios",
-      title: "Servicios técnicos Instamatic",
+      eyebrow: "Ramos de seguros",
+      title: "Asesoría experta en cada ramo de seguros",
       description:
-        "Instalación de calefones, mantenimiento técnico, sistemas de bombeo de agua y gas centralizado para hogares, edificios y negocios.",
+        "Conoce los 30 productos de seguros en los que te asesoramos, desde vehicular y salud hasta coberturas empresariales especializadas.",
     },
     media: {
       background: null,
@@ -37,10 +37,10 @@ export const servicesSectionsData = [
     containerWidth: "content",
     spacing: "default",
     content: {
-      eyebrow: "Soluciones profesionales",
-      title: "Todo lo que necesitas para agua caliente, presión y gas",
+      eyebrow: "Ramos y coberturas",
+      title: "Un portafolio completo de seguros para personas y empresas",
       description:
-        "Nuestros servicios están orientados a garantizar instalaciones seguras, equipos funcionando correctamente y soluciones adaptadas a las condiciones reales de cada hogar o negocio.",
+        "Te asesoramos en la elección de la póliza adecuada entre nuestros 30 productos de seguros, comparando coberturas de distintas aseguradoras para encontrar la opción que mejor se ajuste a tu necesidad y presupuesto.",
     },
     media: {
       background: null,
@@ -60,10 +60,10 @@ export const servicesSectionsData = [
     containerWidth: "section",
     spacing: "default",
     content: {
-      eyebrow: "Servicios principales",
-      title: "Elige la solución que necesitas",
+      eyebrow: "Ramos principales",
+      title: "Elige el ramo que necesitas",
       description:
-        "Contamos con atención técnica para instalación, mantenimiento, presión de agua y sistemas de gas centralizado.",
+        "Contamos con asesoría especializada en los siguientes ramos de seguros.",
     },
     media: {
       background: null,
@@ -320,7 +320,7 @@ export const servicesSectionsData = [
     ],
     actions: [],
     meta: {
-      whatsappNumber: "593992559126",
+      whatsappNumber: "593978717176",
     },
   },
 
@@ -334,38 +334,34 @@ export const servicesSectionsData = [
     spacing: "default",
     content: {
       eyebrow: "Proceso",
-      title: "Atención técnica clara y ordenada",
+      title: "Asesoría clara y ordenada en cada ramo",
       description:
-        "Trabajamos con un proceso práctico para identificar la necesidad, recomendar la solución adecuada y validar el funcionamiento final.",
+        "Trabajamos con un proceso práctico para identificar tu necesidad, recomendar la cobertura adecuada y acompañarte durante la vigencia de tu póliza.",
     },
     media: {
-      background: {
-        type: "image",
-        src: "/assets/images/instamatic/services/process-bg.jpg",
-        alt: "Proceso técnico Instamatic",
-      },
+      background: null,
       foreground: null,
     },
     items: [
       {
         title: "Evaluación inicial",
         description:
-          "Revisamos la necesidad del cliente, el punto de instalación, la presión de agua y las condiciones del espacio.",
+          "Revisamos tu necesidad, el bien o riesgo que quieres proteger y tu presupuesto disponible.",
       },
       {
         title: "Recomendación técnica",
         description:
-          "Definimos el equipo, servicio o solución más conveniente según el uso, el lugar y el presupuesto disponible.",
+          "Comparamos coberturas entre distintas aseguradoras y te recomendamos la póliza más conveniente.",
       },
       {
-        title: "Ejecución del servicio",
+        title: "Contratación de la póliza",
         description:
-          "Realizamos la instalación, mantenimiento o adecuación correspondiente con criterio técnico y cuidado del sistema.",
+          "Gestionamos la contratación y te explicamos con claridad cada cobertura incluida.",
       },
       {
-        title: "Pruebas de funcionamiento",
+        title: "Acompañamiento en siniestros",
         description:
-          "Verificamos encendido, presión, temperatura, conexiones y seguridad antes de entregar el trabajo.",
+          "Te asistimos durante la vigencia de la póliza y en la gestión de cualquier siniestro.",
       },
     ],
     actions: [],
@@ -382,8 +378,8 @@ export const servicesSectionsData = [
     spacing: "compact",
     content: {
       quote:
-        "Un buen servicio técnico no solo instala: verifica, prueba y deja el sistema funcionando correctamente.",
-      author: "Instamatic Ecuador",
+        "Elegir el seguro correcto no es solo comparar precios: es entender qué protege realmente tu patrimonio.",
+      author: "Kautela",
     },
     media: {
       background: null,
@@ -404,15 +400,15 @@ export const servicesSectionsData = [
     spacing: "default",
     content: {
       eyebrow: "Solicita asesoría",
-      title: "Encuentra el servicio adecuado para tu hogar o negocio",
+      title: "Encuentra el seguro adecuado para ti o tu empresa",
       description:
-        "Te orientamos para elegir la mejor solución en instalación, mantenimiento, presión de agua o gas centralizado.",
+        "Te orientamos para elegir la cobertura correcta entre nuestros 30 productos de seguros.",
     },
     media: {
       background: {
         type: "image",
-        src: "/assets/images/instamatic/cta/services-cta-bg.jpg",
-        alt: "Servicios técnicos Instamatic",
+        src: "/assets/images/cta/cta-services-bg.png",
+        alt: "Asesoría en seguros Kautela",
       },
       foreground: null,
     },
@@ -422,11 +418,6 @@ export const servicesSectionsData = [
         label: "Contactar ahora",
         href: "/contact",
         variant: "primary",
-      },
-      {
-        label: "Ver productos",
-        href: "/products",
-        variant: "secondary",
       },
     ],
     meta: {},
