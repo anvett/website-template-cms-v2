@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, ShieldCheck } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/actions/Button";
 import { Card } from "@/components/ui/content/Card";
 import { Heading } from "@/components/ui/content/Heading";
 import { Text } from "@/components/ui/content/Text";
 import { SectionHeader } from "@/components/ui/content/SectionHeader";
+import Divider from "@/components/ui/structure/Divider";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition, fastTransition } from "@/lib/motion/transitions";
 import {
@@ -100,7 +101,6 @@ export function ServicesDetailCards({ data }) {
               return (
                 <motion.article
                   key={item.title || index}
-                  className="group"
                   variants={fadeUp}
                   initial="hidden"
                   whileInView="visible"
@@ -118,38 +118,38 @@ export function ServicesDetailCards({ data }) {
                     border
                     className="flex h-full flex-col transition duration-200 ease-out hover:-translate-y-[4px] hover:border-[rgba(16,64,136,0.28)] hover:shadow-[var(--shadow-md)]"
                   >
-                    <div className="mb-[1rem] flex h-[3rem] w-[3rem] items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-accent)]/15 text-[var(--color-primary)] transition duration-200 ease-out group-hover:bg-[var(--color-primary)] group-hover:text-[var(--color-text-inverse)]">
-                      <ShieldCheck className="h-[1.5rem] w-[1.5rem]" aria-hidden="true" />
-                    </div>
-
                     {item.title ? (
                       <Heading
                         as="h3"
                         tone="primary"
                         align="left"
-                        className="text-[1.1rem] font-bold leading-[1.25] tracking-[-0.01em]"
+                        className="text-[1rem] font-bold leading-[1.25] tracking-[-0.01em]"
                       >
                         {item.title}
                       </Heading>
                     ) : null}
 
                     {details.length > 0 ? (
-                      <ul className="mt-[0.85rem] flex flex-col gap-[0.6rem]">
-                        {details.map((detail, detailIndex) => (
-                          <li
-                            key={detailIndex}
-                            className="flex items-start gap-[0.55rem]"
-                          >
-                            <Check
-                              className="mt-[0.2rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-accent)]"
-                              aria-hidden="true"
-                            />
-                            <Text as="span" size="sm" tone="muted" align="left">
-                              {detail}
-                            </Text>
-                          </li>
-                        ))}
-                      </ul>
+                      <>
+                        <Divider tone="subtle" space="sm" className="my-[0.85rem]" />
+
+                        <ul className="flex flex-col gap-[0.65rem]">
+                          {details.map((detail, detailIndex) => (
+                            <li
+                              key={detailIndex}
+                              className="flex items-start gap-[0.55rem]"
+                            >
+                              <Check
+                                className="mt-[0.25rem] h-[1rem] w-[1rem] shrink-0 text-[var(--color-accent)]"
+                                aria-hidden="true"
+                              />
+                              <Text as="span" size="base" tone="muted" align="left">
+                                {detail}
+                              </Text>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
                     ) : null}
 
                     <div className="mt-auto pt-[1.5rem]">
