@@ -6,7 +6,15 @@ import { Button } from "@/components/ui/actions/Button";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveTone,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
+} from "@/lib/sections/sectionStyle";
 
 export function ComparisonSplit({ data }) {
   if (!data || !data.enabled) return null;
@@ -19,6 +27,11 @@ export function ComparisonSplit({ data }) {
   const bgAlt = background?.alt || sectionBackground.alt || "";
   const isImage = sectionBackground.type === "image" && Boolean(bgSrc);
   const isSurface = sectionBackground.type === "surface";
+  // Fallback de tone si no hay meta.tone explícito: superficie clara ->
+  // "default", imagen o gradiente oscuro -> "inverse" (igual que antes,
+  // pero ahora overrideable por instancia vía meta.tone).
+  const tone = resolveTone(data, { hasImage: !isSurface });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   const overlayEnabled = meta?.overlay ?? background?.overlay ?? true;
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
@@ -83,22 +96,19 @@ export function ComparisonSplit({ data }) {
           transition={defaultTransition}
         >
           {content?.eyebrow && (
-            <p
-              className="section-eyebrow"
-              style={{ "--section-eyebrow-color": "var(--color-accent)" }}
-            >
+            <p className={["section-eyebrow", getToneTextClass(tone, "eyebrow")].join(" ")}>
               {content.eyebrow}
             </p>
           )}
 
           {content?.title && (
-            <h2 className="text-balance text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.04em] text-[var(--color-text-inverse)]">
+            <h2 className={["text-balance", getTitleSizeClass(titleSize) || "text-[clamp(2.2rem,5vw,4rem)] font-bold leading-[1.02] tracking-[-0.04em]", getToneTextClass(tone, "title")].join(" ")}>
               {content.title}
             </h2>
           )}
 
           {content?.description && (
-            <p className="max-w-2xl text-[1.1rem] leading-8 text-white/80">
+            <p className={["max-w-2xl", getDescriptionSizeClass(descriptionSize) || "text-[1.1rem] leading-8", getToneTextClass(tone, "description")].join(" ")}>
               {content.description}
             </p>
           )}

@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/content/Card";
 import { InfoItem } from "@/components/ui/content/InfoItem";
 import { Button } from "@/components/ui/actions/Button";
+import {
+  resolveTone,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 const surfaceClasses = {
   base: "bg-[var(--color-bg)] text-[var(--color-text)]",
@@ -63,6 +70,8 @@ export function InfoOnly({ data }) {
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
 
   const isImageBackground = background?.type === "image" && backgroundImage;
+  const tone = resolveTone(data, { hasImage: isImageBackground });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -108,16 +117,20 @@ export function InfoOnly({ data }) {
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
           {content.eyebrow ? (
-            <span className="section-eyebrow">{content.eyebrow}</span>
+            <span
+              className="section-eyebrow"
+              style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
+            >
+              {content.eyebrow}
+            </span>
           ) : null}
 
           {content.title ? (
             <h2
               className="section-title max-w-[52rem]"
               style={{
-                "--section-title-color": isImageBackground
-                  ? "var(--color-text-inverse)"
-                  : "var(--color-primary)",
+                "--section-title-color": getToneCssColor(tone, "title"),
+                "--section-title-size": getTitleSizeCssValue(titleSize),
               }}
             >
               {content.title}
@@ -128,9 +141,8 @@ export function InfoOnly({ data }) {
             <p
               className="section-description max-w-[48rem]"
               style={{
-                "--section-description-color": isImageBackground
-                  ? "rgba(255,255,255,0.86)"
-                  : "var(--color-primary)",
+                "--section-description-color": getToneCssColor(tone, "description"),
+                "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
               }}
             >
               {content.description}

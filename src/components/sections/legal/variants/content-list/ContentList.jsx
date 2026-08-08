@@ -150,6 +150,13 @@
 import { motion } from "framer-motion";
 
 import { Card } from "@/components/ui/content/Card";
+import {
+  resolveTone,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 const surfaceClasses = {
   base: "bg-[var(--color-bg)] text-[var(--color-text)]",
@@ -211,6 +218,8 @@ export function ContentList({ data }) {
 
   const overlayEnabled = meta?.overlay ?? media?.background?.overlay ?? true;
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
+  const tone = resolveTone(data, { hasImage: isImageBackground });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -250,16 +259,20 @@ export function ContentList({ data }) {
       >
         <div className="flex flex-col gap-4">
           {content.eyebrow ? (
-            <span className="section-eyebrow">{content.eyebrow}</span>
+            <span
+              className="section-eyebrow"
+              style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
+            >
+              {content.eyebrow}
+            </span>
           ) : null}
 
           {content.title ? (
             <h2
               className="section-title"
               style={{
-                "--section-title-color": isImageBackground
-                  ? "var(--color-text-inverse)"
-                  : "var(--color-primary)",
+                "--section-title-color": getToneCssColor(tone, "title"),
+                "--section-title-size": getTitleSizeCssValue(titleSize),
               }}
             >
               {content.title}
@@ -270,9 +283,8 @@ export function ContentList({ data }) {
             <p
               className="section-description"
               style={{
-                "--section-description-color": isImageBackground
-                  ? "rgba(255,255,255,0.86)"
-                  : "var(--color-text-soft)",
+                "--section-description-color": getToneCssColor(tone, "description"),
+                "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
               }}
             >
               {content.description}

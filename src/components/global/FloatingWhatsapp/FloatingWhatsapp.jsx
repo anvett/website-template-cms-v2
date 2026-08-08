@@ -19,7 +19,7 @@ function WhatsappIcon({ className = "" }) {
 }
 
 export function FloatingWhatsapp({
-  message = "Hola, quiero solicitar información sobre Kautela.",
+  message = "Hola, quiero solicitar información.",
 }) {
   const phone = siteData?.contact?.whatsapp;
 

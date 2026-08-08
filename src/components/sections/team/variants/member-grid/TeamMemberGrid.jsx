@@ -15,6 +15,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
 } from "@/lib/sections/sectionStyle";
 
 /**
@@ -62,6 +66,8 @@ export function TeamMemberGrid({ data }) {
   const items = data.items || [];
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "surface-base" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -111,6 +117,9 @@ export function TeamMemberGrid({ data }) {
             title={content.title}
             description={content.description}
             align="center"
+            tone={tone}
+            titleLevel={getTitleLevel(titleSize)}
+            descriptionSize={getDescriptionTextSize(descriptionSize)}
           />
         </motion.div>
 
@@ -141,7 +150,7 @@ export function TeamMemberGrid({ data }) {
                     {item.image?.src ? (
                       <div className="overflow-hidden rounded-t-[var(--radius-lg)]">
                         <MediaFrame
-                          type="image"
+                          type={item.image.type || "image"}
                           src={item.image.src}
                           alt={item.image.alt || item.name || ""}
                           ratio="portrait"

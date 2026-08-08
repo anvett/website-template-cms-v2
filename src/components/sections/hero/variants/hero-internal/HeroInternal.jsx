@@ -6,7 +6,14 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
+import {
+  getSpacingClass,
+  getContainerClass,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
+} from "@/lib/sections/sectionStyle";
 
 export function HeroInternal({ data }) {
   if (!data || !data.enabled) return null;
@@ -19,6 +26,11 @@ export function HeroInternal({ data }) {
 
   const isStrong = !data.surface || data.surface === "strong";
   const surfaceClasses = { base: "surface-base", subtle: "surface-subtle" };
+  // Hero interno asume superficie oscura por defecto (strong/imagen);
+  // tone "inverse" salvo que meta.tone la pise. Si surface es base/subtle
+  // (claro) sin imagen, cae a "default" automáticamente.
+  const tone = data.meta?.tone || (hasBgImage || isStrong ? "inverse" : "default");
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -73,19 +85,19 @@ export function HeroInternal({ data }) {
           transition={defaultTransition}
         >
           {content?.eyebrow && (
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-(--color-accent)">
+            <p className={["text-sm font-bold uppercase tracking-[0.16em]", getToneTextClass(tone, "eyebrow")].join(" ")}>
               {content.eyebrow}
             </p>
           )}
 
           {content?.title && (
-            <h1 className="text-balance text-[clamp(2.5rem,7vw,5rem)] font-bold leading-[0.98] tracking-[-0.045em]">
+            <h1 className={["text-balance", getTitleSizeClass(titleSize) || "text-[clamp(2.5rem,7vw,5rem)] font-bold leading-[0.98] tracking-[-0.045em]", getToneTextClass(tone, "title")].join(" ")}>
               {content.title}
             </h1>
           )}
 
           {content?.description && (
-            <p className="max-w-2xl text-balance text-lg leading-8 text-white/85 md:text-xl">
+            <p className={["max-w-2xl text-balance", getDescriptionSizeClass(descriptionSize) || "text-lg leading-8 md:text-xl", getToneTextClass(tone, "description")].join(" ")}>
               {content.description}
             </p>
           )}

@@ -12,6 +12,12 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  getToneTextClass,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
 export function ProductCards({ data }) {
@@ -23,6 +29,8 @@ export function ProductCards({ data }) {
   const supportsModal = meta?.supportsModal === true;
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -68,17 +76,22 @@ export function ProductCards({ data }) {
           transition={defaultTransition}
         >
           {content?.eyebrow && (
-            <p className="section-eyebrow">{content.eyebrow}</p>
+            <p
+              className="section-eyebrow"
+              style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
+            >
+              {content.eyebrow}
+            </p>
           )}
 
           {content?.title && (
-            <h2 className="text-balance text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.04em] text-[var(--color-primary)]">
+            <h2 className={["text-balance", getTitleSizeClass(titleSize) || "text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-[-0.04em]", getToneTextClass(tone, "title")].join(" ")}>
               {content.title}
             </h2>
           )}
 
           {content?.description && (
-            <p className="max-w-2xl text-[1.1rem] leading-8 text-[var(--color-text-soft)]">
+            <p className={["max-w-2xl", getDescriptionSizeClass(descriptionSize) || "text-[1.1rem] leading-8", getToneTextClass(tone, "description")].join(" ")}>
               {content.description}
             </p>
           )}

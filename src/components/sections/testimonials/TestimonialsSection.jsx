@@ -5,7 +5,14 @@ import { Quote } from "lucide-react";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
+import {
+  getSpacingClass,
+  getContainerClass,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 export function TestimonialsSection({ data }) {
   if (!data || !data.enabled) return null;
@@ -32,6 +39,11 @@ export function TestimonialsSection({ data }) {
     sectionBackground.type === "gradient" && sectionBackground.variant === "soft"
       ? "gradient-soft-inverse"
       : "bg-[linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]";
+
+  // Esta variant siempre usa fondo oscuro por diseño (gradiente o imagen);
+  // meta.tone permite forzar otro tono si una instancia lo necesita.
+  const tone = meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -91,8 +103,8 @@ export function TestimonialsSection({ data }) {
             <h2
               className="section-title"
               style={{
-                "--section-title-color":
-                  "var(--color-text-inverse)",
+                "--section-title-color": getToneCssColor(tone, "title"),
+                "--section-title-size": getTitleSizeCssValue(titleSize),
               }}
             >
               {content.title}
@@ -103,8 +115,8 @@ export function TestimonialsSection({ data }) {
             <p
               className="section-description"
               style={{
-                "--section-description-color":
-                  "rgba(255,255,255,0.82)",
+                "--section-description-color": getToneCssColor(tone, "description"),
+                "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
               }}
             >
               {content.description}

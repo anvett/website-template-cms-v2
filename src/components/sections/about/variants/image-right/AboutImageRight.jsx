@@ -9,6 +9,11 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
 export function AboutImageRight({ data }) {
@@ -18,6 +23,8 @@ export function AboutImageRight({ data }) {
   const image = media?.foreground;
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -49,19 +56,19 @@ export function AboutImageRight({ data }) {
           transition={defaultTransition}
         >
           {content?.eyebrow && (
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[var(--color-accent)]">
+            <p className={["text-sm font-bold uppercase tracking-[0.14em]", getToneTextClass(tone, "eyebrow")].join(" ")}>
               {content.eyebrow}
             </p>
           )}
 
           {content?.title && (
-            <h2 className="text-balance text-[clamp(2rem,5vw,3.4rem)] font-bold leading-tight tracking-[-0.035em] text-[var(--color-primary)]">
+            <h2 className={["text-balance", getTitleSizeClass(titleSize) || "text-[clamp(2rem,5vw,3.4rem)] font-bold leading-tight tracking-[-0.035em]", getToneTextClass(tone, "title")].join(" ")}>
               {content.title}
             </h2>
           )}
 
           {content?.description && (
-            <p className="max-w-2xl text-lg leading-8 text-[var(--color-text-soft)]">
+            <p className={["max-w-2xl", getDescriptionSizeClass(descriptionSize) || "text-lg leading-8", getToneTextClass(tone, "description")].join(" ")}>
               {content.description}
             </p>
           )}

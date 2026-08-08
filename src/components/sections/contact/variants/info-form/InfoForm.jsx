@@ -16,6 +16,13 @@ import { Select } from "@/components/ui/form/Select";
 import { Textarea } from "@/components/ui/form/Textarea";
 
 import { MapEmbed } from "@/components/ui/media/MapEmbed";
+import {
+  resolveTone,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 const surfaceClasses = {
   base: "bg-[var(--color-bg)] text-[var(--color-text)]",
@@ -91,6 +98,8 @@ export function InfoForm({ data }) {
 
   const overlayEnabled = meta?.overlay ?? media?.background?.overlay ?? true;
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
+  const tone = resolveTone(data, { hasImage: background?.type === "image" });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   const contactInfo = {
     phone: siteData?.contact?.phone,
@@ -203,17 +212,20 @@ export function InfoForm({ data }) {
         >
           <div className="flex flex-col gap-4">
             {content.eyebrow ? (
-              <span className="section-eyebrow">{content.eyebrow}</span>
+              <span
+                className="section-eyebrow"
+                style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
+              >
+                {content.eyebrow}
+              </span>
             ) : null}
 
             {content.title ? (
               <h2
                 className="section-title"
                 style={{
-                  "--section-title-color":
-                    background?.type === "image"
-                      ? "var(--color-text-inverse)"
-                      : "var(--color-primary)",
+                  "--section-title-color": getToneCssColor(tone, "title"),
+                  "--section-title-size": getTitleSizeCssValue(titleSize),
                 }}
               >
                 {content.title}
@@ -224,10 +236,8 @@ export function InfoForm({ data }) {
               <p
                 className="section-description max-w-[42rem]"
                 style={{
-                  "--section-description-color":
-                    background?.type === "image"
-                      ? "rgba(255,255,255,0.86)"
-                      : "var(--color-text-soft)",
+                  "--section-description-color": getToneCssColor(tone, "description"),
+                  "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
                 }}
               >
                 {content.description}

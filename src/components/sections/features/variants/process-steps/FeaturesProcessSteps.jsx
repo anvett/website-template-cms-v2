@@ -8,7 +8,13 @@ import { Heading } from "@/components/ui/content/Heading";
 import { Text } from "@/components/ui/content/Text";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
+} from "@/lib/sections/sectionStyle";
 
 export function FeaturesProcessSteps({ data }) {
   if (!data || !data.enabled) return null;
@@ -22,10 +28,13 @@ export function FeaturesProcessSteps({ data }) {
   const overlayEnabled = data.meta?.overlay ?? background?.overlay ?? true;
   const overlayOpacity = data.meta?.overlayOpacity ?? 0.45;
 
-  // Esta variant siempre usa texto claro (tone="inverse") por diseño, por
-  // lo que el fondo soportado es imagen o gradiente oscuro; si se define
-  // background.type="surface" se mantiene el degradado oscuro por defecto
-  // para no romper el contraste de texto.
+  // Esta variant siempre usa fondo oscuro por diseño (imagen o gradiente),
+  // así que el tone por defecto del texto es "inverse" incluso sin
+  // imagen — meta.tone en la Section Data puede pisarlo si una instancia
+  // puntual lo necesita.
+  const tone = data.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
+
   const backgroundFallbackClass =
     sectionBackground.type === "gradient" && sectionBackground.variant === "soft"
       ? "gradient-soft-inverse"
@@ -91,9 +100,9 @@ export function FeaturesProcessSteps({ data }) {
           {content?.title && (
             <Heading
               as="h2"
-              level="h2"
-              tone="inverse"
-              className="text-[clamp(2rem,5vw,3.7rem)] leading-[1.06] tracking-[-0.04em]"
+              level={getTitleLevel(titleSize) || "h2"}
+              tone={tone}
+              className={titleSize ? "" : "text-[clamp(2rem,5vw,3.7rem)] leading-[1.06] tracking-[-0.04em]"}
             >
               {content.title}
             </Heading>
@@ -101,8 +110,8 @@ export function FeaturesProcessSteps({ data }) {
 
           {content?.description && (
             <Text
-              size="lg"
-              tone="inverse"
+              size={getDescriptionTextSize(descriptionSize) || "lg"}
+              tone={tone}
               className="max-w-xl opacity-80 leading-8"
             >
               {content.description}

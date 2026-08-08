@@ -9,6 +9,11 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
 export function QuoteSection({ data }) {
@@ -23,6 +28,8 @@ export function QuoteSection({ data }) {
   const iconEnabled = meta?.showIcon ?? true;
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft-inverse" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -71,13 +78,13 @@ export function QuoteSection({ data }) {
         ) : null}
 
         {content?.quote ? (
-          <blockquote className="text-balance text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight tracking-[-0.035em] text-[var(--color-primary)]">
+          <blockquote className={["text-balance", getTitleSizeClass(titleSize) || "text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight tracking-[-0.035em]", getToneTextClass(tone, "title")].join(" ")}>
             “{content.quote}”
           </blockquote>
         ) : null}
 
         {content?.author ? (
-          <p className="text-[0.85rem] font-bold uppercase tracking-[0.16em] text-[var(--color-text-soft)]">
+          <p className={[getDescriptionSizeClass(descriptionSize) || "text-[0.85rem]", "font-bold uppercase tracking-[0.16em]", getToneTextClass(tone, "description")].join(" ")}>
             {content.author}
           </p>
         ) : null}

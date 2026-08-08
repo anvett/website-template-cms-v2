@@ -6,6 +6,11 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
 export function AboutStackedCentered({ data }) {
@@ -15,6 +20,8 @@ export function AboutStackedCentered({ data }) {
   const actions = data.actions || [];
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -41,19 +48,19 @@ export function AboutStackedCentered({ data }) {
         transition={{ duration: 0.65, ease: "easeOut" }}
       >
         {content.eyebrow ? (
-          <p className="mb-[0.75rem] text-[0.9rem] pb-5 font-extrabold uppercase leading-[1.45] tracking-[0.08em] text-[var(--color-accent)]">
+          <p className={["mb-[0.75rem] text-[0.9rem] pb-5 font-extrabold uppercase leading-[1.45] tracking-[0.08em]", getToneTextClass(tone, "eyebrow")].join(" ")}>
             {content.eyebrow}
           </p>
         ) : null}
 
         {content.title ? (
-          <h2 className="m-0 font-[var(--font-heading)] text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.08] tracking-[-0.035em] text-[var(--color-primary)]">
+          <h2 className={["m-0 font-[var(--font-heading)]", getTitleSizeClass(titleSize) || "text-[clamp(2rem,5vw,3rem)] font-bold leading-[1.08] tracking-[-0.035em]", getToneTextClass(tone, "title")].join(" ")}>
             {content.title}
           </h2>
         ) : null}
 
         {content.description ? (
-          <p className="mt-[1.25rem] max-w-[720px] text-[1.08rem] leading-[1.75] text-[var(--color-text-soft)]">
+          <p className={["mt-[1.25rem] max-w-[720px]", getDescriptionSizeClass(descriptionSize) || "text-[1.08rem] leading-[1.75]", getToneTextClass(tone, "description")].join(" ")}>
             {content.description}
           </p>
         ) : null}

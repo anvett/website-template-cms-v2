@@ -14,6 +14,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
 } from "@/lib/sections/sectionStyle";
 
 /**
@@ -40,6 +44,8 @@ export function ServicesDetailCards({ data }) {
   const whatsappNumber = data.meta?.whatsappNumber || "";
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "surface-subtle" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -89,6 +95,9 @@ export function ServicesDetailCards({ data }) {
             title={content.title}
             description={content.description}
             align="center"
+            tone={tone}
+            titleLevel={getTitleLevel(titleSize)}
+            descriptionSize={getDescriptionTextSize(descriptionSize)}
           />
         </motion.div>
 

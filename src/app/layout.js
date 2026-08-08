@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
         <div className="site-shell">
           <Navbar />
           {children}
-          <FloatingWhatsapp message="Hola, deseo más información sobre los seguros de Kautela." />
+          <FloatingWhatsapp />
           <Footer />
         </div>
         

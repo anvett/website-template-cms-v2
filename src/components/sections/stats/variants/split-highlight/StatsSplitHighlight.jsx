@@ -10,6 +10,9 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
 } from "@/lib/sections/sectionStyle";
 
 export function StatsSplitHighlight({ data }) {
@@ -22,6 +25,10 @@ export function StatsSplitHighlight({ data }) {
   const secondaryStats = items.slice(1);
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-dark" });
+  // Esta variant siempre usa fondo oscuro por diseño (gradiente o imagen);
+  // meta.tone permite forzar otro tono si una instancia lo necesita.
+  const tone = data.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -80,9 +87,9 @@ export function StatsSplitHighlight({ data }) {
           {content.title && (
             <Heading
               as="h2"
-              level="h2"
-              tone="inverse"
-              className="text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.02] tracking-[-0.045em]"
+              level={getTitleLevel(titleSize) || "h2"}
+              tone={tone}
+              className={titleSize ? "" : "text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.02] tracking-[-0.045em]"}
             >
               {content.title}
             </Heading>
@@ -90,8 +97,8 @@ export function StatsSplitHighlight({ data }) {
 
           {content.description && (
             <Text
-              size="lg"
-              tone="inverse"
+              size={getDescriptionTextSize(descriptionSize) || "lg"}
+              tone={tone}
               className="max-w-[42rem] opacity-80"
             >
               {content.description}

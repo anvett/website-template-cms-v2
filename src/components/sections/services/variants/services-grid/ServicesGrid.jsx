@@ -4,6 +4,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/actions/Button";
 import { SectionHeader } from "@/components/ui/content/SectionHeader";
+import {
+  resolveTone,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
+} from "@/lib/sections/sectionStyle";
 
 const surfaceClasses = {
   base: "surface-base",
@@ -46,6 +52,8 @@ export function ServicesGrid({ data }) {
 
   const overlayEnabled = data.meta?.overlay ?? media?.overlay ?? true;
   const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
+  const tone = resolveTone(data, { hasImage: hasBackgroundImage });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   const baseSurfaceClass = hasBackgroundImage
     ? ""
@@ -105,6 +113,9 @@ export function ServicesGrid({ data }) {
             title={content.title}
             description={content.description}
             align="center"
+            tone={tone}
+            titleLevel={getTitleLevel(titleSize)}
+            descriptionSize={getDescriptionTextSize(descriptionSize)}
           />
         </motion.div>
 

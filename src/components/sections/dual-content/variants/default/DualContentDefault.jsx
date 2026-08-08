@@ -10,6 +10,12 @@ import { Button } from "@/components/ui/actions/Button";
 
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import {
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 const containerClasses = {
   content:
@@ -75,6 +81,8 @@ export function DualContentDefault({ data }) {
 
   const overlayEnabled = data.meta?.overlay ?? media?.overlay ?? true;
   const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
+  const tone = data.meta?.tone || (isDark ? "inverse" : "default");
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -124,9 +132,7 @@ export function DualContentDefault({ data }) {
           {content.eyebrow ? (
             <p
               className="section-eyebrow"
-              style={{
-                "--section-eyebrow-color": "var(--color-accent)",
-              }}
+              style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
             >
               {content.eyebrow}
             </p>
@@ -136,9 +142,8 @@ export function DualContentDefault({ data }) {
             <h2
               className="section-title"
               style={{
-                "--section-title-color": isDark
-                  ? "var(--color-text-inverse)"
-                  : "var(--color-primary)",
+                "--section-title-color": getToneCssColor(tone, "title"),
+                "--section-title-size": getTitleSizeCssValue(titleSize),
               }}
             >
               {content.title}
@@ -149,9 +154,8 @@ export function DualContentDefault({ data }) {
             <p
               className="section-description mt-[1rem]"
               style={{
-                "--section-description-color": isDark
-                  ? "rgba(255,255,255,0.82)"
-                  : "var(--color-text-soft)",
+                "--section-description-color": getToneCssColor(tone, "description"),
+                "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
               }}
             >
               {content.description}
@@ -189,6 +193,7 @@ export function DualContentDefault({ data }) {
                     {image.src ? (
                       <div className="relative overflow-hidden bg-[var(--color-bg-muted)] p-[1rem]">
                         <MediaFrame
+                          type={image.type || "image"}
                           src={image.src}
                           alt={image.alt || item.title || ""}
                           ratio={image.ratio || "portrait"}

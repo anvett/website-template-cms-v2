@@ -1,102 +1,73 @@
+/**
+ * site.data.js — PLACEHOLDER de base.
+ *
+ * Este archivo debe reescribirse por completo para cada instancia de
+ * cliente (ver 05-MANUAL-CREACION-DE-INSTANCIAS-v2.md). Los valores aquí
+ * son intencionalmente genéricos ("Template Base") para que el proyecto
+ * compile out-of-the-box sin arrastrar datos de ningún cliente anterior.
+ */
 export const siteData = {
   site: {
-    name: "Kautela",
-    legalName: "Kautela Agencia Asesora Productora de Seguros Cía. Ltda.",
-    domain: "https://www.kautelaseguro.com",
+    name: "Template Base",
+    domain: "https://example.com",
     language: "es",
-    locale: "es_EC",
-  },
-
-  branding: {
-    siteTitle: "Kautela",
-    siteDescription:
-      "Asesoría integral en seguros y administración de riesgos, con soluciones confiables y personalizadas para proteger tu patrimonio y bienestar.",
-  },
-
-  contact: {
-    email: "asesor@kautelaseguro.com",
-    phone: "593992559126",
-    whatsapp: "593992559126",
-    whatsappSiniestros: "593992753560",
-  },
-
-  address: {
-    country: "Ecuador",
-    city: "Ibarra",
-    fullAddress: "Av. Luis Abel Tafur 3-53 y Juan Francisco Bonilla, Ibarra, Ecuador",
-  },
-
-  businessHours: {
-    weekdays: "Lunes a viernes de 08h00 a 17h00",
-  },
-
-  social: {
-    facebook: "kautelaseguros",
-    instagram: "",
-    linkedin: "",
   },
 
   seo: {
-    defaultTitle: "Kautela | Asesoría en Seguros en Ecuador",
-    titleTemplate: "%s | Kautela",
+    defaultTitle: "Template Base",
+    titleTemplate: "%s | Template Base",
     defaultDescription:
-      "Kautela es una firma ecuatoriana de asesoría en seguros y administración de riesgos, con cobertura nacional e internacional y soluciones personalizadas para personas y empresas.",
-    defaultKeywords: [
-      "Kautela",
-      "asesoría de seguros",
-      "seguros Ecuador",
-      "seguros Ibarra",
-      "administración de riesgos",
-      "seguros de vida",
-      "seguros empresariales",
-      "seguro vehicular",
-      "seguro de desgravamen",
-      "corredora de seguros Ecuador",
-    ],
-    canonical: "https://www.kautelaseguro.com",
-    robots: {
-      index: true,
-      follow: true,
-    },
+      "Descripción placeholder del sitio. Reemplazar por cliente.",
+    defaultKeywords: [],
+    robots: { index: false, follow: false },
   },
 
   openGraph: {
     type: "website",
     locale: "es_EC",
-    url: "https://www.kautelaseguro.com",
-    siteName: "Kautela",
-    title: "Kautela | Asesoría en Seguros en Ecuador",
+    url: "https://example.com",
+    siteName: "Template Base",
+    title: "Template Base",
     description:
-      "Confianza asegurada, protección garantizada. Asesoría integral en seguros con cobertura nacional e internacional.",
-    images: [
-      {
-        url: "/assets/images/kautela/logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Kautela, asesoría en seguros en Ecuador",
-      },
-    ],
+      "Descripción placeholder del sitio. Reemplazar por cliente.",
+    images: [],
   },
 
   twitter: {
     card: "summary_large_image",
     site: "",
     creator: "",
-    title: "Kautela | Asesoría en Seguros en Ecuador",
+    title: "Template Base",
     description:
-      "Asesoría integral en seguros y administración de riesgos para personas y empresas en Ecuador.",
-    images: ["/assets/images/kautela/logo.png"],
+      "Descripción placeholder del sitio. Reemplazar por cliente.",
+    images: [],
   },
 
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-
-  manifest: "/site.webmanifest",
+  icons: [],
+  manifest: undefined,
 
   themeMeta: {
-    themeColor: "#104a3e",
+    themeColor: "#000000",
+  },
+
+  branding: {
+    siteDescription:
+      "Descripción placeholder de la marca. Reemplazar por cliente.",
+  },
+
+  contact: {
+    phone: "",
+    whatsapp: "",
+    email: "",
+  },
+
+  address: {
+    fullAddress: "",
+  },
+
+  businessHours: {
+    weekdays: "",
   },
 };
+
+export default siteData;

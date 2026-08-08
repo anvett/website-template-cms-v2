@@ -7,6 +7,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  getToneTextClass,
+  resolveTypography,
+  getTitleSizeClass,
+  getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
 export function HeroBackgroundImage({ data }) {
@@ -21,6 +25,10 @@ export function HeroBackgroundImage({ data }) {
     defaultSurfaceFallback: "surface-strong",
     defaultOverlayOpacity: 0.38,
   });
+  // Hero siempre asume superficie oscura por defecto (surface-strong o
+  // imagen); tone "inverse" salvo que meta.tone la pise explícitamente.
+  const tone = data.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   const alignClasses = {
     left: "items-start text-left",
@@ -88,19 +96,19 @@ export function HeroBackgroundImage({ data }) {
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {content.eyebrow ? (
-              <p className="m-0 font-[var(--font-body)] text-[clamp(0.9rem,1.5vw,1.1rem)] font-bold leading-[1.45] text-[var(--color-accent)]">
+              <p className={["m-0 font-[var(--font-body)] text-[clamp(0.9rem,1.5vw,1.1rem)] font-bold leading-[1.45]", getToneTextClass(tone, "eyebrow")].join(" ")}>
                 {content.eyebrow}
               </p>
             ) : null}
 
             {content.title ? (
-              <h1 className="m-0 font-[var(--font-heading)] text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[var(--color-text-inverse)]">
+              <h1 className={["m-0 font-[var(--font-heading)]", getTitleSizeClass(titleSize) || "text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[0.95] tracking-[-0.04em]", getToneTextClass(tone, "title")].join(" ")}>
                 {content.title}
               </h1>
             ) : null}
 
             {content.description ? (
-              <p className="m-0 max-w-[680px] font-[var(--font-body)] text-[clamp(1.05rem,2vw,1.3rem)] leading-[1.6] text-[var(--color-text-inverse)]">
+              <p className={["m-0 max-w-[680px] font-[var(--font-body)]", getDescriptionSizeClass(descriptionSize) || "text-[clamp(1.05rem,2vw,1.3rem)] leading-[1.6]", getToneTextClass(tone, "title")].join(" ")}>
                 {content.description}
               </p>
             ) : null}

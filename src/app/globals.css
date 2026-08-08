@@ -370,7 +370,7 @@ p {
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: var(--section-title-size, clamp(2rem, 5vw, 3rem));
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -378,7 +378,7 @@ p {
 }
 
 .section-description {
-  font-size: 1.0625rem;
+  font-size: var(--section-description-size, 1.0625rem);
   line-height: 1.7;
   color: var(--section-description-color, var(--color-text-soft));
 }

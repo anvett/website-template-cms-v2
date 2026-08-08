@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 
 import { Accordion } from "@/components/ui/disclosure/Accordion";
 import { Button } from "@/components/ui/actions/Button";
+import {
+  resolveTone,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 const surfaceClasses = {
   base: "bg-[var(--color-bg)] text-[var(--color-text)]",
@@ -67,6 +74,8 @@ export function CategorizedFAQ({ data }) {
   const backgroundImage = media?.background?.src;
   const isImageBackground = background?.type === "image" && backgroundImage;
   const activeCategory = items[activeIndex] || items[0];
+  const tone = resolveTone(data, { hasImage: isImageBackground });
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   const overlayEnabled = meta?.overlay ?? media?.background?.overlay ?? true;
   const overlayOpacity = meta?.overlayOpacity ?? 0.7;
@@ -115,16 +124,20 @@ export function CategorizedFAQ({ data }) {
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
           {content.eyebrow ? (
-            <span className="section-eyebrow">{content.eyebrow}</span>
+            <span
+              className="section-eyebrow"
+              style={{ "--section-eyebrow-color": getToneCssColor(tone, "eyebrow") }}
+            >
+              {content.eyebrow}
+            </span>
           ) : null}
 
           {content.title ? (
             <h2
               className="section-title"
               style={{
-                "--section-title-color": isImageBackground
-                  ? "var(--color-text-inverse)"
-                  : "var(--color-primary)",
+                "--section-title-color": getToneCssColor(tone, "title"),
+                "--section-title-size": getTitleSizeCssValue(titleSize),
               }}
             >
               {content.title}
@@ -135,9 +148,8 @@ export function CategorizedFAQ({ data }) {
             <p
               className="section-description"
               style={{
-                "--section-description-color": isImageBackground
-                  ? "rgba(255,255,255,0.86)"
-                  : "var(--color-text-soft)",
+                "--section-description-color": getToneCssColor(tone, "description"),
+                "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
               }}
             >
               {content.description}

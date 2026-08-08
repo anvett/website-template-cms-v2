@@ -1,6 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  resolveBackground,
+  resolveTone,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
+} from "@/lib/sections/sectionStyle";
 
 export function StatsGrid({ data }) {
   if (!data || !data.enabled) return null;
@@ -14,16 +22,45 @@ export function StatsGrid({ data }) {
     "4-items": "md:grid-cols-2 lg:grid-cols-4",
   };
 
+  const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-dark" });
+  // Esta variant siempre usa fondo oscuro por diseño (gradiente o imagen);
+  // meta.tone permite forzar otro tono si una instancia lo necesita.
+  const tone = data.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
+
   return (
     <section
       id={data.id}
-      className="section-shell section-shell--compact gradient-dark"
+      className={[
+        "section-shell section-shell--compact relative isolate overflow-hidden",
+        bg.hasImage ? "bg-[var(--color-bg-dark)]" : bg.surfaceClass,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       style={{
-        "--section-title-color": "var(--color-text-inverse)",
-        "--section-description-color": "rgba(255,255,255,0.8)",
+        "--section-title-color": getToneCssColor(tone, "title"),
+        "--section-description-color": getToneCssColor(tone, "description"),
+        "--section-title-size": getTitleSizeCssValue(titleSize),
+        "--section-description-size": getDescriptionSizeCssValue(descriptionSize),
       }}
     >
-      <div className="section-container">
+      {bg.hasImage ? (
+        <img
+          src={bg.image.src}
+          alt={bg.image.alt || ""}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : null}
+
+      {bg.hasImage && bg.overlay.enabled ? (
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ opacity: bg.overlay.opacity }}
+          aria-hidden="true"
+        />
+      ) : null}
+
+      <div className="section-container relative">
         <motion.div
           className="section-header"
           initial={{ opacity: 0, y: 22 }}

@@ -9,7 +9,13 @@ import { Text } from "@/components/ui/content/Text";
 import { InfoItem } from "@/components/ui/content/InfoItem";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
-import { getSpacingClass, getContainerClass } from "@/lib/sections/sectionStyle";
+import {
+  getSpacingClass,
+  getContainerClass,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
+} from "@/lib/sections/sectionStyle";
 
 export function FeaturesTwoColumnsGradientImage({ data }) {
   if (!data || !data.enabled) return null;
@@ -23,8 +29,13 @@ export function FeaturesTwoColumnsGradientImage({ data }) {
   const overlayEnabled = data.meta?.overlay ?? background?.overlay ?? true;
   const overlayOpacity = data.meta?.overlayOpacity ?? 0.62;
 
-  // Variant siempre con texto claro (tone="inverse"); sin imagen usa el
-  // gradiente oscuro oficial (gradient-dark) o gradient-soft si se pide.
+  // Variant siempre con fondo oscuro por diseño; tone por defecto
+  // "inverse", overrideable por instancia vía meta.tone.
+  const tone = data.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
+
+  // Sin imagen usa el gradiente oscuro oficial (gradient-dark) o
+  // gradient-soft si se pide.
   const backgroundFallbackClass =
     sectionBackground.type === "gradient" && sectionBackground.variant === "soft"
       ? "gradient-soft-inverse"
@@ -89,9 +100,9 @@ export function FeaturesTwoColumnsGradientImage({ data }) {
           {content?.title && (
             <Heading
               as="h2"
-              level="h2"
-              tone="inverse"
-              className="text-[clamp(2rem,5vw,3.7rem)] leading-[1.06] tracking-[-0.04em]"
+              level={getTitleLevel(titleSize) || "h2"}
+              tone={tone}
+              className={titleSize ? "" : "text-[clamp(2rem,5vw,3.7rem)] leading-[1.06] tracking-[-0.04em]"}
             >
               {content.title}
             </Heading>
@@ -99,8 +110,8 @@ export function FeaturesTwoColumnsGradientImage({ data }) {
 
           {content?.description && (
             <Text
-              size="lg"
-              tone="inverse"
+              size={getDescriptionTextSize(descriptionSize) || "lg"}
+              tone={tone}
               className="max-w-xl opacity-80 leading-8"
             >
               {content.description}

@@ -15,6 +15,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
 } from "@/lib/sections/sectionStyle";
 
 const iconMap = {
@@ -34,6 +38,8 @@ export function ServicesCardsWithIcons({ data }) {
   const actions = data.actions || [];
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "surface-subtle" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -82,6 +88,9 @@ export function ServicesCardsWithIcons({ data }) {
             title={content.title}
             description={content.description}
             align="center"
+            tone={tone}
+            titleLevel={getTitleLevel(titleSize)}
+            descriptionSize={getDescriptionTextSize(descriptionSize)}
           />
         </motion.div>
 

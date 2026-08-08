@@ -6,6 +6,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  getToneCssColor,
+  resolveTypography,
+  getTitleSizeCssValue,
+  getDescriptionSizeCssValue,
 } from "@/lib/sections/sectionStyle";
 
 export function CTABackgroundImage({ data }) {
@@ -18,6 +22,12 @@ export function CTABackgroundImage({ data }) {
     defaultSurfaceFallback: "surface-strong",
     defaultOverlayOpacity: 0.18,
   });
+  // CTA siempre asume superficie oscura (surface-strong o imagen), así que
+  // el tone por defecto es "inverse" incluso sin imagen — a diferencia de
+  // resolveTone(), que por defecto asume superficie clara sin imagen.
+  // meta.tone en la Section Data sigue pudiendo pisar esto.
+  const tone = data?.meta?.tone || "inverse";
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -65,7 +75,7 @@ export function CTABackgroundImage({ data }) {
           {content.eyebrow ? (
             <p
               className="section-eyebrow pb-5"
-              style={{ color: "var(--color-accent)" }}
+              style={{ color: getToneCssColor(tone, "eyebrow") }}
             >
               {content.eyebrow}
             </p>
@@ -74,7 +84,10 @@ export function CTABackgroundImage({ data }) {
           {content.title ? (
             <h2
               className="section-title mt-3 pb-8"
-              style={{ color: "var(--color-text-inverse)" }}
+              style={{
+                color: getToneCssColor(tone, "title"),
+                fontSize: getTitleSizeCssValue(titleSize),
+              }}
             >
               {content.title}
             </h2>
@@ -83,7 +96,10 @@ export function CTABackgroundImage({ data }) {
           {content.description ? (
             <p
               className="section-description mt-4 max-w-2xl"
-              style={{ color: "rgba(255,255,255,0.85)" }}
+              style={{
+                color: getToneCssColor(tone, "description"),
+                fontSize: getDescriptionSizeCssValue(descriptionSize),
+              }}
             >
               {content.description}
             </p>

@@ -11,6 +11,10 @@ import {
   getSpacingClass,
   getContainerClass,
   resolveBackground,
+  resolveTone,
+  resolveTypography,
+  getTitleLevel,
+  getDescriptionTextSize,
 } from "@/lib/sections/sectionStyle";
 import styles from "./PartnersLogoGrid.module.css";
 
@@ -41,6 +45,8 @@ export function PartnersLogoGrid({ data }) {
   const items = data.items || [];
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "surface-base" });
+  const tone = resolveTone(data, bg);
+  const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
     <section
@@ -90,6 +96,9 @@ export function PartnersLogoGrid({ data }) {
             title={content.title}
             description={content.description}
             align="center"
+            tone={tone}
+            titleLevel={getTitleLevel(titleSize)}
+            descriptionSize={getDescriptionTextSize(descriptionSize)}
           />
         </motion.div>
 
@@ -108,7 +117,7 @@ export function PartnersLogoGrid({ data }) {
                 sin costura (translateX de -50% = ancho exacto de un set). */}
             <div
               className={styles.marqueeViewport}
-              aria-label="Aseguradoras aliadas de Kautela"
+              aria-label="Marcas aliadas"
             >
               <div className={styles.marqueeTrack}>
                 {items.map((item, index) => (
