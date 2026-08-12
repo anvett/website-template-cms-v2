@@ -42,3 +42,8 @@ next-env.d.ts
 
 # claude code local settings (machine-specific, no template)
 .claude/settings.local.json
+
+# repo backend anidado (template-cms-v2-backend) — repo git independiente,
+# vive físicamente acá por conveniencia pero se pushea aparte, nunca como
+# parte de este repo. Ver docs/decisions/CMS-BACKEND-ECOMMERCE-ROADMAP.md.
+/backend
