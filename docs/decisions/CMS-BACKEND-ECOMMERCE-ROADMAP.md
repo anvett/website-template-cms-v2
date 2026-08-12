@@ -76,37 +76,46 @@ Cómo se garantiza esto (ver también sección 5):
 
 ---
 
-## 5. Arquitectura de backend propuesta (borrador, no cerrada)
+## 5. Arquitectura de backend
 
-Idea de trabajo, pendiente de validar en detalle:
-
-- **Un proyecto Django por instancia de cliente** (a confirmar vs. alternativa multi-tenant, ver sección 6).
-- **Capa de API — obligatoria desde el MVP**: Django REST Framework (u equivalente) expone los modelos de contenido vía endpoints. Toda lectura/escritura de contenido pasa por aquí — Django Admin incluido. Esta capa es la que deja la puerta abierta a una interfaz propia futura (sección 4).
-- **Capa base — `content-admin`**: modelos Page / Section que reflejan 1:1 el contrato oficial de Section Data (mismo shape: `id, enabled, component, variant, surface, containerWidth, spacing, background, content, media, items, actions, meta`). Django Admin edita estos modelos a través de la capa de API (no directo contra el ORM sin pasar por ella); un endpoint sirve el JSON resultante para que Next.js lo consuma como si fuera el archivo `*.sections.data.js` actual.
-- **Capa opcional — `ecommerce`**: módulo adicional (Product, Cart, Order) que se activa solo si la instancia lo requiere. Pasarela de pago: **PayPhone**. Se expone por la misma capa de API.
-- El módulo ecommerce se construye **sobre** la base de content-admin, no en paralelo ni de forma independiente — reutiliza la misma lógica de servir Data a Next.js.
+- **Un solo proyecto Django + una sola base de datos, multi-tenant**, sirviendo a todos los clientes CMS/ecommerce (ver decisión sección 6). Cada cliente es una fila del modelo `Site` (el tenant), no un backend separado.
+- **Tenant scoping obligatorio**: todo modelo de contenido (`Page`, `Section`, `NavigationConfig`, `Promotion`, `Product`, `Collection`, etc.) tiene un FK a `Site`. Ninguna query de lectura o escritura puede ejecutarse sin filtrar por `site` — esto no es opcional ni "se agrega después", es la base de que el modelo compartido sea seguro. Ver `docs/implementation/CMS-BACKEND-CRONOGRAMA-IMPLEMENTACION.md` Fase 1 para el detalle de cómo se aplica esto en los modelos y en la capa de permisos.
+- **Capa de API — obligatoria desde el MVP**: Django REST Framework (u equivalente) expone los modelos de contenido vía endpoints, todos con el `site` como parte de la ruta (`/api/v1/sites/{site}/...`) — este diseño ya estaba pensado así desde el inicio, así que la reversión de "por cliente" a "multi-tenant" no rompe el contrato de API ya definido, solo cambia qué hay del otro lado (una tabla filtrada por `site`, no una base de datos entera). Toda lectura/escritura de contenido pasa por aquí — Django Admin incluido. Esta capa es la que deja la puerta abierta a una interfaz propia futura (sección 4).
+- **Capa base — `content-admin`**: modelos Page / Section que reflejan 1:1 el contrato oficial de Section Data (mismo shape: `id, enabled, component, variant, surface, containerWidth, spacing, background, content, media, items, actions, meta`), cada uno con su `site` FK. Django Admin edita estos modelos a través de la capa de API (no directo contra el ORM sin pasar por ella); un endpoint sirve el JSON resultante para que Next.js lo consuma como si fuera el archivo `*.sections.data.js` actual.
+- **Capa opcional — `ecommerce`**: módulo adicional (Product, Cart) que se activa solo si la instancia lo requiere, también scoped por `site`. El módulo ecommerce se construye **sobre** la base de content-admin, no en paralelo ni de forma independiente — reutiliza la misma lógica de servir Data a Next.js.
+- **Pago y facturación son dos sub-módulos opcionales, independientes entre sí, configurables por `Site` (decisión 2026-08-07):** no todo cliente de ecommerce necesita pasarela de pago (ver `CHECKLIST-CASO-USO-LANDING-PROMOCIONES-CATALOGO-WHATSAPP.md`, checkout por WhatsApp sin pago) ni todo cliente con pago necesita la misma pasarela ni el mismo sistema contable. Por eso:
+  - **Pago:** `Order` con estados de pago solo existe para los `Site` que activan `paymentEnabled=True`. Arquitectura de proveedor plugable (`PaymentProvider`), no atado a una sola pasarela — arranca con **PayPhone**, extensible a Kushki/Datafast/PagoPlux según lo pida cada cliente. Los clientes sin pago siguen usando el modelo `Inquiry` (checkout por WhatsApp) del caso de uso ya documentado.
+  - **Facturación:** módulo de integración con el **sistema contable que ya use cada cliente** (ContiFico, AZUR, Ciro Contable, Anfibius u otro), no un sistema de facturación propio de Anvetcorp. Arquitectura de proveedor plugable (`AccountingProvider`), scoped por `Site`, credenciales de API propias de cada cliente. Arranca con **ContiFico** (tiene API pública documentada y precedente real de integración con tiendas online). Independiente del sub-módulo de pago: un cliente puede querer facturación electrónica sin tener pago integrado en la plataforma (factura manual disparada al confirmar una venta por WhatsApp), o pago sin facturación automática si su contador la hace aparte.
+  - Detalle de tareas: ver Fase 7 de `docs/implementation/CMS-BACKEND-CRONOGRAMA-IMPLEMENTACION.md`.
+- **Frontend Next.js no cambia por esto**: cada cliente sigue siendo su propio repo/Project de Vercel, apuntando a la misma API compartida con su `site` identificador propio (token/slug). El aislamiento por cliente sigue existiendo en la capa de frontend/hosting; lo que se comparte es el backend.
 
 ---
 
-## 6. Decisión pendiente (abierta)
+## 6. Decisión: backend multi-tenant compartido
 
-**¿Un backend Django por cliente, o un backend multi-tenant que sirve a todos los clientes?**
+**Resuelto (2026-08-07, revirtiendo la decisión "por cliente" del mismo día): un solo proyecto Django + una sola base de datos**, multi-tenant, sirve a todos los clientes CMS/ecommerce.
 
-No resuelto todavía. Trade-offs a evaluar cuando se retome este tema:
-- Por-cliente: más simple de aislar y desplegar, pero más instancias que mantener/actualizar.
-- Multi-tenant: una sola base de código que mantener, pero mayor complejidad de aislamiento de datos y mayor riesgo si algo falla (afecta a todos los clientes a la vez).
+Motivo del cambio: al cruzar "backend por cliente" contra el costo real de infraestructura (ver `docs/implementation/COSTOS-INFRAESTRUCTURA-MENSUAL.md`), un backend + base de datos por cliente en Render escala **linealmente** (~$44-89/mes de infraestructura por cliente en tiers de producción real). Eso hace inviable vender el CMS a ~$50/mes por cliente con margen razonable, especialmente en los tiers de ecommerce grande. Multi-tenant compartido baja el costo real a ~$5-13/cliente, porque un solo Web Service y una sola base de datos (que se escalan de tamaño, no se multiplican en cantidad) sirven a todos los clientes a la vez.
+
+Contrapartida aceptada conscientemente:
+- **Menos aislamiento entre clientes**: un incidente de datos, un bug de scoping, o una caída del backend afecta potencialmente a todos los clientes a la vez, no a uno solo. Se mitiga (no se elimina) con scoping por `site` obligatorio en todo modelo/query, tests que verifiquen que un tenant nunca puede leer/escribir datos de otro, y monitoreo reforzado (un solo punto de falla que hay que cuidar más, no menos).
+- Reemplaza la consistencia previa "un cliente = una carpeta/repo, igual en frontend y backend" — ahora esa simetría solo aplica al frontend (Next.js sigue siendo un repo/Project por cliente); el backend es la excepción intencional.
+
+No descartado a futuro: si un cliente puntual exige aislamiento total (por contrato, compliance, o volumen que satura el backend compartido), se puede evaluar sacarlo a su propio backend dedicado como caso excepcional — no como regla general.
 
 ---
 
 ## 7. Próximos pasos
 
-1. Cerrar la decisión de la sección 6 (por-cliente vs. multi-tenant).
-2. Definir el modelo de datos de `content-admin` en Django a partir del contrato oficial de Section Data (secciones 5 y 6 del manual 03).
-3. Definir la capa de API (DRF) sobre esos modelos — el contrato de endpoints es lo que garantiza poder integrar una interfaz propia después sin rehacer backend.
+1. ~~Cerrar la decisión de la sección 6 (por-cliente vs. multi-tenant).~~ Resuelto 2026-08-07 — multi-tenant compartido (revertida la decisión "por cliente" del mismo día, ver sección 6).
+2. Definir el modelo de datos de `content-admin` en Django a partir del contrato oficial de Section Data (secciones 5 y 6 del manual 03), con `site` FK en cada modelo desde el diseño inicial — no agregarlo después.
+3. Definir la capa de API (DRF) sobre esos modelos, con `site` en la ruta — el contrato de endpoints es lo que garantiza poder integrar una interfaz propia después sin rehacer backend.
 4. Definir el endpoint/mecanismo por el cual Next.js consume el Data servido por Django (reemplazando o complementando los archivos `*.data.js` estáticos actuales).
-5. Prototipo mínimo: una Section editable de principio a fin (Django Admin → API → Next.js render) antes de escalar a todas las Sections. El prototipo debe demostrar que Django Admin escribe a través de la API, no directo al modelo.
+5. Prototipo mínimo: una Section editable de principio a fin (Django Admin → API → Next.js render) **con al menos dos `Site` de prueba**, para validar desde el prototipo que el scoping por tenant funciona y que un cliente no puede ver/editar datos del otro — no dejarlo para después.
 6. Definir alcance técnico del módulo ecommerce (Product/Cart/Order + integración PayPhone) una vez validado el content-admin base.
 7. (Futuro, no priorizado) Evaluar y diseñar la interfaz propia de CMS sobre la API ya existente, cuando el negocio lo requiera.
+
+Detalle de tareas y subtareas de los puntos 2–6: ver `docs/implementation/CMS-BACKEND-CRONOGRAMA-IMPLEMENTACION.md`.
 
 ---
 
