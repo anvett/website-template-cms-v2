@@ -59,9 +59,8 @@ Estado: **completa.** Backend multi-tenant compartido (una app Django + una base
 - Aplicar el equivalente Django de `withSectionsDefaults`: al crear una `Section`, precargar `media.background = {src: "", alt: ""}` y `meta = {overlay: true, overlayOpacity: 0.6, ...}` — **replicar la misma lógica de `sectionDefaults.js`, no reinventarla** (regla explícita de CLAUDE.md: "No reinventar esta lógica dentro de una Variant").
 - `order` (integer) dentro de su `Page`, para respetar el mapa de Sections de cada página.
 
-### 1.6 Modelo `ReusableData` (mirror de `src/data/reusable/*.data.js`)
-- FK a `Site`. Ej.: `contact-methods.data.js` → modelo `ContactMethod` o `ReusableSnippet` genérico referenciable desde varias Sections del mismo cliente.
-- Definir si es un modelo tipado por caso de uso o un JSONField genérico con `key` — recomendado: tipado, porque hoy solo existe `contact-methods` y no vale la pena generalizar prematuramente.
+### 1.6 ~~Modelo `ReusableData`~~ (omitido, 2026-08-12)
+Confirmado por el dueño del proyecto: el concepto "reusable" (`src/data/reusable/*.data.js`) se creó para no repetir componentes/partes comunes, pero nunca se implementó ni se llegó a usar en el frontend real — el único archivo (`contact-methods.data.js`) está vacío y sin consumidores. Se omite el modelo hasta que exista un caso de uso real. Detalle en `docs/decisions/decision-log.md`.
 
 ### 1.7 Capa de aislamiento entre tenants (nueva, específica de multi-tenant)
 - Middleware o manager de Django que resuelva el `Site` activo de cada request (por token de API, por header, o por el `slug` en la ruta) y lo inyecte en el contexto — ningún endpoint debe poder "olvidarse" de filtrar por site.
