@@ -54,6 +54,8 @@ function getBackgroundClasses(surface, background) {
 }
 
 export function CategorizedFAQ({ data }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   if (!data || !data.enabled) return null;
 
   const {
@@ -68,8 +70,6 @@ export function CategorizedFAQ({ data }) {
     actions = [],
     meta = {},
   } = data;
-
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const backgroundImage = media?.background?.src;
   const isImageBackground = background?.type === "image" && backgroundImage;

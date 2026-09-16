@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from "./Slider.module.css";
 import { sliderAspectClasses } from "./slider.tokens";
@@ -56,15 +56,21 @@ export function Slider({
     [items],
   );
 
-  const [currentIndex, setCurrentIndex] = useState(
+  const [storedIndex, setStoredIndex] = useState(
     Math.min(initialIndex, Math.max(normalizedItems.length - 1, 0)),
   );
+  const maxIndex = Math.max(normalizedItems.length - 1, 0);
+  const currentIndex = Math.min(storedIndex, maxIndex);
 
-  useEffect(() => {
-    setCurrentIndex((prev) =>
-      Math.min(prev, Math.max(normalizedItems.length - 1, 0)),
-    );
-  }, [normalizedItems.length]);
+  const setCurrentIndex = useCallback((value) => {
+    setStoredIndex((previousIndex) => {
+      const boundedPreviousIndex = Math.min(previousIndex, maxIndex);
+      const nextIndex =
+        typeof value === "function" ? value(boundedPreviousIndex) : value;
+
+      return Math.min(nextIndex, maxIndex);
+    });
+  }, [maxIndex]);
 
   useEffect(() => {
     if (!autoPlay || normalizedItems.length <= 1) return;
@@ -80,7 +86,7 @@ export function Slider({
     }, interval);
 
     return () => clearInterval(timer);
-  }, [autoPlay, interval, loop, normalizedItems.length]);
+  }, [autoPlay, interval, loop, normalizedItems.length, setCurrentIndex]);
 
   function goTo(index) {
     setCurrentIndex(index);
