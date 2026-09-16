@@ -164,6 +164,8 @@ Confirmado por el dueño del proyecto: el concepto "reusable" (`src/data/reusabl
 
 ## Fase 4 — Prototipo mínimo end-to-end
 
+**Estado: validado (2026-08-12).** Ciclo completo Django Admin → API (`SiteReadToken`) → Next.js (`src/lib/cms/` + `src/app/cms-preview/`) confirmado visualmente con el Hero real de `kautela` (seed de Fase 1.9) — eyebrow, título, descripción, CTA y estilos, sin modificar ningún componente React existente. Ver `docs/decisions/decision-log.md`.
+
 **Objetivo:** demostrar el ciclo completo Django Admin → API → Next.js con una sola Section real, antes de escalar. Es el gate de validación de todo el diseño anterior.
 
 **Duración estimada: 3–4 días.**
@@ -192,6 +194,8 @@ Confirmado por el dueño del proyecto: el concepto "reusable" (`src/data/reusabl
 ---
 
 ## Fase 5 — Escalar a todo el catálogo de Sections y páginas
+
+**Estado: validada (2026-08-13).** Construida y confirmada visualmente en vivo por el dueño del proyecto en su propia máquina (`npm run dev`, home de Eurocentro renderizada con contenido real). No es el piloto "Kautela" de 5.4 sino el segundo sitio del plan de validación de dos sitios: **"Eurocentro"**, un sitio de muestra completo (15 páginas, 90 productos, contenido ficticio) que además sirve como demo reutilizable para clientes futuros — cumple el entregable de 5.4 ("una instancia completa operando 100% desde Django + API, sin ningún archivo `*.data.js` estático activo"). Entregado: `seed_eurocentro.py` (backend), `layout.js` conectado a `fetchSiteData`/`fetchNavigationData` (Navbar/Footer/FloatingWhatsapp ahora reciben esos datos por prop, con fallback a Data estático para instancias sin CMS), botón de WhatsApp agregado al modal de Productos (`meta.whatsappNumber` en la Section, mismo patrón que `services/services-detail-cards`), y las 10 rutas reales del sitio (`src/app/{nosotros,servicios,productos,productos/[categoria],faq,contacto,privacidad,terminos,cookies}/page.js` + home). `section-registry.js` quedó con el catálogo completo de 16 components (5.1 al 100%): los 11 que usa Eurocentro, más `comparison`/`dual-content`/`features`/`team` registrados sin contenido real todavía que los ejercite (decisión explícita: cerrar el inventario ahora en vez de diferirlo, a pedido del dueño del proyecto). Ver `docs/decisions/decision-log.md`.
 
 **Objetivo:** cubrir el 100% de los components/variants existentes, no solo Hero.
 

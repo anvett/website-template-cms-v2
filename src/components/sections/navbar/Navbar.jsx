@@ -100,6 +100,15 @@ import { isStorefrontEnabled } from "@/lib/storefront/env";
 
 const ADVANCED_VARIANT = "logo-left-menu-right-dropdown-transparent";
 
+/**
+ * `navigation` es opcional (convivencia Data estático / CMS, cronograma
+ * 3.4): instancias sin CMS activo siguen llamando `<Navbar />` a secas
+ * y este componente usa el import estático de siempre, sin cambios de
+ * comportamiento. Instancias con CMS activo (ej. Eurocentro) pasan el
+ * resultado de `fetchNavigationData()` desde `layout.js` — un Server
+ * Component no puede usar hooks, así que el fetch vive ahí y baja como
+ * prop a este Client Component, nunca al revés.
+ */
 export function Navbar({ navigation } = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
