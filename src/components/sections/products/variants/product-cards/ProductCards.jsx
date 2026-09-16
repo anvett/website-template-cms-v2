@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { Info, ShoppingCart } from "lucide-react";
 
 import { Button } from "@/components/ui/actions/Button";
-import { Modal } from "@/components/ui/feedback/Modal";
+import { ProductDetailModal } from "@/components/sections/products/ProductDetailModal";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
+import { useCart } from "@/lib/storefront/CartContext";
+import { isStorefrontEnabled } from "@/lib/storefront/env";
 import {
   getSpacingClass,
   getContainerClass,
@@ -22,6 +24,8 @@ import {
 
 export function ProductCards({ data }) {
   const [selectedItem, setSelectedItem] = useState(null);
+  const { addItem } = useCart();
+  const cartEnabled = isStorefrontEnabled();
 
   if (!data || !data.enabled) return null;
 
@@ -31,6 +35,12 @@ export function ProductCards({ data }) {
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
   const tone = resolveTone(data, bg);
   const { titleSize, descriptionSize } = resolveTypography(data);
+  // Mismo patrón que `services/services-detail-cards` (meta.whatsappNumber,
+  // ver src/components/sections/services/variants/services-detail-cards):
+  // el número vive en el meta de esta Section, no en site.data.js global —
+  // evita que este componente (Client Component, reutilizado por
+  // cualquier instancia) tenga que decidir entre Data estático o CMS.
+  const whatsappNumber = data.meta?.whatsappNumber || "";
 
   return (
     <section
@@ -141,14 +151,20 @@ export function ProductCards({ data }) {
 
                   <div className="mt-auto flex flex-col gap-3 pt-2">
                     {supportsModal && item?.details && (
-                      <button
-                        type="button"
+                      <Button
+                        variant="primary"
                         onClick={() => setSelectedItem(item)}
-                        className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-bg-white)] px-5 text-[0.9rem] font-bold text-[var(--color-primary)] transition hover:border-[var(--color-primary)]"
                       >
                         <Info className="h-[1rem] w-[1rem]" aria-hidden="true" />
                         Ver detalles
-                      </button>
+                      </Button>
+                    )}
+
+                    {cartEnabled && item?.title && (
+                      <Button variant="outline" onClick={() => addItem(item)}>
+                        <ShoppingCart className="h-[1rem] w-[1rem]" aria-hidden="true" />
+                        Agregar al carrito
+                      </Button>
                     )}
 
                     {actions?.[0]?.href && (
@@ -167,84 +183,13 @@ export function ProductCards({ data }) {
         )}
       </div>
 
-      <ProductDetailsModal
+      <ProductDetailModal
         item={selectedItem}
         isOpen={Boolean(selectedItem)}
         onClose={() => setSelectedItem(null)}
+        whatsappNumber={whatsappNumber}
       />
     </section>
-  );
-}
-
-function ProductDetailsModal({ item, isOpen, onClose }) {
-  const details = item?.details;
-
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={details?.title || item?.title}
-      description={item?.price ? `Precio referencial: ${item.price}` : ""}
-      size="lg"
-    >
-      <div className="flex flex-col gap-5">
-        {item?.image && (
-          <div className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-bg-soft)]">
-            <img
-              src={item.image}
-              alt={item.title || ""}
-              className="max-h-[320px] w-full object-cover"
-            />
-          </div>
-        )}
-
-        {details?.description && (
-          <p className="text-[1rem] leading-7 text-[var(--color-text-soft)]">
-            {details.description}
-          </p>
-        )}
-
-        {details?.includes?.length > 0 && (
-          <DetailList title="Incluye" items={details.includes} />
-        )}
-
-        {details?.specifications?.length > 0 && (
-          <DetailList title="Especificaciones" items={details.specifications} />
-        )}
-
-        {details?.recommendedFor && (
-          <DetailBlock title="Recomendado para" text={details.recommendedFor} />
-        )}
-
-        {details?.warranty && (
-          <DetailBlock title="Garantía" text={details.warranty} />
-        )}
-      </div>
-    </Modal>
-  );
-}
-
-function DetailList({ title, items }) {
-  return (
-    <div className="flex flex-col gap-2">
-      <h4 className="font-bold text-[var(--color-primary)]">{title}</h4>
-      <ul className="list-disc space-y-1 pl-5 text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function DetailBlock({ title, text }) {
-  return (
-    <div className="flex flex-col gap-1">
-      <h4 className="font-bold text-[var(--color-primary)]">{title}</h4>
-      <p className="text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
-        {text}
-      </p>
-    </div>
   );
 }
 

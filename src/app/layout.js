@@ -5,6 +5,10 @@ import { navigationData as staticNavigationData } from "@/data/global/navigation
 import { Footer } from "@/components/sections/footer";
 import { Navbar } from "@/components/sections/navbar";
 import { FloatingWhatsapp } from "@/components/global/FloatingWhatsapp";
+import { CartWidget } from "@/components/global/CartWidget";
+import { CartProvider } from "@/lib/storefront/CartContext";
+import { CustomerSessionProvider } from "@/lib/storefront/CustomerSessionContext";
+import { VehicleSelectionProvider } from "@/lib/storefront/VehicleSelectionContext";
 import { isCmsEnabled, fetchSiteData, fetchNavigationData } from "@/lib/cms";
 import { EditorBridge } from "@/components/editor/EditorBridge";
 
@@ -99,12 +103,19 @@ export default async function RootLayout({ children }) {
     <html lang={siteData.site.language}>
       <body className={`${inter.variable} ${montserrat.variable}`}>
         <EditorBridge />
-        <div className="site-shell">
-          <Navbar navigation={navigationData} />
-          {children}
-          <FloatingWhatsapp site={siteData} />
-          <Footer navigation={navigationData} site={siteData} />
-        </div>
+        <CustomerSessionProvider>
+          <VehicleSelectionProvider>
+            <CartProvider>
+              <div className="site-shell">
+                <Navbar navigation={navigationData} />
+                {children}
+                <FloatingWhatsapp site={siteData} />
+                <CartWidget site={siteData} />
+                <Footer navigation={navigationData} site={siteData} />
+              </div>
+            </CartProvider>
+          </VehicleSelectionProvider>
+        </CustomerSessionProvider>
         
       </body>
     </html>

@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
+import { Info, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/actions/Button";
-import { Modal } from "@/components/ui/feedback/Modal";
+import { Accordion } from "@/components/ui/disclosure/Accordion";
+import { ProductDetailModal } from "@/components/sections/products/ProductDetailModal";
+import { ProductGrid } from "@/components/sections/products/ProductGrid";
+import { OutOfStockBadge } from "@/components/sections/products/OutOfStockBadge";
+import { VehicleSelector } from "@/components/global/VehicleSelector";
+import { useCatalogOverlay } from "@/lib/storefront/useCatalogOverlay";
 import { fadeUp } from "@/lib/motion/presets";
 import { defaultTransition } from "@/lib/motion/transitions";
 import {
@@ -20,17 +25,82 @@ import {
   getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
+// A partir de cuántos items tiene sentido separar en destacados+acordeón
+// en vez de mostrar todo en una sola grilla (2026-08-29). Con catálogos
+// chicos (otro rubro, pocos productos) el acordeón solo agrega un click
+// extra sin resolver nada — se mantiene el comportamiento anterior (todo
+// en grilla) hasta que de verdad haga falta.
+const ACCORDION_THRESHOLD = 4;
+
+function matchesQuery(item, normalizedQuery) {
+  if (!normalizedQuery) return true;
+  return [item?.title, item?.description, item?.category]
+    .filter(Boolean)
+    .some((field) => field.toLowerCase().includes(normalizedQuery));
+}
+
+/**
+ * Reparte `items` en { featured, rest } para el modo "browse" (sin
+ * búsqueda activa). `featured` prioriza los items marcados
+ * `item.featured === true` en la Data (curado a mano, ver
+ * seed_eurocentro.py FEATURED_ITEM_INDEXES) — si ninguno viene marcado
+ * (sitio/instancia que no usa esa convención todavía), cae a los
+ * primeros 4 del listado en vez de no mostrar destacados, para que el
+ * layout funcione igual sin curación previa.
+ */
+function splitFeatured(items) {
+  if (items.length <= ACCORDION_THRESHOLD) {
+    return { featured: items, rest: [] };
+  }
+  const marked = items.filter((item) => item?.featured === true).slice(0, 4);
+  const featured = marked.length > 0 ? marked : items.slice(0, 4);
+  const rest = items.filter((item) => !featured.includes(item));
+  return { featured, rest };
+}
+
 export function PartsGallery({ data }) {
   const [selectedItem, setSelectedItem] = useState(null);
+  const [query, setQuery] = useState("");
+
+  // Hooks (useState/useMemo/useCatalogOverlay) tienen que correr siempre
+  // en el mismo orden en cada render -- por eso `items`/derivados se
+  // calculan con fallback seguro ANTES del early return de abajo, en vez
+  // de después (que rompería react-hooks/rules-of-hooks apenas `data`
+  // sea null/disabled).
+  //
+  // Fase 5.3: `data.items` ya viene con el catálogo real (mapeado desde
+  // `Product`, Fase 3/6) para visitantes anónimos -- lo puso ahí
+  // `productos/[categoria]/page.js` en el servidor (SSR, sin precio,
+  // cacheado por ISR). `useCatalogOverlay` toma esos items como base y
+  // les aplica, 100% client-side, lo que el servidor no puede saber:
+  // precio real (si hay sesión de cliente aprobada) y filtro por el
+  // vehículo elegido en `VehicleSelector` (universal-o-vehículo-exacto,
+  // ver docstring del hook).
+  const { items } = useCatalogOverlay({
+    baseItems: data?.items || [],
+    categoryNodeId: data?.meta?.categoryNodeId || null,
+  });
+  const normalizedQuery = query.trim().toLowerCase();
+  const isSearching = normalizedQuery.length > 0;
+
+  const searchResults = useMemo(
+    () => (isSearching ? items.filter((item) => matchesQuery(item, normalizedQuery)) : []),
+    [isSearching, items, normalizedQuery]
+  );
+
+  const { featured, rest } = useMemo(() => splitFeatured(items), [items]);
 
   if (!data || !data.enabled) return null;
 
-  const { content, items, actions, meta } = data;
+  const { content, actions, meta } = data;
   const supportsModal = meta?.supportsModal === true;
 
   const bg = resolveBackground(data, { defaultSurfaceFallback: "gradient-soft" });
   const tone = resolveTone(data, bg);
   const { titleSize, descriptionSize } = resolveTypography(data);
+  // Mismo patrón que `services/services-detail-cards` y `product-cards`
+  // (meta.whatsappNumber vive en la Section, no en site.data.js global).
+  const whatsappNumber = data.meta?.whatsappNumber || "";
 
   return (
     <section
@@ -61,7 +131,7 @@ export function PartsGallery({ data }) {
 
       <div
         className={[
-          "section-container relative flex w-full flex-col gap-12",
+          "section-container relative flex w-full flex-col gap-10",
           getContainerClass(data.containerWidth) || "section-container--wide",
         ]
           .filter(Boolean)
@@ -97,82 +167,115 @@ export function PartsGallery({ data }) {
           )}
         </motion.div>
 
-        {items?.length > 0 && (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {items.map((item, index) => (
-              <motion.article
-                key={index}
-                className="group overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-white)] shadow-[var(--shadow-sm)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)]"
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  ...defaultTransition,
-                  delay: index * 0.025,
-                }}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden bg-white">
-                  {item?.image && (
-                    <img
-                      src={item.image}
-                      alt={item.title || ""}
-                      className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-                    />
-                  )}
+        <VehicleSelector className="mx-auto w-full max-w-3xl" />
 
-                  {item?.category && (
-                    <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] bg-[var(--color-primary)] px-3 py-1 text-[0.75rem] font-bold uppercase tracking-[0.08em] text-[var(--color-text-inverse)]">
-                      {item.category}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-4 p-5">
-                  <div className="flex flex-col gap-2">
-                    {item?.price && (
-                      <p className="text-[1.25rem] font-bold text-[var(--color-text)]">
-                        {item.price}
-                      </p>
-                    )}
-
-                    {item?.title && (
-                      <h3 className="text-[1.125rem] font-bold leading-tight text-[var(--color-primary)]">
-                        {item.title}
-                      </h3>
-                    )}
-
-                    {item?.description && (
-                      <p className="text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
-                        {item.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {supportsModal && item?.details && (
-                    <button
-                      type="button"
-                      onClick={() => setSelectedItem(item)}
-                      className="inline-flex min-h-10 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-bg-white)] px-4 text-[0.9rem] font-bold text-[var(--color-primary)] transition hover:border-[var(--color-primary)]"
-                    >
-                      <Info className="h-[1rem] w-[1rem]" aria-hidden="true" />
-                      Ver detalle
-                    </button>
-                  )}
-                </div>
-              </motion.article>
-            ))}
+        {items.length > ACCORDION_THRESHOLD && (
+          <div className="mx-auto w-full max-w-xl">
+            <label className="relative block">
+              <Search
+                className="pointer-events-none absolute left-4 top-1/2 h-[1.1rem] w-[1.1rem] -translate-y-1/2 text-[var(--color-text-soft)]"
+                aria-hidden="true"
+              />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Buscar en esta categoría..."
+                className="w-full rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-bg-white)] py-3 pl-11 pr-4 text-[0.95rem] text-[var(--color-text)] outline-none transition focus:border-[var(--color-primary)]"
+              />
+            </label>
           </div>
         )}
 
-        {actions?.length > 0 && (
+        {isSearching ? (
+          searchResults.length > 0 ? (
+            <ProductGrid
+              items={searchResults}
+              supportsModal={supportsModal}
+              onSelect={setSelectedItem}
+            />
+          ) : (
+            <p className="text-center text-[0.95rem] text-[var(--color-text-soft)]">
+              No se encontraron productos para &quot;{query}&quot;.
+            </p>
+          )
+        ) : (
+          <>
+            {featured.length > 0 && (
+              <ProductGrid
+                items={featured}
+                supportsModal={supportsModal}
+                onSelect={setSelectedItem}
+              />
+            )}
+
+            {rest.length > 0 && (
+              <div className="flex flex-col gap-4">
+                <h3 className="text-[1.1rem] font-bold text-[var(--color-primary)]">
+                  Todos los productos ({rest.length})
+                </h3>
+                <div className="rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-bg-white)] px-5">
+                  <Accordion
+                    items={rest}
+                    allowMultiple
+                    renderHeader={(item) => (
+                      <div className="flex flex-1 items-center gap-4">
+                        {item?.image && (
+                          <img
+                            src={item.image}
+                            alt=""
+                            className="h-12 w-12 shrink-0 rounded-[var(--radius-md)] bg-[var(--color-bg-soft)] object-contain p-1"
+                          />
+                        )}
+                        <div className="flex flex-1 flex-col gap-1 text-left">
+                          <span className="font-bold text-[var(--color-primary)]">
+                            {item.title}
+                          </span>
+                          {item?.category && (
+                            <span className="text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-text-soft)]">
+                              {item.category}
+                            </span>
+                          )}
+                          {item?.isOutOfStock && <OutOfStockBadge />}
+                        </div>
+                        {item?.price && (
+                          <span className="shrink-0 font-bold text-[var(--color-text)]">
+                            {item.price}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    renderContent={(item) => (
+                      <div className="flex flex-col gap-3 py-3 pl-16">
+                        {item?.description && (
+                          <p className="text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
+                            {item.description}
+                          </p>
+                        )}
+
+                        {supportsModal && item?.details && (
+                          <Button
+                            variant="primary"
+                            onClick={() => setSelectedItem(item)}
+                            className="w-fit"
+                          >
+                            <Info className="h-[1rem] w-[1rem]" aria-hidden="true" />
+                            Ver detalle
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {!isSearching && actions?.length > 0 && (
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             {actions.map((action, index) => (
-              <Button
-                key={index}
-                href={action.href}
-                variant={action.variant || "primary"}
-              >
+              <Button key={index} href={action.href} variant={action.variant || "primary"}>
                 {action.label}
               </Button>
             ))}
@@ -180,64 +283,13 @@ export function PartsGallery({ data }) {
         )}
       </div>
 
-      <PartDetailsModal
+      <ProductDetailModal
         item={selectedItem}
         isOpen={Boolean(selectedItem)}
         onClose={() => setSelectedItem(null)}
+        whatsappNumber={whatsappNumber}
       />
     </section>
-  );
-}
-
-function PartDetailsModal({ item, isOpen, onClose }) {
-  const details = item?.details;
-
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={details?.title || item?.title}
-      description={item?.price ? `Precio referencial: ${item.price}` : ""}
-      size="md"
-    >
-      <div className="flex flex-col gap-5">
-        {item?.image && (
-          <div className="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-bg-soft)]">
-            <img
-              src={item.image}
-              alt={item.title || ""}
-              className="max-h-[280px] w-full object-contain p-4"
-            />
-          </div>
-        )}
-
-        {details?.description && (
-          <p className="text-[1rem] leading-7 text-[var(--color-text-soft)]">
-            {details.description}
-          </p>
-        )}
-
-        {details?.compatibility && (
-          <div>
-            <h4 className="font-bold text-[var(--color-primary)]">
-              Compatibilidad
-            </h4>
-            <p className="mt-1 text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
-              {details.compatibility}
-            </p>
-          </div>
-        )}
-
-        {details?.notes && (
-          <div>
-            <h4 className="font-bold text-[var(--color-primary)]">Notas</h4>
-            <p className="mt-1 text-[0.9rem] leading-6 text-[var(--color-text-soft)]">
-              {details.notes}
-            </p>
-          </div>
-        )}
-      </div>
-    </Modal>
   );
 }
 

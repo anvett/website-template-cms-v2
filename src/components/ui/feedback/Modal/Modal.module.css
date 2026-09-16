@@ -39,6 +39,14 @@
   max-width: 48rem;
 }
 
+/* Agregado 2026-08-29 — ver modal.tokens.js. Pensado para contenido en 2
+   columnas (imagen + detalle) sin llegar a pantalla completa; en mobile
+   sigue siendo 100% del ancho disponible dentro del padding del overlay,
+   igual que el resto de los tamaños. */
+.panel-xl {
+  max-width: 68rem;
+}
+
 .header {
   padding: 1.25rem 1.25rem 0.5rem;
   padding-right: 4rem;

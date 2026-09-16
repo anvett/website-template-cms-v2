@@ -19,8 +19,10 @@ import { ChevronDown } from "lucide-react";
  * - allowMultiple
  * - defaultOpen
  * - className
+ * - renderHeader(item, index, isOpen) — opcional
+ * - renderContent(item, index, isOpen) — opcional
  *
- * Estructura esperada:
+ * Estructura esperada (si NO se pasan renderHeader/renderContent):
  *
  * {
  *   question: string,
@@ -34,9 +36,20 @@ import { ChevronDown } from "lucide-react";
  *   description: string
  * }
  *
+ * `renderHeader`/`renderContent` (2026-08-29, agregado para el listado
+ * de productos de `products/parts-gallery`): permiten reemplazar el
+ * header (texto plano) y el contenido expandido (párrafo plano) por
+ * JSX arbitrario (ej. thumbnail + precio en el header, botón "Ver
+ * detalle" en el contenido) sin que cada Variant tenga que reimplementar
+ * su propio acordeón — mismo componente, misma lógica de
+ * apertura/cierre/accesibilidad, solo cambia qué se pinta adentro. Si no
+ * se pasan, el comportamiento es exactamente el de antes (FAQ no se ve
+ * afectado).
+ *
  * Uso recomendado:
  * - FAQ
  * - contenido expandible
+ * - listados densos (ej. catálogo de productos)
  * - documentación
  * - CMS futuro
  *
@@ -52,6 +65,8 @@ export function Accordion({
   allowMultiple = false,
   defaultOpen = [],
   className = "",
+  renderHeader,
+  renderContent,
 }) {
   const [openItems, setOpenItems] = useState(defaultOpen);
 
@@ -88,9 +103,13 @@ export function Accordion({
               onClick={() => toggleItem(index)}
               className="flex w-full items-start justify-between gap-4 text-left"
             >
-              <span className="text-body-lg font-bold text-[var(--color-primary)]">
-                {item.question || item.title}
-              </span>
+              {renderHeader ? (
+                renderHeader(item, index, isOpen)
+              ) : (
+                <span className="text-body-lg font-bold text-[var(--color-primary)]">
+                  {item.question || item.title}
+                </span>
+              )}
 
               <ChevronDown
                 aria-hidden="true"
@@ -115,9 +134,13 @@ export function Accordion({
                 .join(" ")}
             >
               <div className="overflow-hidden">
-                <p className="pt-3 text-body text-[var(--color-text-soft)]">
-                  {item.answer || item.description}
-                </p>
+                {renderContent ? (
+                  renderContent(item, index, isOpen)
+                ) : (
+                  <p className="pt-3 text-body text-[var(--color-text-soft)]">
+                    {item.answer || item.description}
+                  </p>
+                )}
               </div>
             </div>
           </div>

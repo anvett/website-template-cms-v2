@@ -92,9 +92,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, ShoppingCart, User, X } from "lucide-react";
 import { navigationData as staticNavigationData } from "@/data/global/navigation.data";
 import { Button } from "@/components/ui/actions/Button";
+import { useCart } from "@/lib/storefront/CartContext";
+import { isStorefrontEnabled } from "@/lib/storefront/env";
 
 const ADVANCED_VARIANT = "logo-left-menu-right-dropdown-transparent";
 
@@ -104,6 +106,16 @@ export function Navbar({ navigation } = {}) {
   const [hasScrolled, setHasScrolled] = useState(false);
 
   const navbar = (navigation ?? staticNavigationData).navbar;
+  // Ícono de carrito en el Navbar (pedido explícito del dueño del
+  // proyecto, 2026-09-04) -- abre el mismo panel que el botón flotante
+  // (`CartWidget`), vía el estado compartido de `CartContext`
+  // (`isOpen`/`openCart`, ver ese archivo). `CartProvider` envuelve todo
+  // el árbol siempre (layout.js), así que `useCart()` acá nunca explota
+  // aunque el storefront esté deshabilitado -- solo el ÍCONO se gatea por
+  // `storefrontEnabled` más abajo, mismo criterio que el link "Mi
+  // cuenta". Llamado ACÁ, antes del `return null` de más abajo -- un Hook
+  // nunca puede ejecutarse condicionalmente (regla de React).
+  const { count: cartCount, openCart } = useCart();
 
   useEffect(() => {
     if (navbar?.variant !== ADVANCED_VARIANT) return;
@@ -123,6 +135,13 @@ export function Navbar({ navigation } = {}) {
   const logo = navbar.content?.logo;
   const action = navbar.actions?.[0];
   const isAdvanced = navbar.variant === ADVANCED_VARIANT;
+  // "Mi cuenta" (Fase 5.5, login/registro/Mis pedidos) -- a diferencia
+  // del resto de este componente (100% CMS-driven vía `navigationData`),
+  // este link es una feature del storefront, no contenido editorial, así
+  // que se agrega acá directo (mismo criterio que `CartWidget`/
+  // `FloatingWhatsapp`: gateado por `isStorefrontEnabled()`, invisible en
+  // cualquier instancia sin storefront configurado).
+  const storefrontEnabled = isStorefrontEnabled();
 
   const headerClassName = isAdvanced
     ? [
@@ -199,7 +218,41 @@ export function Navbar({ navigation } = {}) {
           })}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-4 lg:flex">
+          {storefrontEnabled && (
+            <button
+              type="button"
+              onClick={openCart}
+              aria-label="Abrir carrito"
+              className={`relative inline-flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full border transition-colors ${
+                isAdvanced && !hasScrolled && !isOpen
+                  ? "border-white/40 text-white hover:border-white hover:text-(--color-accent)"
+                  : "border-(--color-border) text-(--color-text) hover:border-(--color-primary) hover:text-(--color-primary)"
+              }`}
+            >
+              <ShoppingCart size="1.2rem" />
+              {cartCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-[1.1rem] min-w-[1.1rem] items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-[0.65rem] font-bold text-[var(--color-primary)]">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+          )}
+
+          {storefrontEnabled && (
+            <a
+              href="/cuenta"
+              aria-label="Mi cuenta"
+              className={`inline-flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full border transition-colors ${
+                isAdvanced && !hasScrolled && !isOpen
+                  ? "border-white/40 text-white hover:border-white hover:text-(--color-accent)"
+                  : "border-(--color-border) text-(--color-text) hover:border-(--color-primary) hover:text-(--color-primary)"
+              }`}
+            >
+              <User size="1.2rem" />
+            </a>
+          )}
+
           {action && (
             <Button href={action.href} variant={action.variant}>
               {action.label}
@@ -275,6 +328,36 @@ export function Navbar({ navigation } = {}) {
                 </div>
               );
             })}
+
+            {storefrontEnabled && (
+              <button
+                type="button"
+                className="flex items-center gap-2 text-left text-[1rem] font-bold text-(--color-text)"
+                onClick={() => {
+                  setIsOpen(false);
+                  openCart();
+                }}
+              >
+                <ShoppingCart size="1.1rem" />
+                Carrito
+                {cartCount > 0 && (
+                  <span className="flex h-[1.35rem] min-w-[1.35rem] items-center justify-center rounded-full bg-[var(--color-accent)] px-1 text-[0.75rem] font-bold text-[var(--color-primary)]">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            )}
+
+            {storefrontEnabled && (
+              <a
+                href="/cuenta"
+                className="flex items-center gap-2 text-[1rem] font-bold text-(--color-text)"
+                onClick={() => setIsOpen(false)}
+              >
+                <User size="1.1rem" />
+                Mi cuenta
+              </a>
+            )}
 
             {action && (
               <div className="pt-2">
