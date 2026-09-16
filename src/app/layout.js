@@ -1,5 +1,4 @@
 import "./globals.css";
-import { Inter, Montserrat } from "next/font/google";
 import { siteData as staticSiteData } from "@/data/global/site.data";
 import { navigationData as staticNavigationData } from "@/data/global/navigation.data";
 import { Footer } from "@/components/sections/footer";
@@ -30,19 +29,6 @@ import { EditorBridge } from "@/components/editor/EditorBridge";
    La identidad visual principal vive ahora en:
    src/app/globals.css
 ========================================================= */
-
-/* Fuente principal para textos generales */
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-/* Fuente secundaria para títulos editoriales o destacados */
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-montserrat",
-});
 
 async function getLayoutData() {
   if (!isCmsEnabled()) {
@@ -101,7 +87,19 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={siteData.site.language}>
-      <body className={`${inter.variable} ${montserrat.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
         <EditorBridge />
         <CustomerSessionProvider>
           <VehicleSelectionProvider>

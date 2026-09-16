@@ -9,27 +9,39 @@ import { defaultTransition } from "@/lib/motion/transitions";
 import {
   getSpacingClass,
   getContainerClass,
+  resolveBackground,
+  resolveTone,
   getToneTextClass,
   resolveTypography,
   getTitleSizeClass,
   getDescriptionSizeClass,
 } from "@/lib/sections/sectionStyle";
 
+/**
+ * Hero compacto para páginas internas (Nosotros, Servicios, etc.) — misma
+ * idea que `background-image` (Hero de Home) pero con menos altura y
+ * contenido centrado, pensado para abrir una página secundaria sin repetir
+ * el hero grande de Home.
+ *
+ * 2026-08-30 — bug corregido: leía `background.src`/`background.alt`
+ * directo (nunca `media.background.src`/`alt`, el lugar real donde vive
+ * la imagen según el contrato oficial — CLAUDE.md, "Background por
+ * Defecto") y no sabía nada de gradientes ni de la jerarquía
+ * imagen>gradiente>surface ya cableada en `resolveBackground()`. Se
+ * reescribió para usar `resolveBackground`/`resolveTone`, igual que
+ * `hero-background-image` y el resto del catálogo — mismo mecanismo,
+ * nada nuevo que mantener por separado.
+ */
 export function HeroInternal({ data }) {
   if (!data || !data.enabled) return null;
 
   const { content, actions } = data;
-  const background = data.background || {};
-  const hasBgImage = background.type === "image" && background.src;
-  const overlayEnabled = data.meta?.overlay ?? true;
-  const overlayOpacity = data.meta?.overlayOpacity ?? 0.55;
 
-  const isStrong = !data.surface || data.surface === "strong";
-  const surfaceClasses = { base: "surface-base", subtle: "surface-subtle" };
-  // Hero interno asume superficie oscura por defecto (strong/imagen);
-  // tone "inverse" salvo que meta.tone la pise. Si surface es base/subtle
-  // (claro) sin imagen, cae a "default" automáticamente.
-  const tone = data.meta?.tone || (hasBgImage || isStrong ? "inverse" : "default");
+  const bg = resolveBackground(data, {
+    defaultSurfaceFallback: "surface-strong",
+    defaultOverlayOpacity: 0.55,
+  });
+  const tone = resolveTone(data, bg);
   const { titleSize, descriptionSize } = resolveTypography(data);
 
   return (
@@ -38,35 +50,29 @@ export function HeroInternal({ data }) {
       className={[
         "section-shell relative overflow-hidden",
         getSpacingClass(data.spacing) || "section-shell--hero",
-        hasBgImage
-          ? "text-(--color-text-inverse)"
-          : isStrong
-            ? "bg-(--color-bg-dark) text-(--color-text-inverse)"
-            : surfaceClasses[data.surface] || "surface-strong",
+        bg.hasImage ? "bg-[var(--color-bg-dark)] text-[var(--color-text-inverse)]" : bg.surfaceClass,
       ]
         .filter(Boolean)
         .join(" ")}
     >
-      {hasBgImage ? (
+      {bg.hasImage ? (
         <>
           <Image
-            src={background.src}
-            alt={background.alt || ""}
+            src={bg.image.src}
+            alt={bg.image.alt || ""}
             fill
             sizes="100vw"
             className="absolute inset-0 z-0 object-cover"
             priority
           />
-          {overlayEnabled && (
+          {bg.overlay.enabled && (
             <div
               className="absolute inset-0 z-1 bg-black"
-              style={{ opacity: overlayOpacity }}
+              style={{ opacity: bg.overlay.opacity }}
               aria-hidden="true"
             />
           )}
         </>
-      ) : isStrong ? (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(248,192,24,0.22),transparent_34%),linear-gradient(135deg,var(--color-primary),var(--color-bg-dark))]" />
       ) : null}
 
       <div

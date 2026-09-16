@@ -53,16 +53,47 @@ export function getContainerClass(containerWidth) {
   return containerClasses[containerWidth] ?? "";
 }
 
+// Catálogo cerrado de gradientes activos (2026-08-24, "deben haber por lo
+// menos 5 gradientes activas"). Cada key coincide 1:1 con
+// Section.GradientVariant en el backend (content_admin/models.py) y con un
+// token --gradient-* + clase .gradient-<variant> en globals.css — agregar
+// un gradiente nuevo requiere tocar los tres lugares.
+//
+// `dark: true` marca los gradientes suficientemente oscuros como para
+// necesitar texto claro por default (ver resolveTone/bg.isDark más abajo)
+// — mismo criterio ya usado en globals.css (.gradient-dark/.gradient-brand
+// llevan `color: var(--color-text-inverse)` bakeado en la clase).
+export const gradientVariants = {
+  dark: { className: "gradient-dark", dark: true },
+  soft: { className: "gradient-soft", dark: false },
+  "soft-inverse": { className: "gradient-soft-inverse", dark: false },
+  brand: { className: "gradient-brand", dark: true },
+  accent: { className: "gradient-accent", dark: false },
+};
+
 /**
  * Resuelve el bloque `background` + `media.background` + `meta.overlay`
  * de una Section Data en un objeto listo para usar en el render.
  *
- * - background.type === "image"  -> usa media.background.src como imagen,
- *   overlay controlado por meta.overlay / meta.overlayOpacity.
- * - background.type === "gradient" + variant "dark"|"soft" -> clase de
- *   gradiente global (gradient-dark / gradient-soft).
- * - en cualquier otro caso ("surface" o sin definir) -> surface-base /
- *   surface-subtle / surface-strong según `surface`.
+ * Jerarquía oficial (2026-08-24): imagen > gradiente > surface.
+ * `background.type` sigue siendo el selector explícito (Admin, un dropdown
+ * igual que `surface`), pero si el nivel pedido no tiene datos completos,
+ * el render cae en cascada al siguiente en vez de mostrar un fondo roto o
+ * vacío:
+ *
+ * - background.type === "image": si `media.background.src` está cargado,
+ *   se usa la imagen (overlay controlado por meta.overlay/overlayOpacity).
+ *   Si NO hay src todavía (caso típico: Section recién creada, ver
+ *   "Background por Defecto" en CLAUDE.md), cae a gradiente si
+ *   `background.variant` es uno de los 5 válidos, y si tampoco hay
+ *   gradiente, cae a `surface`.
+ * - background.type === "gradient": usa la clase del gradiente si
+ *   `background.variant` es válido; si no, cae a `surface` (nunca sube a
+ *   buscar una imagen — la cascada es siempre hacia abajo desde lo que se
+ *   pidió).
+ * - background.type === "surface" (o sin definir): siempre `surface`,
+ *   nunca se "sube" automáticamente a gradiente/imagen aunque existan
+ *   datos de sobra — respeta la elección explícita del selector.
  */
 export function resolveBackground(data, { defaultSurfaceFallback = "surface-base", defaultOverlayOpacity = 0.55 } = {}) {
   const background = data?.background || {};
@@ -70,24 +101,29 @@ export function resolveBackground(data, { defaultSurfaceFallback = "surface-base
 
   const imageSrc = media?.src || background.src || null;
   const imageAlt = media?.alt || background.alt || "";
-  const hasImage = background.type === "image" && Boolean(imageSrc);
+  const gradient = gradientVariants[background.variant] || null;
 
   const overlayEnabled = data?.meta?.overlay ?? media?.overlay ?? true;
   const overlayOpacity = data?.meta?.overlayOpacity ?? defaultOverlayOpacity;
 
+  let hasImage = false;
   let surfaceClass = "";
-  if (!hasImage) {
-    if (background.type === "gradient" && background.variant === "dark") {
-      surfaceClass = "gradient-dark";
-    } else if (background.type === "gradient" && background.variant === "soft") {
-      surfaceClass = "gradient-soft";
-    } else {
-      surfaceClass = getSurfaceClass(data?.surface, defaultSurfaceFallback);
-    }
+  let isDarkGradient = false;
+
+  if (background.type === "image" && imageSrc) {
+    hasImage = true;
+  } else if ((background.type === "image" || background.type === "gradient") && gradient) {
+    // Cascada imagen -> gradiente (sin src todavía) o selección directa
+    // de gradiente.
+    surfaceClass = gradient.className;
+    isDarkGradient = gradient.dark;
+  } else {
+    surfaceClass = getSurfaceClass(data?.surface, defaultSurfaceFallback);
   }
 
   return {
     hasImage,
+    isDark: hasImage || isDarkGradient,
     image: { src: imageSrc, alt: imageAlt },
     surfaceClass,
     overlay: {
@@ -118,6 +154,14 @@ export function resolveBackground(data, { defaultSurfaceFallback = "surface-base
  * aplica igual a ambos salvo que la Variant pase `titleTone`/
  * `descriptionTone` explícitos.
  *
+ * Actualizado 2026-08-24: además de fondo de imagen, ahora también infiere
+ * "inverse" para los gradientes suficientemente oscuros del catálogo
+ * (`dark`/`brand` — ver `gradientVariants` arriba), vía `bg.isDark`. Antes
+ * solo miraba `bg.hasImage`, así que un gradiente oscuro sin `meta.tone`
+ * explícito quedaba con texto default (oscuro sobre oscuro, ilegible) —
+ * gap real encontrado al activar el catálogo de 5 gradientes, no
+ * hipotético.
+ *
  * Uso típico dentro de una Variant:
  *
  *   const bg = resolveBackground(data);
@@ -125,7 +169,9 @@ export function resolveBackground(data, { defaultSurfaceFallback = "surface-base
  *   <SectionHeader tone={tone} ... />
  */
 export function resolveTone(data, bg) {
-  return data?.meta?.tone || (bg?.hasImage ? "inverse" : "default");
+  // bg.isDark ya incluye bg.hasImage en su definición (ver
+  // resolveBackground) — no hace falta chequear ambos por separado.
+  return data?.meta?.tone || (bg?.isDark ? "inverse" : "default");
 }
 
 // Clases de color de texto por tone, para Variants que NO usan los

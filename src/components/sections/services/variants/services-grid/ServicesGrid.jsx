@@ -160,12 +160,13 @@ export function ServicesGrid({ data }) {
                 </div>
 
                 {item.href ? (
-                  <a
+                  <Button
                     href={item.href}
-                    className="mt-auto font-[var(--font-body)] text-[0.95rem] font-bold text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)]"
+                    variant="primary"
+                    className="mt-auto w-fit"
                   >
                     Ver más...
-                  </a>
+                  </Button>
                 ) : null}
               </motion.article>
             ))}
