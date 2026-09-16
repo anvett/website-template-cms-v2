@@ -93,17 +93,17 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { navigationData } from "@/data/global/navigation.data";
+import { navigationData as staticNavigationData } from "@/data/global/navigation.data";
 import { Button } from "@/components/ui/actions/Button";
 
 const ADVANCED_VARIANT = "logo-left-menu-right-dropdown-transparent";
 
-export function Navbar() {
+export function Navbar({ navigation } = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
   const [hasScrolled, setHasScrolled] = useState(false);
 
-  const navbar = navigationData.navbar;
+  const navbar = (navigation ?? staticNavigationData).navbar;
 
   useEffect(() => {
     if (navbar?.variant !== ADVANCED_VARIANT) return;

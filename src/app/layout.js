@@ -1,9 +1,12 @@
 import "./globals.css";
 import { Inter, Montserrat } from "next/font/google";
-import { siteData } from "@/data/global/site.data";
+import { siteData as staticSiteData } from "@/data/global/site.data";
+import { navigationData as staticNavigationData } from "@/data/global/navigation.data";
 import { Footer } from "@/components/sections/footer";
 import { Navbar } from "@/components/sections/navbar";
 import { FloatingWhatsapp } from "@/components/global/FloatingWhatsapp";
+import { isCmsEnabled, fetchSiteData, fetchNavigationData } from "@/lib/cms";
+import { EditorBridge } from "@/components/editor/EditorBridge";
 
 /* =========================================================
    LAYOUT.JS — NUEVO MODELO VISUAL
@@ -37,55 +40,70 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-/* Metadata global alimentada desde site.data.js */
-export const metadata = {
-  metadataBase: new URL(siteData.site.domain),
+async function getLayoutData() {
+  if (!isCmsEnabled()) {
+    return { siteData: staticSiteData, navigationData: staticNavigationData };
+  }
 
-  title: {
-    default: siteData.seo.defaultTitle,
-    template: siteData.seo.titleTemplate,
-  },
+  const [siteData, navigationData] = await Promise.all([
+    fetchSiteData(),
+    fetchNavigationData(),
+  ]);
 
-  description: siteData.seo.defaultDescription,
-  keywords: siteData.seo.defaultKeywords,
-  robots: siteData.seo.robots,
+  return { siteData, navigationData };
+}
 
-  openGraph: {
-    type: siteData.openGraph.type,
-    locale: siteData.openGraph.locale,
-    url: siteData.openGraph.url,
-    siteName: siteData.openGraph.siteName,
-    title: siteData.openGraph.title,
-    description: siteData.openGraph.description,
-    images: siteData.openGraph.images,
-  },
+export async function generateMetadata() {
+  const { siteData } = await getLayoutData();
 
-  twitter: {
-    card: siteData.twitter.card,
-    site: siteData.twitter.site,
-    creator: siteData.twitter.creator,
-    title: siteData.twitter.title,
-    description: siteData.twitter.description,
-    images: siteData.twitter.images,
-  },
+  return {
+    metadataBase: new URL(siteData.site.domain),
+    title: {
+      default: siteData.seo.defaultTitle,
+      template: siteData.seo.titleTemplate,
+    },
+    description: siteData.seo.defaultDescription,
+    keywords: siteData.seo.defaultKeywords,
+    robots: siteData.seo.robots,
+    openGraph: {
+      type: siteData.openGraph?.type,
+      locale: siteData.openGraph?.locale,
+      url: siteData.openGraph?.url,
+      siteName: siteData.openGraph?.siteName,
+      title: siteData.openGraph?.title,
+      description: siteData.openGraph?.description,
+      images: siteData.openGraph?.images,
+    },
+    twitter: {
+      card: siteData.twitter?.card,
+      site: siteData.twitter?.site,
+      creator: siteData.twitter?.creator,
+      title: siteData.twitter?.title,
+      description: siteData.twitter?.description,
+      images: siteData.twitter?.images,
+    },
+    icons: siteData.icons,
+    manifest: siteData.manifest,
+  };
+}
 
-  icons: siteData.icons,
-  manifest: siteData.manifest,
-};
+export async function generateViewport() {
+  const { siteData } = await getLayoutData();
+  return { themeColor: siteData.themeMeta?.themeColor };
+}
 
-export const viewport = {
-  themeColor: siteData.themeMeta.themeColor,
-};
+export default async function RootLayout({ children }) {
+  const { siteData, navigationData } = await getLayoutData();
 
-export default function RootLayout({ children }) {
   return (
     <html lang={siteData.site.language}>
       <body className={`${inter.variable} ${montserrat.variable}`}>
+        <EditorBridge />
         <div className="site-shell">
-          <Navbar />
+          <Navbar navigation={navigationData} />
           {children}
-          <FloatingWhatsapp />
-          <Footer />
+          <FloatingWhatsapp site={siteData} />
+          <Footer navigation={navigationData} site={siteData} />
         </div>
         
       </body>

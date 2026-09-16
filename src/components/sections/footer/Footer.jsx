@@ -82,10 +82,16 @@
 
 // export default Footer;
 
-import { navigationData } from "@/data/global/navigation.data";
-import { siteData } from "@/data/global/site.data";
+import { navigationData as staticNavigationData } from "@/data/global/navigation.data";
+import { siteData as staticSiteData } from "@/data/global/site.data";
 
-export function Footer() {
+/**
+ * `navigation`/`site` opcionales — mismo patrón y mismo motivo que en
+ * `Navbar.jsx` (cronograma 3.4, convivencia Data estático / CMS).
+ */
+export function Footer({ navigation, site } = {}) {
+  const navigationData = navigation ?? staticNavigationData;
+  const siteData = site ?? staticSiteData;
   const footer = navigationData.footerNavigation;
 
   if (!footer?.enabled) return null;

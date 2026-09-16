@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import { siteData } from "@/data/global/site.data";
+import { siteData as staticSiteData } from "@/data/global/site.data";
 
 function WhatsappIcon({ className = "" }) {
   return (
@@ -18,9 +18,16 @@ function WhatsappIcon({ className = "" }) {
   );
 }
 
+/**
+ * `site` opcional — mismo patrón de convivencia Data estático / CMS que
+ * `Navbar`/`Footer` (cronograma 3.4). Instancias con CMS activo pasan
+ * el `siteData` ya resuelto por `fetchSiteData()` desde `layout.js`.
+ */
 export function FloatingWhatsapp({
   message = "Hola, quiero solicitar información.",
+  site,
 }) {
+  const siteData = site ?? staticSiteData;
   const phone = siteData?.contact?.whatsapp;
 
   if (!phone) return null;
