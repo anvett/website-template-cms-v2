@@ -22,6 +22,8 @@
  *   URL, cuerpo de la respuesta si lo hay).
  */
 
+import { draftMode } from "next/headers";
+
 import { getCmsEnv } from "./env";
 
 export class CmsApiError extends Error {
@@ -51,17 +53,46 @@ export const DEFAULT_REVALIDATE_SECONDS = 60;
  *   (equivalente a `cache: "no-store"`).
  */
 export async function cmsFetch(path, { revalidate = DEFAULT_REVALIDATE_SECONDS } = {}) {
-  const { apiUrl, siteSlug, apiToken } = getCmsEnv();
+  const { apiUrl, siteSlug, apiToken, previewToken } = getCmsEnv();
   const url = `${apiUrl}/api/v1/sites/${siteSlug}${path}`;
+
+  // DW-014 (borrador/publicado): Next.js Draft Mode decide, request por
+  // request, si esta lectura pide borrador o published_snapshot -- nunca
+  // un header/query param que el cliente controle (`draftMode()` es la
+  // API server-side de Next.js, cookie httpOnly propia, ver
+  // src/app/api/draft-preview/route.js). Sin esto, published_snapshot es
+  // siempre lo que se sirve (comportamiento por defecto, cero cambio
+  // para cualquier visitante público).
+  //
+  // Con Draft Mode activo: (a) se autentica con `previewToken`
+  // (SiteReadToken con allows_draft=True en el backend) en vez del
+  // token público -- si no está configurado, se degrada al token
+  // público con un warning diagnosticable en vez de romper el request
+  // (esta instancia simplemente no tiene el preview de borrador
+  // cableado todavía); (b) se fuerza `cache: "no-store"` SIEMPRE,
+  // ignorando `revalidate` -- el preview del Editor nunca debe depender
+  // del ISR público de 60s (decisión PO explícita, sesión DW-014: "el
+  // preview draft no debe depender del ISR público de 60 segundos").
+  const draft = await draftMode();
+  const isDraftRequest = draft.isEnabled;
+
+  if (isDraftRequest && !previewToken) {
+    console.warn(
+      `[cms] Draft Mode está activo pero CMS_PREVIEW_TOKEN no está configurado -- ` +
+        `sirviendo contenido publicado en su lugar. Ver .env.example.`
+    );
+  }
+
+  const token = isDraftRequest && previewToken ? previewToken : apiToken;
 
   let response;
   try {
     response = await fetch(url, {
-      headers: { Authorization: `Bearer ${apiToken}` },
+      headers: { Authorization: `Bearer ${token}` },
       // `revalidate: false` -> sin next.revalidate, Next.js cachea con la
       // semántica default de fetch en RSC (equivalente a force-cache) a
       // menos que se pida explícitamente lo contrario con `cache`.
-      ...(revalidate === false
+      ...(isDraftRequest || revalidate === false
         ? { cache: "no-store" }
         : { next: { revalidate } }),
     });

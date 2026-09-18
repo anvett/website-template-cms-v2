@@ -32,6 +32,14 @@ export function getCmsEnv() {
   const apiUrl = process.env.CMS_API_URL || process.env.NEXT_PUBLIC_CMS_API_URL;
   const siteSlug = process.env.CMS_SITE_SLUG;
   const apiToken = process.env.CMS_API_TOKEN;
+  // DW-014 (borrador/publicado) -- credencial de PREVIEW, deliberadamente
+  // OPCIONAL acá (a diferencia de apiToken): una instancia con CMS activo
+  // pero SIN Draft Mode cableado (todavía) sigue funcionando 100% en modo
+  // solo-publicado sin esto configurado -- `cmsFetch` (client.js) solo la
+  // usa cuando `draftMode().isEnabled`, y cae a un warning diagnosticable
+  // si falta en ese momento puntual, nunca a un throw acá. Ver
+  // content_admin.models.SiteReadToken.allows_draft en el backend.
+  const previewToken = process.env.CMS_PREVIEW_TOKEN || null;
 
   const missing = [];
   if (!apiUrl) missing.push("CMS_API_URL (o NEXT_PUBLIC_CMS_API_URL)");
@@ -50,5 +58,6 @@ export function getCmsEnv() {
     apiUrl: apiUrl.replace(/\/+$/, ""),
     siteSlug,
     apiToken,
+    previewToken,
   };
 }
